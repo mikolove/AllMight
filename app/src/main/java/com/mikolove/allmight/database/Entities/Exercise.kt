@@ -1,13 +1,11 @@
 package com.mikolove.allmight.database.Entities
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.ForeignKey
-import androidx.room.PrimaryKey
+import androidx.room.*
 import com.mikolove.allmight.database.AllmightDatabase
 
 @Entity(
     tableName = AllmightDatabase.exerciseTableName,
+    indices = [Index("id")],
     foreignKeys = arrayOf(
         ForeignKey(
             entity = WorkoutType::class,

@@ -3,11 +3,13 @@ package com.mikolove.allmight.database.Entities
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.ForeignKey
+import androidx.room.Index
 import com.mikolove.allmight.database.AllmightDatabase
 import java.util.*
 
 @Entity(
     tableName = AllmightDatabase.routineExerciseTypeTableName,
+    indices = [Index("id_routine"),Index("created_at")],
     primaryKeys = arrayOf("id_routine","created_at"),
     foreignKeys = arrayOf(
         ForeignKey(
@@ -39,6 +41,6 @@ data class RoutineExercise (
     @ColumnInfo(name = "nb_series")
     var nb_series : Int,
 
-    @ColumnInfo(name = "id_exercice")
+    @ColumnInfo(name = "id_exercise")
     var id_exercise : Int
 )

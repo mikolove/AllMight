@@ -1,3 +1,16 @@
 <resources>
     <string name="app_name">AllMight</string>
+
+    <!-- Global -->
+    <string name="exercice_title">Exercice</string>
+    <string name="workout_title">Programme</string>
+
+    <!-- Settings -->
+
+    <!-- Settings home-->
+    <string name="home_settings_title">Gérer l\'entrainement</string>
+    <string name="home_settings_add">Ajouter</string>
+    <string name="home_settings_delete">Supprimer</string>
+
+
 </resources>
