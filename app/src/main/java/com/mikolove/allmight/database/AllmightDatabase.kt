@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.mikolove.allmight.database.Entities.*
+import com.mikolove.allmight.database.entities.*
 import com.mikolove.allmight.database.dao.*
 
 @Database(entities = [WorkoutType::class, Workout::class, Exercise::class, WorkoutExercise::class, Routine::class, RoutineExercise::class], version = 1, exportSchema = true)

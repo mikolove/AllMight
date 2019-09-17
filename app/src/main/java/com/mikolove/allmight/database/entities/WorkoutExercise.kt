@@ -1,4 +1,4 @@
-package com.mikolove.allmight.database.Entities
+package com.mikolove.allmight.database.entities
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

@@ -3,9 +3,8 @@ package com.mikolove.allmight
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.runner.AndroidJUnit4
 import com.mikolove.allmight.database.AllmightDatabase
-import com.mikolove.allmight.database.Entities.WorkoutType
+import com.mikolove.allmight.database.entities.WorkoutType
 import com.mikolove.allmight.database.dao.WorkoutTypeDao
-import junit.framework.Assert.assertEquals
 import org.junit.After
 import org.junit.Before
 import org.junit.Test

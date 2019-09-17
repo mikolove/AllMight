@@ -3,9 +3,6 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Data to make available to the XML via data binding. In this case,
-         the whole ViewModel, so that we can access the LiveData,
-         click handlers, and state variables. -->
     <data>
 
         <variable
@@ -17,7 +14,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".sleeptracker.SleepTrackerFragment">
+            tools:context=".views.settings.HomeSettingsActivity">
 
         <TextView
                 android:id="@+id/home_settings_title_txtView"
@@ -82,6 +79,14 @@
                 android:text="@string/home_settings_delete"
                 app:layout_constraintEnd_toEndOf="@+id/home_settings_tabLayout"
                 app:layout_constraintTop_toBottomOf="@+id/home_settings_tabLayout" />
+
+        <fragment
+                android:id="@+id/home_settings_frag_workout"
+                android:name="androidx.navigation.fragment.NavHostFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:navGraph="@navigation/navigation_settings"
+                app:defaultNavHost="true" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

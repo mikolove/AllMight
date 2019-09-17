@@ -1,10 +1,10 @@
-package com.mikolove.allmight.database.Entities
+package com.mikolove.allmight.database.entities
 
 import androidx.room.*
 import com.mikolove.allmight.database.AllmightDatabase
 
 @Entity(
-    tableName = AllmightDatabase.workoutTableName,
+    tableName = AllmightDatabase.exerciseTableName,
     indices = [Index("id")],
     foreignKeys = arrayOf(
         ForeignKey(
@@ -14,16 +14,26 @@ import com.mikolove.allmight.database.AllmightDatabase
         )
     )
 )
-data class Workout(
+data class Exercise(
+
     @PrimaryKey(autoGenerate = true)
     var id : Int = 0,
 
     @ColumnInfo(name = "name")
     var name : String?,
 
+    @ColumnInfo(name = "series_count")
+    var series_count : Int,
+
+    @ColumnInfo(name = "rep_count")
+    var rep_count : Int,
+
     @ColumnInfo(name = "status")
     var status : Boolean = true,
 
     @ColumnInfo(name = "id_workout_type")
     var id_workout_type : Int
+
 )
+
+

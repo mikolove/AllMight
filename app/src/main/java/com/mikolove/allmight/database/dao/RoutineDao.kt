@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Update
 import com.mikolove.allmight.database.AllmightDatabase
-import com.mikolove.allmight.database.Entities.Routine
+import com.mikolove.allmight.database.entities.Routine
 
 @Dao
 interface RoutineDao{
