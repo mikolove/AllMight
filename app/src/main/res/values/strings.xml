@@ -12,5 +12,17 @@
     <string name="home_settings_add">Ajouter</string>
     <string name="home_settings_delete">Supprimer</string>
 
+    <!-- Settings details workout & exercise -->
+    <string name="details_workout_add">Créer un programme</string>
+    <string name="details_workout_settings_title_name">Nom</string>
+
+    <string name="details_exercise_add">Créer un exercice</string>
+
+
+    <string name="details_settings_title_status">Statut</string>
+    <string name="details_settings_text_status">Faire apparaitre ce programme ou exercice</string>
+    <string name="details_settings_title_type">Type</string>
+
+
 
 </resources>

@@ -19,11 +19,16 @@ data class Workout(
     var id : Int = 0,
 
     @ColumnInfo(name = "name")
-    var name : String?,
+    var name : String? = null,
 
     @ColumnInfo(name = "status")
     var status : Boolean = true,
 
     @ColumnInfo(name = "id_workout_type")
-    var id_workout_type : Int
-)
+    var id_workout_type : Int = 0
+) : BasicInfo{
+    override fun getObjectId(): Int? = id
+
+    override fun getObjectName(): String? = name
+
+}

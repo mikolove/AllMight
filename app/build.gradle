@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-apply plugin: "androidx.navigation.safeargs.kotlin"
+apply plugin: "androidx.navigation.safeargs"
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -45,13 +45,14 @@ dependencies {
     androidTestImplementation 'androidx.test:runner:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
 
+
     //ConstraintLayout and AppCompat androidx
     implementation "androidx.appcompat:appcompat:$version_appcompat"
     implementation "androidx.fragment:fragment:$version_fragment"
     implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
     implementation "androidx.core:core-ktx:$version_ktx"
-    implementation "androidx.viewpager2:viewpager2:1.0.0-beta04"
+    implementation "androidx.viewpager2:viewpager2:1.0.0-beta05"
 
     implementation "androidx.room:room-runtime:$version_room"
     annotationProcessor "android.arch.persistence.room:compiler:$version_room"

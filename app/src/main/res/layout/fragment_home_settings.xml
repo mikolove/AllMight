@@ -1,0 +1,91 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        tools:context=".views.settings.home.HomeSettingsActivity">
+
+    <data>
+
+        <variable
+                name="homeSettingsViewModel"
+                type="com.mikolove.allmight.views.settings.home.HomeSettingsViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            >
+
+        <TextView
+                android:id="@+id/home_settings_title_txtView"
+                android:layout_width="0dp"
+                android:layout_height="29dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:text="@string/home_settings_title"
+                android:textAppearance="?attr/textAppearanceHeadline6"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        <com.google.android.material.tabs.TabLayout
+                android:id="@+id/home_settings_tabLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/home_settings_title_txtView"
+                app:layout_constraintTop_toBottomOf="@+id/home_settings_title_txtView">
+
+
+            <com.google.android.material.tabs.TabItem
+                    android:id="@+id/home_settings_tabLayout_workout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/workout_title" />
+
+            <com.google.android.material.tabs.TabItem
+                    android:id="@+id/home_settings_tabLayout_exercice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/exercice_title" />
+
+        </com.google.android.material.tabs.TabLayout>
+
+        <androidx.viewpager.widget.ViewPager
+                android:id="@+id/home_settings_viewpager"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/home_settings_delete_btn"
+                app:layout_constraintStart_toStartOf="@+id/home_settings_tabLayout"
+                app:layout_constraintTop_toBottomOf="@+id/home_settings_delete_btn" />
+
+        <Button
+                android:id="@+id/home_settings_add_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="@string/home_settings_add"
+                app:layout_constraintEnd_toStartOf="@+id/home_settings_delete_btn"
+                app:layout_constraintTop_toTopOf="@+id/home_settings_delete_btn"
+                android:onClick="@{() -> homeSettingsViewModel.onAddWorkoutClick()}"/>
+
+        <Button
+                android:id="@+id/home_settings_delete_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/home_settings_delete"
+                app:layout_constraintEnd_toEndOf="@+id/home_settings_tabLayout"
+                app:layout_constraintTop_toBottomOf="@+id/home_settings_tabLayout" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_settings">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/navigation_settings"
+        app:startDestination="@id/home_settings_fragment">
 
+    <fragment
+            android:id="@+id/home_settings_fragment"
+            android:name="com.mikolove.allmight.views.settings.home.HomeSettingsFragment"
+            android:label="HomeSettingsFragment"
+            tools:layout="@layout/fragment_home_settings">
+        <action
+                android:id="@+id/action_homeSettingsFragment_to_detailWorkoutSettingsFragment"
+                app:destination="@+id/detail_workout_settings_fragment"
+                app:popUpTo="@+id/detail_workout_settings_fragment"
+                app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/workout_settings_fragment"
+            android:name="com.mikolove.allmight.views.settings.workout.WorkoutSettingsFragment"
+            android:label="WorkoutSettingsFragment"
+            tools:layout="@layout/fragment_workout_settings">
+        <action
+                android:id="@+id/action_workout_settings_fragment_to_detail_workout_settings_fragment"
+                app:destination="@id/detail_workout_settings_fragment"
+                app:popUpTo="@+id/detail_workout_settings_fragment"
+                app:popUpToInclusive="true" />
+    </fragment>
+
+    <fragment
+            android:id="@+id/detail_workout_settings_fragment"
+            android:name="com.mikolove.allmight.views.settings.detail.DetailWorkoutSettingsFragment"
+            android:label="DetailWorkoutSettingsFragment"
+            tools:layout="@layout/fragment_details_workout_setting">
+        <argument
+                android:name="workoutId"
+                android:defaultValue="0"
+                app:argType="integer" />
+    </fragment>
 </navigation>

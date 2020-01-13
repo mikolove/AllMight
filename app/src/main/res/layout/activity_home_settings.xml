@@ -1,94 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
 
-        <variable
-                name="homeSettingsViewModel"
-                type="com.mikolove.allmight.views.settings.HomeSettingsViewModel" />
-
-    </data>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <fragment
+            android:id="@+id/home_settings_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".views.settings.HomeSettingsActivity">
-
-        <TextView
-                android:id="@+id/home_settings_title_txtView"
-                android:layout_width="0dp"
-                android:layout_height="29dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="@string/home_settings_title"
-                android:textAppearance="?attr/textAppearanceHeadline6"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-        <com.google.android.material.tabs.TabLayout
-                android:id="@+id/home_settings_tabLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/home_settings_title_txtView"
-                app:layout_constraintTop_toBottomOf="@+id/home_settings_title_txtView">
-
-
-            <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/workout_title" />
-
-            <com.google.android.material.tabs.TabItem
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/exercice_title" />
-
-        </com.google.android.material.tabs.TabLayout>
-
-        <androidx.viewpager2.widget.ViewPager2
-                android:id="@+id/home_settings_viewPager"
-                android:layout_width="0dp"
-                android:layout_height="199dp"
-                android:layout_marginTop="8dp"
-                app:layout_constraintEnd_toEndOf="@+id/home_settings_delete_btn"
-                app:layout_constraintStart_toStartOf="@+id/home_settings_tabLayout"
-                app:layout_constraintTop_toBottomOf="@+id/home_settings_delete_btn" />
-
-        <Button
-                android:id="@+id/home_settings_add_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="@string/home_settings_add"
-                app:layout_constraintEnd_toStartOf="@+id/home_settings_delete_btn"
-                app:layout_constraintTop_toTopOf="@+id/home_settings_delete_btn" />
-
-        <Button
-                android:id="@+id/home_settings_delete_btn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/home_settings_delete"
-                app:layout_constraintEnd_toEndOf="@+id/home_settings_tabLayout"
-                app:layout_constraintTop_toBottomOf="@+id/home_settings_tabLayout" />
-
-        <fragment
-                android:id="@+id/home_settings_frag_workout"
-                android:name="androidx.navigation.fragment.NavHostFragment"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:navGraph="@navigation/navigation_settings"
-                app:defaultNavHost="true" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</layout>
+            app:navGraph="@navigation/navigation_settings"
+            app:defaultNavHost="true"/>
+</merge>
