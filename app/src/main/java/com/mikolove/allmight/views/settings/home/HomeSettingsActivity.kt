@@ -16,4 +16,8 @@ class HomeSettingsActivity : AppCompatActivity() {
         setupActionBarWithNavController(navController)
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        val navController = findNavController(R.id.home_settings_fragment)
+        return navController.navigateUp()
+    }
 }

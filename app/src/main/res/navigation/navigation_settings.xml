@@ -11,10 +11,10 @@
             android:label="HomeSettingsFragment"
             tools:layout="@layout/fragment_home_settings">
         <action
-                android:id="@+id/action_homeSettingsFragment_to_detailWorkoutSettingsFragment"
-                app:destination="@+id/detail_workout_settings_fragment"
-                app:popUpTo="@+id/detail_workout_settings_fragment"
-                app:popUpToInclusive="true" />
+            android:id="@+id/action_homeSettingsFragment_to_detailWorkoutSettingsFragment"
+            app:destination="@+id/detail_workout_settings_fragment"
+            app:popUpTo="@+id/detail_workout_settings_fragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -23,10 +23,10 @@
             android:label="WorkoutSettingsFragment"
             tools:layout="@layout/fragment_workout_settings">
         <action
-                android:id="@+id/action_workout_settings_fragment_to_detail_workout_settings_fragment"
-                app:destination="@id/detail_workout_settings_fragment"
-                app:popUpTo="@+id/detail_workout_settings_fragment"
-                app:popUpToInclusive="true" />
+            android:id="@+id/action_workout_settings_fragment_to_detail_workout_settings_fragment"
+            app:destination="@id/detail_workout_settings_fragment"
+            app:popUpTo="@+id/detail_workout_settings_fragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -38,5 +38,10 @@
                 android:name="workoutId"
                 android:defaultValue="0"
                 app:argType="integer" />
+        <action
+            android:id="@+id/action_detail_workout_settings_fragment_to_home_settings_fragment"
+            app:destination="@id/home_settings_fragment"
+            app:popUpTo="@+id/home_settings_fragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

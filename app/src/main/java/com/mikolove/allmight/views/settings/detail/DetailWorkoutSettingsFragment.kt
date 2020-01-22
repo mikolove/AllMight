@@ -8,17 +8,12 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.mikolove.allmight.R
 import com.mikolove.allmight.database.AllmightDatabase
-import com.mikolove.allmight.database.entities.Workout
-import com.mikolove.allmight.database.entities.WorkoutType
 import com.mikolove.allmight.databinding.FragmentDetailsWorkoutSettingBinding
-import timber.log.Timber
 
 class DetailWorkoutSettingsFragment : Fragment(){
 
-
     private lateinit var binding : FragmentDetailsWorkoutSettingBinding
     private lateinit var viewmodel : DetailWorkoutSettingsViewModel
-    private lateinit var workout : Workout
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -38,37 +33,24 @@ class DetailWorkoutSettingsFragment : Fragment(){
 
         viewmodel = ViewModelProviders.of(this, viewModelFactory).get(DetailWorkoutSettingsViewModel::class.java)
 
-
         binding.detailWorkoutSettingsViewModel = viewmodel
-        binding.setLifecycleOwner(this)
+        binding.lifecycleOwner = this
 
-
-        viewmodel.getWorkout().observe(this, Observer {
-            //setWorkoutTypeSpinner(viewmodel.getWorkout().value , viewmodel.getWorkoutType().value as WorkoutType?)
+        viewmodel.workout.observe(this, Observer {
+            viewmodel.loadWorkoutType()
         })
 
         viewmodel.getListWorkoutType().observe(this, Observer {
             viewmodel.loadWorkoutType()
-            //setWorkoutTypeSpinner(viewmodel.getWorkout().value , viewmodel.getWorkoutType().value as WorkoutType?)
         })
 
-        viewmodel.getWorkoutType().observe(this, Observer { it ->
+        viewmodel.getWorkoutType().observe(this, Observer {
             it?.let{
-                Timber.i("Workout Type Observed id %d name %s",viewmodel.getWorkoutType().value?.getObjectId(), viewmodel.getWorkoutType().value?.getObjectId())
+                viewmodel.updateWorkoutType()
             }
         })
 
         return binding.root
-    }
-
-    private fun setWorkoutTypeSpinner(wk: Workout?, wkType: WorkoutType?){
-
-        Timber.i("Value for setWorkoutTypeSpinner wk %s wkType %s",wk.toString(),wkType.toString())
-        //if( wk == null) return
-
-        //if(wkType == null) viewmodel.loadWorkoutType(wk.id_workout_type)
-
-        //if(wk.id_workout_type != wkType?.id) viewmodel.loadWorkoutType(wk.id_workout_type)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -79,7 +61,7 @@ class DetailWorkoutSettingsFragment : Fragment(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return (when(item.itemId) {
             R.id.detail_workout__action_insert -> {
-                binding.detailWorkoutSettingsViewModel!!.onInsert(viewmodel.getWorkout().value!!)
+                viewmodel.insertWorkout()
                 true
             }
             else ->

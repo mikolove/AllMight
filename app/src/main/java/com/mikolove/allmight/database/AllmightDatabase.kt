@@ -43,7 +43,7 @@ abstract class AllmightDatabase : RoomDatabase() {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         AllmightDatabase::class.java,
-                        "sleep_history_database"
+                        "all_might_database"
                     )
                         .fallbackToDestructiveMigration()
                         .addCallback( object : Callback(){

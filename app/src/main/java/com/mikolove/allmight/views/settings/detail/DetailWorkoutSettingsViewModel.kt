@@ -18,8 +18,7 @@ class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: Allmig
     private val wkTypeRepo = WorkoutTypeRepository(dataSource)
     private val wkRepo     = WorkoutRepository(dataSource)
 
-    private var workout =  wkRepo.getWorkoutById(workoutId)
-    fun getWorkout() = workout
+    var workout =  MediatorLiveData<Workout>()
 
     private val listWorkoutType =  wkTypeRepo.workoutTypeList
     fun getListWorkoutType() = listWorkoutType
@@ -28,24 +27,36 @@ class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: Allmig
     fun getWorkoutType() = workoutType
 
     init{
-        Timber.i("Workout %s WorkouList %s",workout.toString(),listWorkoutType.toString())
+        workout.addSource(wkRepo.getWorkoutById(workoutId)) { fromRoom ->
+            if(fromRoom == null){
+                workout.value = Workout()
+            }else{
+                workout.value = fromRoom
+            }
+        }
     }
 
     fun loadWorkoutType(){
 
-        if(getWorkout().value?.id_workout_type == getWorkoutType().value?.getObjectId()) return
+        if(workout.value?.id_workout_type == getWorkoutType().value?.getObjectId()) return
 
         listWorkoutType.value?.let {
 
             if(it.isEmpty()) return
 
-            if(getWorkout().value?.id_workout_type == 0) workoutType.value = it.first()!!
+            if(workout.value?.id_workout_type == 0) workoutType.value = it.first()!!
 
             it.forEach {type ->
-                if(type.id == getWorkout().value?.id_workout_type){
+                if(type.id == workout.value?.id_workout_type){
                     workoutType.value = type
                 }
             }
+        }
+    }
+
+    fun updateWorkoutType(){
+        if(workout.value != null && workoutType.value != null){
+            workout.value?.id_workout_type = workoutType.value?.getObjectId()!!
         }
     }
 
@@ -61,9 +72,11 @@ class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: Allmig
         }
     }
 
-    fun onInsert(workout : Workout){
-        viewModelScope.launch {
-            insert(workout)
+    fun insertWorkout(){
+        workout.value?.let {
+            viewModelScope.launch {
+                insert(it)
+            }
         }
     }
 
