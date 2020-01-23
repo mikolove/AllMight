@@ -20,6 +20,10 @@ class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: Allmig
 
     var workout =  MediatorLiveData<Workout>()
 
+    private val _navigateToHomeSettings = MutableLiveData<Long>()
+    val navigateToHomeSettings : LiveData<Long>
+        get() = _navigateToHomeSettings
+
     private val listWorkoutType =  wkTypeRepo.workoutTypeList
     fun getListWorkoutType() = listWorkoutType
 
@@ -27,6 +31,7 @@ class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: Allmig
     fun getWorkoutType() = workoutType
 
     init{
+
         workout.addSource(wkRepo.getWorkoutById(workoutId)) { fromRoom ->
             if(fromRoom == null){
                 workout.value = Workout()
@@ -34,6 +39,11 @@ class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: Allmig
                 workout.value = fromRoom
             }
         }
+    }
+
+    fun doneNavigatingToHomeSettings() {
+        Timber.i("Zob end Value set to null")
+        _navigateToHomeSettings.value = null
     }
 
     fun loadWorkoutType(){
@@ -75,14 +85,17 @@ class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: Allmig
     fun insertWorkout(){
         workout.value?.let {
             viewModelScope.launch {
-                insert(it)
+                val lastInsert = insert(it)
+                lastInsert?.let {
+                    _navigateToHomeSettings.value = it
+                }
             }
         }
     }
 
-    private suspend fun insert(workout : Workout) {
-        withContext(Dispatchers.IO) {
-            wkRepo.insert(workout)
+    private suspend fun insert(workout : Workout) : Long{
+        return withContext(Dispatchers.IO) {
+           wkRepo.insert(workout)
         }
     }
 

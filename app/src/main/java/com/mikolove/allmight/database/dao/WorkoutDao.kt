@@ -12,7 +12,7 @@ import com.mikolove.allmight.database.entities.Workout
 interface WorkoutDao {
 
     @Insert
-    fun insert(workout: Workout)
+    fun insert(workout: Workout) : Long
 
     @Update
     fun update(workout: Workout)

@@ -6,9 +6,11 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import com.mikolove.allmight.R
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.databinding.FragmentDetailsWorkoutSettingBinding
+import timber.log.Timber
 
 class DetailWorkoutSettingsFragment : Fragment(){
 
@@ -47,6 +49,13 @@ class DetailWorkoutSettingsFragment : Fragment(){
         viewmodel.getWorkoutType().observe(this, Observer {
             it?.let{
                 viewmodel.updateWorkoutType()
+            }
+        })
+
+        viewmodel.navigateToHomeSettings.observe(this, Observer { it ->
+            it?.let{
+                    this.findNavController().navigateUp()
+                    viewmodel.doneNavigatingToHomeSettings()
             }
         })
 
