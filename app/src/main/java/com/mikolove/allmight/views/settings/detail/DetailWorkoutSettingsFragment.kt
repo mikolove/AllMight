@@ -10,12 +10,12 @@ import androidx.navigation.fragment.findNavController
 import com.mikolove.allmight.R
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.databinding.FragmentDetailsWorkoutSettingBinding
-import timber.log.Timber
 
 class DetailWorkoutSettingsFragment : Fragment(){
 
     private lateinit var binding : FragmentDetailsWorkoutSettingBinding
     private lateinit var viewmodel : DetailWorkoutSettingsViewModel
+    private var workoutId : Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -27,7 +27,7 @@ class DetailWorkoutSettingsFragment : Fragment(){
 
         val arguments = DetailWorkoutSettingsFragmentArgs.fromBundle(arguments!!)
 
-        val workoutId = arguments.workoutId
+        workoutId = arguments.workoutId
 
         val viewModelFactory = DetailWorkoutSettingsViewModelFactory(workoutId,dataSource, application)
 
@@ -52,7 +52,7 @@ class DetailWorkoutSettingsFragment : Fragment(){
             }
         })
 
-        viewmodel.navigateToHomeSettings.observe(this, Observer { it ->
+        viewmodel.navigateToHomeSettings.observe(this, Observer {
             it?.let{
                     this.findNavController().navigateUp()
                     viewmodel.doneNavigatingToHomeSettings()
@@ -64,13 +64,24 @@ class DetailWorkoutSettingsFragment : Fragment(){
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.details_menu, menu)
+        if(workoutId > 0)
+            menu.findItem(R.id.detail_workout_action_delete).isVisible = true
+        
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return (when(item.itemId) {
-            R.id.detail_workout__action_insert -> {
-                viewmodel.insertWorkout()
+            R.id.detail_workout_action_done -> {
+                if(viewmodel.workout.value?.id!! > 0){
+                    viewmodel.updateWorkout()
+                }else{
+                    viewmodel.insertWorkout()
+                }
+                true
+            }
+            R.id.detail_workout_action_delete -> {
+                viewmodel.deleteWorkout()
                 true
             }
             else ->

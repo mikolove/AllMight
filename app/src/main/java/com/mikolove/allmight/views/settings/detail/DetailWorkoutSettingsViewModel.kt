@@ -42,7 +42,6 @@ class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: Allmig
     }
 
     fun doneNavigatingToHomeSettings() {
-        Timber.i("Zob end Value set to null")
         _navigateToHomeSettings.value = null
     }
 
@@ -99,15 +98,33 @@ class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: Allmig
         }
     }
 
-    fun onUpdate(workout : Workout){
-        viewModelScope.launch {
-            update(workout)
+    fun updateWorkout(){
+        workout.value?.let {
+            viewModelScope.launch {
+                update(it)
+                _navigateToHomeSettings.value = 1
+            }
         }
     }
 
     private suspend fun update(workout : Workout) {
         withContext(Dispatchers.IO) {
             wkRepo.update(workout)
+        }
+    }
+
+    fun deleteWorkout(){
+        workout.value?.let{
+            viewModelScope.launch {
+                delete(it)
+                _navigateToHomeSettings.value = 1
+            }
+        }
+    }
+
+    private suspend fun delete(workout : Workout) {
+        withContext(Dispatchers.IO) {
+            wkRepo.delete(workout)
         }
     }
 }

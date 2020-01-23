@@ -6,10 +6,10 @@
         app:startDestination="@id/home_settings_fragment">
 
     <fragment
-            android:id="@+id/home_settings_fragment"
-            android:name="com.mikolove.allmight.views.settings.home.HomeSettingsFragment"
-            android:label="HomeSettingsFragment"
-            tools:layout="@layout/fragment_home_settings">
+        android:id="@+id/home_settings_fragment"
+        android:name="com.mikolove.allmight.views.settings.home.HomeSettingsFragment"
+        android:label="Paramètres"
+        tools:layout="@layout/fragment_home_settings">
         <action
             android:id="@+id/action_homeSettingsFragment_to_detailWorkoutSettingsFragment"
             app:destination="@+id/detail_workout_settings_fragment"
@@ -18,10 +18,9 @@
     </fragment>
 
     <fragment
-            android:id="@+id/workout_settings_fragment"
-            android:name="com.mikolove.allmight.views.settings.workout.WorkoutSettingsFragment"
-            android:label="WorkoutSettingsFragment"
-            tools:layout="@layout/fragment_workout_settings">
+        android:id="@+id/workout_settings_fragment"
+        android:name="com.mikolove.allmight.views.settings.workout.WorkoutSettingsFragment"
+        tools:layout="@layout/fragment_workout_settings">
         <action
             android:id="@+id/action_workout_settings_fragment_to_detail_workout_settings_fragment"
             app:destination="@id/detail_workout_settings_fragment"
@@ -30,14 +29,14 @@
     </fragment>
 
     <fragment
-            android:id="@+id/detail_workout_settings_fragment"
-            android:name="com.mikolove.allmight.views.settings.detail.DetailWorkoutSettingsFragment"
-            android:label="DetailWorkoutSettingsFragment"
-            tools:layout="@layout/fragment_details_workout_setting">
+        android:id="@+id/detail_workout_settings_fragment"
+        android:name="com.mikolove.allmight.views.settings.detail.DetailWorkoutSettingsFragment"
+        android:label="Paramètres"
+        tools:layout="@layout/fragment_details_workout_setting">
         <argument
-                android:name="workoutId"
-                android:defaultValue="0"
-                app:argType="integer" />
+            android:name="workoutId"
+            android:defaultValue="0"
+            app:argType="integer" />
         <action
             android:id="@+id/action_detail_workout_settings_fragment_to_home_settings_fragment"
             app:destination="@id/home_settings_fragment"
