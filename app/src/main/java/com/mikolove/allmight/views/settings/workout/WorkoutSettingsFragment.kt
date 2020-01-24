@@ -16,10 +16,13 @@ import com.google.android.material.navigation.NavigationView
 import com.mikolove.allmight.R
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.databinding.FragmentWorkoutSettingsBinding
+import com.mikolove.allmight.views.settings.detail.DetailWorkoutSettingsViewModel
 import com.mikolove.allmight.views.settings.home.HomeSettingsFragmentDirections
 import timber.log.Timber
 
 class WorkoutSettingsFragment : Fragment() {
+
+    private lateinit var viewModel : WorkoutSettingsViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -28,38 +31,34 @@ class WorkoutSettingsFragment : Fragment() {
 
         val application = requireNotNull(this.activity).application
 
-        val dataSource = AllmightDatabase.getInstance(application).workoutDao()
+        val dataSource = AllmightDatabase.getInstance(application)
 
         val viewModelFactory = WorkoutSettingsViewModelFactory(dataSource, application)
 
-        val workoutSettingsViewModel = ViewModelProviders.of(this, viewModelFactory).get(WorkoutSettingsViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(WorkoutSettingsViewModel::class.java)
 
-        binding.workoutSettingsViewModel = workoutSettingsViewModel
+        binding.workoutSettingsViewModel = viewModel
 
         binding.lifecycleOwner = this
         val linearLayoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         val adapter = WorkoutSettingsAdapter(
-            WorkoutSettingsListener {
-                workoutId ->
-                Timber.i("Cliked row id : %d",workoutId)
-                Timber.i("Current Dest id %s",findNavController().graph.toString())
-                Timber.i("Dest id %s",R.id.detail_workout_settings_fragment.toString())
-
-                val direction = HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailWorkoutSettingsFragment().setWorkoutId(workoutId)
-                findNavController().navigate(direction)
-                //if (findNavController().currentDestination?.id == R.id.detail_workout_settings_fragment) {
-                //findNavController().navigate(WorkoutSettingsFragmentDirections.actionWorkoutSettingsFragmentToDetailWorkoutSettingsFragment().setWorkoutId(workoutId))
-                //}
-                    //workoutSettingsViewModel.doneNavigatingToDetailWorkout()
-                    //this.findNavController().navigate(HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailWorkoutSettingsFragment().setWorkoutId(workoutId))
-                    //workoutSettingsViewModel.doneNavigatingToDetailWorkout()
+            WorkoutSettingsListener { view: View, workoutId: Int ->
+                when(view.getId()){
+                    R.id.list_item_workout_exercise_title -> {
+                        val direction = HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailWorkoutSettingsFragment().setWorkoutId(workoutId)
+                        findNavController().navigate(direction)
+                    }
+                    R.id.list_item_workout_ic_delete -> {
+                        viewModel.deleteWorkout(workoutId)
+                    }
+                }
             }
         )
 
         binding.workoutSettingsRecyclerView.layoutManager = linearLayoutManager
         binding.workoutSettingsRecyclerView.adapter = adapter
 
-        workoutSettingsViewModel.workouts.observe( viewLifecycleOwner, Observer {
+        viewModel.workouts.observe( viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }

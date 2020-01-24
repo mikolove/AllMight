@@ -7,6 +7,11 @@ import com.mikolove.allmight.database.entities.WorkoutType
 
 class WorkoutRepository (val dataSource : AllmightDatabase){
 
+
+    fun getAllWorkout() : LiveData<List<Workout>> {
+        return dataSource.workoutDao().getAllWorkout()
+    }
+
     fun getAllWorkout(status : Boolean) : LiveData<List<Workout>> {
         return dataSource.workoutDao().getAllWorkout(status)
     }
@@ -27,8 +32,8 @@ class WorkoutRepository (val dataSource : AllmightDatabase){
     }
 
     //May Be Suspend call
-    fun delete(workout: Workout){
-        dataSource.workoutDao().clearById(workout.id)
+    fun delete(workoutId: Int){
+        dataSource.workoutDao().clearById(workoutId)
     }
 
 

@@ -8,7 +8,7 @@
         android:title="@string/home_settings_delete"
         app:showAsAction="always"
         android:visible="false"
-        android:icon="@drawable/ic_delete_24dp"/>
+        android:icon="@drawable/ic_delete_white_24dp"/>
 
     <item
             android:id="@+id/detail_workout_action_done"

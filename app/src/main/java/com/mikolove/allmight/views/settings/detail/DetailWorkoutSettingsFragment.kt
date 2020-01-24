@@ -14,7 +14,7 @@ import com.mikolove.allmight.databinding.FragmentDetailsWorkoutSettingBinding
 class DetailWorkoutSettingsFragment : Fragment(){
 
     private lateinit var binding : FragmentDetailsWorkoutSettingBinding
-    private lateinit var viewmodel : DetailWorkoutSettingsViewModel
+    private lateinit var viewModel : DetailWorkoutSettingsViewModel
     private var workoutId : Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -33,29 +33,29 @@ class DetailWorkoutSettingsFragment : Fragment(){
 
         setHasOptionsMenu(true)
 
-        viewmodel = ViewModelProviders.of(this, viewModelFactory).get(DetailWorkoutSettingsViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailWorkoutSettingsViewModel::class.java)
 
-        binding.detailWorkoutSettingsViewModel = viewmodel
+        binding.detailWorkoutSettingsViewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewmodel.workout.observe(this, Observer {
-            viewmodel.loadWorkoutType()
+        viewModel.workout.observe(this, Observer {
+            viewModel.loadWorkoutType()
         })
 
-        viewmodel.getListWorkoutType().observe(this, Observer {
-            viewmodel.loadWorkoutType()
+        viewModel.getListWorkoutType().observe(this, Observer {
+            viewModel.loadWorkoutType()
         })
 
-        viewmodel.getWorkoutType().observe(this, Observer {
+        viewModel.getWorkoutType().observe(this, Observer {
             it?.let{
-                viewmodel.updateWorkoutType()
+                viewModel.updateWorkoutType()
             }
         })
 
-        viewmodel.navigateToHomeSettings.observe(this, Observer {
+        viewModel.navigateToHomeSettings.observe(this, Observer {
             it?.let{
                     this.findNavController().navigateUp()
-                    viewmodel.doneNavigatingToHomeSettings()
+                    viewModel.doneNavigatingToHomeSettings()
             }
         })
 
@@ -66,22 +66,22 @@ class DetailWorkoutSettingsFragment : Fragment(){
         inflater.inflate(R.menu.details_menu, menu)
         if(workoutId > 0)
             menu.findItem(R.id.detail_workout_action_delete).isVisible = true
-        
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return (when(item.itemId) {
             R.id.detail_workout_action_done -> {
-                if(viewmodel.workout.value?.id!! > 0){
-                    viewmodel.updateWorkout()
+                if(viewModel.workout.value?.id!! > 0){
+                    viewModel.updateWorkout()
                 }else{
-                    viewmodel.insertWorkout()
+                    viewModel.insertWorkout()
                 }
                 true
             }
             R.id.detail_workout_action_delete -> {
-                viewmodel.deleteWorkout()
+                viewModel.deleteWorkout()
                 true
             }
             else ->

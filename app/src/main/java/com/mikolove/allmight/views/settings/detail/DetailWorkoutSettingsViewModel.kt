@@ -124,7 +124,7 @@ class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: Allmig
 
     private suspend fun delete(workout : Workout) {
         withContext(Dispatchers.IO) {
-            wkRepo.delete(workout)
+            wkRepo.delete(workout.id)
         }
     }
 }

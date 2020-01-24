@@ -23,6 +23,9 @@ interface WorkoutDao {
     @Query("DELETE FROM ${AllmightDatabase.workoutTableName} WHERE id = :id")
     fun clearById(id : Int)
 
+    @Query("SELECT * FROM ${AllmightDatabase.workoutTableName} ")
+    fun getAllWorkout() : LiveData<List<Workout>>
+
     @Query("SELECT * FROM ${AllmightDatabase.workoutTableName} WHERE status = :status")
     fun getAllWorkout(status : Boolean = true) : LiveData<List<Workout>>
 
