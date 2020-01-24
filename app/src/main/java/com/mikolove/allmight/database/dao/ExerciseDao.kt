@@ -7,12 +7,13 @@ import androidx.room.Query
 import androidx.room.Update
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.Exercise
+import com.mikolove.allmight.database.entities.Workout
 
 @Dao
 interface ExerciseDao{
 
     @Insert
-    fun insert(exercise: Exercise)
+    fun insert(exercise: Exercise) : Long
 
     @Update
     fun update(exercise: Exercise)
@@ -23,11 +24,14 @@ interface ExerciseDao{
     @Query("DELETE FROM ${AllmightDatabase.exerciseTableName} WHERE id = :id")
     fun clearById(id : Int)
 
+    @Query("SELECT * FROM ${AllmightDatabase.exerciseTableName} ")
+    fun getAllExercise() : LiveData<List<Exercise>>
+
     @Query("SELECT * FROM ${AllmightDatabase.exerciseTableName} WHERE status = :status")
     fun getAllExercise(status : Boolean = true) : LiveData<List<Exercise>>
 
     @Query("SELECT * FROM ${AllmightDatabase.exerciseTableName} WHERE id = :id AND status = :status")
-    fun getExerciseById(id : Int, status : Boolean = true) : LiveData<List<Exercise>>
+    fun getExerciseById(id : Int, status : Boolean = true) : LiveData<Exercise>
 
     @Query("SELECT * FROM ${AllmightDatabase.exerciseTableName} WHERE status = :status AND id_workout_type = :id_workout_type")
     fun getAllExerciseByIdWorkoutType(id_workout_type : Int, status : Boolean = true) : LiveData<List<Exercise>>

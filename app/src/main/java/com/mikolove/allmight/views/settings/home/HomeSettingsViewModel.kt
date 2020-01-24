@@ -10,18 +10,16 @@ import timber.log.Timber
 class HomeSettingsViewModel( val dataSource: AllmightDatabase, application: Application) : ViewModel(){
 
 
-    private val _navigateToDetailWorkout = MutableLiveData<Int>()
-    val navigateToDetailWorkout: LiveData<Int>
-        get() = _navigateToDetailWorkout
+    private val _navigateToDetails = MutableLiveData<Int>()
+    val navigateToDetails: LiveData<Int>
+        get() = _navigateToDetails
 
-    fun doneNavigatingToDetailWorkout() {
-        Timber.i("Zob end Value set to null")
-        _navigateToDetailWorkout.value = null
+    fun doneNavigatingToDetails() {
+        _navigateToDetails.value = null
     }
 
     fun onAddWorkoutClick(){
-        _navigateToDetailWorkout.value = 0
-        Timber.i("Zob Value set to %d",_navigateToDetailWorkout.value)
+        _navigateToDetails.value = 0
     }
 
 }

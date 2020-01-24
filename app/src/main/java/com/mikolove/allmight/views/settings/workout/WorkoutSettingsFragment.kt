@@ -8,17 +8,13 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.navigation.NavigationView
 import com.mikolove.allmight.R
 import com.mikolove.allmight.database.AllmightDatabase
+import com.mikolove.allmight.database.entities.Workout
 import com.mikolove.allmight.databinding.FragmentWorkoutSettingsBinding
-import com.mikolove.allmight.views.settings.detail.DetailWorkoutSettingsViewModel
 import com.mikolove.allmight.views.settings.home.HomeSettingsFragmentDirections
-import timber.log.Timber
 
 class WorkoutSettingsFragment : Fragment() {
 
@@ -42,14 +38,14 @@ class WorkoutSettingsFragment : Fragment() {
         binding.lifecycleOwner = this
         val linearLayoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         val adapter = WorkoutSettingsAdapter(
-            WorkoutSettingsListener { view: View, workoutId: Int ->
+            WorkoutSettingsListener { view: View, workout: Workout ->
                 when(view.getId()){
                     R.id.list_item_workout_exercise_title -> {
-                        val direction = HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailWorkoutSettingsFragment().setWorkoutId(workoutId)
+                        val direction = HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailWorkoutSettingsFragment().setWorkoutId(workout.id)
                         findNavController().navigate(direction)
                     }
                     R.id.list_item_workout_ic_delete -> {
-                        viewModel.deleteWorkout(workoutId)
+                        viewModel.deleteWorkout(workout.id)
                     }
                 }
             }

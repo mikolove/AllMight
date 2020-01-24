@@ -9,36 +9,36 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.mikolove.allmight.R
 import com.mikolove.allmight.database.AllmightDatabase
-import com.mikolove.allmight.databinding.FragmentDetailsWorkoutSettingBinding
+import com.mikolove.allmight.databinding.FragmentDetailsExerciseSettingBinding
 
-class DetailWorkoutSettingsFragment : Fragment(){
+class DetailExerciseSettingsFragment : Fragment(){
 
-    private lateinit var binding : FragmentDetailsWorkoutSettingBinding
-    private lateinit var viewModel : DetailWorkoutSettingsViewModel
-    private var workoutId : Int = 0
+    private lateinit var binding : FragmentDetailsExerciseSettingBinding
+    private lateinit var viewModel : DetailExerciseSettingsViewModel
+    private var exerciseId : Int = 0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_details_workout_setting, container, false)
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_details_exercise_setting, container, false)
 
         val application = requireNotNull(this.activity).application
 
         val dataSource = AllmightDatabase.getInstance(application)
 
-        val arguments = DetailWorkoutSettingsFragmentArgs.fromBundle(arguments!!)
+        val arguments = DetailExerciseSettingsFragmentArgs.fromBundle(arguments!!)
 
-        workoutId = arguments.workoutId
+        exerciseId = arguments.exerciseId
 
-        val viewModelFactory = DetailWorkoutSettingsViewModelFactory(workoutId,dataSource, application)
+        val viewModelFactory = DetailExerciseSettingsViewModelFactory(exerciseId,dataSource, application)
 
         setHasOptionsMenu(true)
 
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailWorkoutSettingsViewModel::class.java)
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailExerciseSettingsViewModel::class.java)
 
-        binding.detailWorkoutSettingsViewModel = viewModel
+        binding.detailExerciseSettingsViewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.workout.observe(this, Observer {
+        viewModel.exercise.observe(this, Observer {
             viewModel.loadWorkoutType()
         })
 
@@ -64,7 +64,7 @@ class DetailWorkoutSettingsFragment : Fragment(){
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.details_menu, menu)
-        if(workoutId > 0)
+        if(exerciseId > 0)
             menu.findItem(R.id.detail_action_delete).isVisible = true
 
         super.onCreateOptionsMenu(menu, inflater)
@@ -73,15 +73,15 @@ class DetailWorkoutSettingsFragment : Fragment(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return (when(item.itemId) {
             R.id.detail_action_done -> {
-                if(viewModel.workout.value?.id!! > 0){
-                    viewModel.updateWorkout()
+                if(viewModel.exercise.value?.id!! > 0){
+                    viewModel.updateExercise()
                 }else{
-                    viewModel.insertWorkout()
+                    viewModel.insertExercise()
                 }
                 true
             }
             R.id.detail_action_delete -> {
-                viewModel.deleteWorkout()
+                viewModel.deleteExercise()
                 true
             }
             else ->

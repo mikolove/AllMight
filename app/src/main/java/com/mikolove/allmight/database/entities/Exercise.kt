@@ -20,20 +20,18 @@ data class Exercise(
     var id : Int = 0,
 
     @ColumnInfo(name = "name")
-    var name : String?,
+    var name : String? = null,
 
     @ColumnInfo(name = "series_count")
-    var series_count : Int,
+    var series_count : Int = 0,
 
     @ColumnInfo(name = "rep_count")
-    var rep_count : Int,
+    var rep_count : Int = 0,
 
     @ColumnInfo(name = "status")
     var status : Boolean = true,
 
     @ColumnInfo(name = "id_workout_type")
-    var id_workout_type : Int
+    var id_workout_type : Int = 0
 
 )
-
-

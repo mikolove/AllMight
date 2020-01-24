@@ -4,9 +4,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.mikolove.allmight.database.entities.Workout
-import com.mikolove.allmight.databinding.ListItemWorkoutExerciseBinding
+import com.mikolove.allmight.databinding.ListItemWorkoutBinding
 
-class WorkoutSettingsViewHolder private constructor(val binding: ListItemWorkoutExerciseBinding) : RecyclerView.ViewHolder(binding.root) {
+class WorkoutSettingsViewHolder private constructor(val binding: ListItemWorkoutBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(clickListener: WorkoutSettingsListener, item: Workout) {
         binding.workout = item
@@ -18,7 +18,7 @@ class WorkoutSettingsViewHolder private constructor(val binding: ListItemWorkout
 
         fun from(parent: ViewGroup): WorkoutSettingsViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = ListItemWorkoutExerciseBinding.inflate(layoutInflater, parent, false)
+            val binding = ListItemWorkoutBinding.inflate(layoutInflater, parent, false)
 
             return WorkoutSettingsViewHolder(binding)
         }

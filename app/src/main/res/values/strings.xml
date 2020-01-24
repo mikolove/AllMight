@@ -5,6 +5,7 @@
     <string name="exercice_title">Exercice</string>
     <string name="workout_title">Programme</string>
     <string name="test">Test</string>
+
     <!-- Settings -->
 
     <!-- Settings home-->
@@ -14,10 +15,13 @@
 
     <!-- Settings details workout & exercise -->
     <string name="details_workout_add">Créer un programme</string>
-    <string name="details_workout_settings_title_name">Nom</string>
+    <string name="details_settings_title_name">Nom</string>
 
     <string name="details_exercise_add">Créer un exercice</string>
 
+
+    <string name="details_exercise_title_series">Nombre de série</string>
+    <string name="details_exercise_title_rep">Nombre de répétition</string>
 
     <string name="details_settings_title_status">Statut</string>
     <string name="details_settings_text_status">Faire apparaitre ce programme ou exercice</string>

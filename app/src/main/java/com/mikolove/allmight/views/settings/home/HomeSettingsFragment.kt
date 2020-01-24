@@ -25,14 +25,9 @@ class HomeSettingsFragment : Fragment() {
 
         val dataSource = AllmightDatabase.getInstance(application)
 
-        val viewModelFactory =
-            HomeSettingsViewModelFactory(
-                dataSource,
-                application
-            )
+        val viewModelFactory = HomeSettingsViewModelFactory( dataSource, application)
 
-        val homeSettingsViewModel = ViewModelProviders.of(this, viewModelFactory).get(
-            HomeSettingsViewModel::class.java)
+        val homeSettingsViewModel = ViewModelProviders.of(this, viewModelFactory).get(HomeSettingsViewModel::class.java)
 
         binding.homeSettingsViewModel = homeSettingsViewModel
 
@@ -40,10 +35,10 @@ class HomeSettingsFragment : Fragment() {
 
         binding.homeSettingsViewpager.adapter = childFragmentManager?.let { SettingsPagerAdapter(it) }
 
-        homeSettingsViewModel.navigateToDetailWorkout.observe(this, Observer { it ->
+        homeSettingsViewModel.navigateToDetails.observe(this, Observer { it ->
             it?.let{
                 this.findNavController().navigate(HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailWorkoutSettingsFragment().setWorkoutId(it))
-                homeSettingsViewModel.doneNavigatingToDetailWorkout()
+                homeSettingsViewModel.doneNavigatingToDetails()
             }
         })
         return binding.root

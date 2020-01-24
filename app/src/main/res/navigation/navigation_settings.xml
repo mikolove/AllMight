@@ -15,6 +15,11 @@
             app:destination="@+id/detail_workout_settings_fragment"
             app:popUpTo="@+id/detail_workout_settings_fragment"
             app:popUpToInclusive="false" />
+        <action
+            android:id="@+id/action_home_settings_fragment_to_detailExerciseSettingsFragment"
+            app:destination="@id/detail_exercise_settings_fragment"
+            app:popUpTo="@+id/detail_exercise_settings_fragment"
+            app:popUpToInclusive="false" />
     </fragment>
 
     <fragment
@@ -43,4 +48,29 @@
             app:popUpTo="@+id/home_settings_fragment"
             app:popUpToInclusive="true" />
     </fragment>
+    <fragment
+        android:id="@+id/exercise_settings_fragment"
+        android:name="com.mikolove.allmight.views.settings.exercise.ExerciseSettingsFragment"
+        tools:layout="@layout/fragment_exercise_settings">
+        <action
+            android:id="@+id/action_exercise_settings_fragment_to_detail_exercise_settings_fragment"
+            app:destination="@id/detail_exercise_settings_fragment"
+            app:popUpTo="@+id/detail_exercise_settings_fragment"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/detail_exercise_settings_fragment"
+        android:name="com.mikolove.allmight.views.settings.detail.DetailExerciseSettingsFragment"
+        tools:layout="@layout/fragment_details_exercise_setting">
+        <argument
+            android:name="exerciseId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <action
+            android:id="@+id/action_detail_exercise_settings_fragment_to_home_settings_fragment"
+            app:destination="@id/home_settings_fragment"
+            app:popUpTo="@+id/home_settings_fragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+
 </navigation>

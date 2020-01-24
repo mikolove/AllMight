@@ -6,8 +6,6 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.mikolove.allmight.database.AllmightDatabase
-import com.mikolove.allmight.database.dao.WorkoutDao
-import com.mikolove.allmight.database.entities.Workout
 import com.mikolove.allmight.repository.WorkoutRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
