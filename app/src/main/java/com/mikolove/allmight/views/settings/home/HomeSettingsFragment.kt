@@ -9,10 +9,14 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.viewpager2.widget.ViewPager2.*
+import com.google.android.material.tabs.TabLayoutMediator
 import com.mikolove.allmight.R
 import com.mikolove.allmight.adapters.SettingsPagerAdapter
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.databinding.FragmentHomeSettingsBinding
+import timber.log.Timber
+
 
 class HomeSettingsFragment : Fragment() {
 
@@ -31,16 +35,35 @@ class HomeSettingsFragment : Fragment() {
 
         binding.homeSettingsViewModel = homeSettingsViewModel
 
-        binding.lifecycleOwner = this
+        binding.lifecycleOwner = this.viewLifecycleOwner
 
-        binding.homeSettingsViewpager.adapter = childFragmentManager?.let { SettingsPagerAdapter(it) }
+        binding.homeSettingsViewpager.adapter = SettingsPagerAdapter(this)
 
-        homeSettingsViewModel.navigateToDetails.observe(this, Observer { it ->
+        TabLayoutMediator(binding.homeSettingsTabLayout, binding.homeSettingsViewpager) { tab, position ->
+            tab.text = getTitle(position)
+        }.attach()
+
+        homeSettingsViewModel.navigateToDetails.observe(viewLifecycleOwner, Observer { it ->
             it?.let{
-                this.findNavController().navigate(HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailWorkoutSettingsFragment().setWorkoutId(it))
-                homeSettingsViewModel.doneNavigatingToDetails()
+                when(binding.homeSettingsViewpager.currentItem){
+                    0 ->{
+                        this.findNavController().navigate(HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailWorkoutSettingsFragment().setWorkoutId(it))
+                        homeSettingsViewModel.doneNavigatingToDetails() }
+                    1 ->{
+                        this.findNavController().navigate(HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailExerciseSettingsFragment().setExerciseId(it))
+                        homeSettingsViewModel.doneNavigatingToDetails() }
+                    else -> {}
+                }
             }
         })
         return binding.root
+    }
+
+    fun getTitle(position : Int) : String{
+        return when(position){
+            0 -> getString(R.string.workout_title)
+            1 -> getString(R.string.exercice_title)
+            else -> getString(R.string.test)
+        }
     }
 }

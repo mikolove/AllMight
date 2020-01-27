@@ -18,7 +18,7 @@ class HomeSettingsViewModel( val dataSource: AllmightDatabase, application: Appl
         _navigateToDetails.value = null
     }
 
-    fun onAddWorkoutClick(){
+    fun onAddClick(){
         _navigateToDetails.value = 0
     }
 
