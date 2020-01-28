@@ -69,18 +69,6 @@ class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: Allmig
         }
     }
 
-    private suspend fun getWorkout(workoutId: Int) : LiveData<Workout>{
-        return withContext(Dispatchers.IO){
-            wkRepo.getWorkoutById(workoutId)
-        }
-    }
-
-    private suspend fun getAllWorkoutType() : LiveData<List<WorkoutType>> {
-        return withContext(Dispatchers.IO){
-            wkTypeRepo.getListWorkoutType()
-        }
-    }
-
     fun insertWorkout(){
         workout.value?.let {
             viewModelScope.launch {

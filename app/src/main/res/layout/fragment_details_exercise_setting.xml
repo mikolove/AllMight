@@ -68,7 +68,7 @@
             app:layout_constraintEnd_toEndOf="@+id/detail_exercise_settings_edit_name"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="@+id/detail_exercise_settings_edit_name"
-            app:layout_constraintTop_toBottomOf="@+id/spinner" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_exercise_settings_spinner_series" />
 
         <Switch
                 android:id="@+id/detail_exercise_settings_switch_status"
@@ -128,24 +128,28 @@
             app:layout_constraintGuide_begin="202dp" />
 
         <Spinner
-            android:id="@+id/spinner"
+            android:id="@+id/detail_exercise_settings_spinner_series"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            app:layout_constraintBottom_toBottomOf="@+id/spinner2"
+            app:layout_constraintBottom_toBottomOf="@+id/detail_exercise_settings_spinner_reps"
             app:layout_constraintEnd_toStartOf="@+id/guideline"
             app:layout_constraintStart_toStartOf="@+id/detail_exercise_settings_txt_title_series"
-            app:layout_constraintTop_toBottomOf="@+id/detail_exercise_settings_txt_title_series" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_exercise_settings_txt_title_series"
+            app:setData="@{detailExerciseSettingsViewModel.listSeries}"
+            app:setSelectedData="@={detailExerciseSettingsViewModel.seriesValue}"/>
 
         <Spinner
-            android:id="@+id/spinner2"
+            android:id="@+id/detail_exercise_settings_spinner_reps"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:layout_constraintEnd_toEndOf="@+id/detail_exercise_settings_edit_name"
             app:layout_constraintStart_toStartOf="@+id/guideline"
-            app:layout_constraintTop_toBottomOf="@+id/detail_exercise_settings_txt_title_rep" />
+            app:layout_constraintTop_toBottomOf="@+id/detail_exercise_settings_txt_title_rep"
+            app:setData="@{detailExerciseSettingsViewModel.listReps}"
+            app:setSelectedData="@={detailExerciseSettingsViewModel.repValue}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -3,10 +3,7 @@ package com.mikolove.allmight.views.settings.detail
 import android.app.Application
 import androidx.lifecycle.*
 import com.mikolove.allmight.database.AllmightDatabase
-import com.mikolove.allmight.database.entities.BasicInfo
-import com.mikolove.allmight.database.entities.Exercise
-import com.mikolove.allmight.database.entities.Workout
-import com.mikolove.allmight.database.entities.WorkoutType
+import com.mikolove.allmight.database.entities.*
 import com.mikolove.allmight.repository.ExerciseRepository
 import com.mikolove.allmight.repository.WorkoutTypeRepository
 import kotlinx.coroutines.*
@@ -24,14 +21,28 @@ class DetailExerciseSettingsViewModel(val exerciseId : Int = 0, dataSource: Allm
     val navigateToHomeSettings : LiveData<Long>
         get() = _navigateToHomeSettings
 
+
+    //Spinner values
+    private val listSeries =  exRepo.getMaxSeries()
+    fun getListSeries() = listSeries
+
+    private val seriesValue = MutableLiveData<BasicInfo>()
+    fun getSeriesValue() = seriesValue
+
+    private val listReps =  exRepo.getMaxReps()
+    fun getListReps() = listReps
+
+    private val repValue = MutableLiveData<BasicInfo>()
+    fun getRepValue() = repValue
+
     private val listWorkoutType =  wkTypeRepo.workoutTypeList
     fun getListWorkoutType() = listWorkoutType
 
     private val workoutType = MutableLiveData<BasicInfo>()
     fun getWorkoutType() = workoutType
 
-    init{
 
+    init{
         exercise.addSource(exRepo.getExerciseById(exerciseId)) { fromRoom ->
             if(fromRoom == null){
                 exercise.value = Exercise()
@@ -44,6 +55,43 @@ class DetailExerciseSettingsViewModel(val exerciseId : Int = 0, dataSource: Allm
     fun doneNavigatingToHomeSettings() {
         _navigateToHomeSettings.value = null
     }
+
+    fun loadRep(){
+
+        if(exercise.value?.rep_count == getRepValue().value?.getObjectId()) return
+
+        listReps?.let {
+
+            if(it.isEmpty()) return
+
+            if(exercise.value?.rep_count == 0) repValue.value = it.first()!!
+
+            it.forEach {count ->
+                if(count.id == exercise.value?.rep_count){
+                    repValue.value = count
+                }
+            }
+        }
+    }
+
+    fun loadSeries(){
+
+        if(exercise.value?.series_count == getSeriesValue().value?.getObjectId()) return
+
+        listSeries?.let {
+
+            if(it.isEmpty()) return
+
+            if(exercise.value?.series_count == 0) seriesValue.value = it.first()!!
+
+            it.forEach {count ->
+                if(count.id == exercise.value?.series_count){
+                    seriesValue.value = count
+                }
+            }
+        }
+    }
+
 
     fun loadWorkoutType(){
 
@@ -69,15 +117,15 @@ class DetailExerciseSettingsViewModel(val exerciseId : Int = 0, dataSource: Allm
         }
     }
 
-    private suspend fun getWorkout(exerciseId : Int) : LiveData<Exercise>{
-        return withContext(Dispatchers.IO){
-            exRepo.getExerciseById(exerciseId)
+    fun updateRep(){
+        if(exercise.value != null && repValue.value != null){
+            exercise.value?.rep_count = repValue.value?.getObjectId()!!
         }
     }
 
-    private suspend fun getAllWorkoutType() : LiveData<List<WorkoutType>> {
-        return withContext(Dispatchers.IO){
-            wkTypeRepo.getListWorkoutType()
+    fun updateSerie(){
+        if(exercise.value != null && seriesValue.value != null){
+            exercise.value?.series_count = seriesValue.value?.getObjectId()!!
         }
     }
 

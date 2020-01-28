@@ -38,21 +38,35 @@ class DetailExerciseSettingsFragment : Fragment(){
         binding.detailExerciseSettingsViewModel = viewModel
         binding.lifecycleOwner = this
 
-        viewModel.exercise.observe(this, Observer {
+        viewModel.exercise.observe(viewLifecycleOwner, Observer {
+            viewModel.loadWorkoutType()
+            viewModel.loadRep()
+            viewModel.loadSeries()
+        })
+
+        viewModel.getListWorkoutType().observe(viewLifecycleOwner, Observer {
             viewModel.loadWorkoutType()
         })
 
-        viewModel.getListWorkoutType().observe(this, Observer {
-            viewModel.loadWorkoutType()
+        viewModel.getRepValue().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                viewModel.updateRep()
+            }
         })
 
-        viewModel.getWorkoutType().observe(this, Observer {
+        viewModel.getSeriesValue().observe(viewLifecycleOwner, Observer {
+            it?.let {
+                viewModel.updateSerie()
+            }
+        })
+
+        viewModel.getWorkoutType().observe(viewLifecycleOwner, Observer {
             it?.let{
                 viewModel.updateWorkoutType()
             }
         })
 
-        viewModel.navigateToHomeSettings.observe(this, Observer {
+        viewModel.navigateToHomeSettings.observe(viewLifecycleOwner, Observer {
             it?.let{
                     this.findNavController().navigateUp()
                     viewModel.doneNavigatingToHomeSettings()

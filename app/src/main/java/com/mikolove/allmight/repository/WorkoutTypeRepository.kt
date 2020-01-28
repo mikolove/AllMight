@@ -1,16 +1,11 @@
 package com.mikolove.allmight.repository
 
-import androidx.lifecycle.LiveData
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.WorkoutType
 
 class WorkoutTypeRepository (val dataSource : AllmightDatabase) {
 
     val workoutTypeList = dataSource.workoutTypeDao().getAllWorkoutType()
-
-    fun getListWorkoutType() : LiveData<List<WorkoutType>>{
-        return dataSource.workoutTypeDao().getAllWorkoutType()
-    }
 
     fun insert(workoutType: WorkoutType){
         dataSource.workoutTypeDao().insert(workoutType)

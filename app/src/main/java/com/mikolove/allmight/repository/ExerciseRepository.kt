@@ -2,6 +2,7 @@ package com.mikolove.allmight.repository
 
 import androidx.lifecycle.LiveData
 import com.mikolove.allmight.database.AllmightDatabase
+import com.mikolove.allmight.database.entities.BasicElement
 import com.mikolove.allmight.database.entities.Exercise
 import com.mikolove.allmight.database.entities.WorkoutType
 
@@ -36,6 +37,12 @@ class ExerciseRepository (val dataSource : AllmightDatabase){
         dataSource.exerciseDao().clearById(exerciseId)
     }
 
+    fun getMaxSeries() : List<BasicElement>{
+        return (1..8).map { BasicElement(it,it.toString()) }
+    }
 
+    fun getMaxReps() : List<BasicElement>{
+        return (1..15).map { BasicElement(it,it.toString()) }
+    }
 
 }
