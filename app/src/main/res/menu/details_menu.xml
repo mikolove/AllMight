@@ -15,5 +15,5 @@
             android:orderInCategory="100"
             android:title="@string/home_settings_add"
             app:showAsAction="always"
-            android:icon="@drawable/ic_check_24dp"/>
+            android:icon="@drawable/ic_check_white_24dp"/>
 </menu>

@@ -33,6 +33,7 @@ interface WorkoutDao {
     fun getWorkoutById(id : Int, status : Boolean = true) : LiveData<Workout>
 
     @Query("SELECT * FROM ${AllmightDatabase.workoutTableName} WHERE id_workout_type = :id_workout_type AND status = :status")
-    fun getWorkoutByIdWorkoutType(id_workout_type : Int, status : Boolean = true) : LiveData<Workout>
+    fun getWorkoutByIdWorkoutType(id_workout_type : Int, status : Boolean = true) : LiveData<List<Workout>>
+
 
 }

@@ -56,6 +56,7 @@ class HomeSettingsFragment : Fragment() {
                 }
             }
         })
+        Timber.i("Load home settings")
         return binding.root
     }
 

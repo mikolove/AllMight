@@ -8,7 +8,7 @@ buildscript {
 
         version_appcompat = "1.0.2"
         version_fragment = "1.0.0"
-        version_constraint_layout = "2.0.0-alpha3"
+        version_constraint_layout = "2.0.0-beta4"
 
         version_ktx = "1.0.1"
 
@@ -23,7 +23,7 @@ buildscript {
         version_material_design = "1.1.0-alpha07"
 
         version_lifecycle_extensions = "2.0.0"
-        version_room = "2.2.0-alpha02"
+        version_room = "2.2.3"
     }
 
 
@@ -33,7 +33,7 @@ buildscript {
         
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:3.6.0-rc02'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$version_kotlin"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:$version_navigation"
         // NOTE: Do not place your application dependencies here; they belong

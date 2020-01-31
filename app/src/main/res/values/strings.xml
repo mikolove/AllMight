@@ -8,6 +8,10 @@
 
     <!-- Settings -->
 
+    <string name="include_settings_chip_all">Tous</string>
+    <string name="include_settings_chip_active">Actif</string>
+    <string name="include_settings_chip_inactive">Inactif</string>
+
     <!-- Settings home-->
     <string name="home_settings_title">Gérer l\'entrainement</string>
     <string name="home_settings_add">Ajouter</string>

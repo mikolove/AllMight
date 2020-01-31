@@ -15,6 +15,7 @@ import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.Workout
 import com.mikolove.allmight.databinding.FragmentWorkoutSettingsBinding
 import com.mikolove.allmight.views.settings.home.HomeSettingsFragmentDirections
+import timber.log.Timber
 
 class WorkoutSettingsFragment : Fragment() {
 
@@ -51,13 +52,21 @@ class WorkoutSettingsFragment : Fragment() {
             }
         )
 
+
         binding.workoutSettingsRecyclerView.layoutManager = linearLayoutManager
         binding.workoutSettingsRecyclerView.adapter = adapter
 
-        viewModel.workouts.observe( viewLifecycleOwner, Observer {
+        viewModel.workouts?.observe( viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
+        })
+
+        viewModel.getFilterStatus().observe(viewLifecycleOwner, Observer {
+            viewModel.onFilterChange()
+        })
+        viewModel.getFilterWkType().observe(viewLifecycleOwner, Observer {
+            viewModel.onFilterChange()
         })
 
         return binding.root

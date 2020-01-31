@@ -14,14 +14,53 @@
         android:layout_height="match_parent"
         tools:context=".views.settings.home.HomeSettingsActivity">
 
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/exercise_settings_chip_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/exercise_settings_chip_all"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/include_settings_chip_all"
+                app:chipIconEnabled="@drawable/ic_check_black_24dp" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/exercise_settings_chip_active"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/include_settings_chip_active" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/exercise_settings_chip_inactive"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/include_settings_chip_inactive" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <Spinner
+            android:id="@+id/exercise_settings_type_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="@+id/exercise_settings_chip_group"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/exercise_settings_chip_group"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/exercise_settings_recycler_view"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginTop="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/exercise_settings_chip_group" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
