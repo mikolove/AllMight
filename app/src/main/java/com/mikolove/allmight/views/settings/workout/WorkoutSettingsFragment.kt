@@ -59,12 +59,10 @@ class WorkoutSettingsFragment : Fragment() {
         binding.workoutSettingsChipGroup.setOnCheckedChangeListener{ group, checked ->
             when(checked) {
                 R.id.workout_settings_chip_active -> {
-                    Timber.i("ACTIVE SELECTED")
                     viewModel.setFilterStatus(true)
                     viewModel.onFilterChange()
                 }
                 R.id.workout_settings_chip_inactive -> {
-                    Timber.i("INACTIVE SELECTED")
                     viewModel.setFilterStatus(false)
                     viewModel.onFilterChange()
                 }

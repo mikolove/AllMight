@@ -43,7 +43,7 @@ class DetailExerciseSettingsViewModel(private val exerciseId : Int = 0, private 
 
 
     init{
-        exercise.addSource(exRepo.getExerciseById(exerciseId)) { fromRoom ->
+        exercise.addSource(exRepo.getExerciseById(exerciseId,status)) { fromRoom ->
             if(fromRoom == null){
                 exercise.value = Exercise()
             }else{

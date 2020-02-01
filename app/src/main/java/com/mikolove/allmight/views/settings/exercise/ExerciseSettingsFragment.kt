@@ -38,7 +38,7 @@ class ExerciseSettingsFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         val adapter = ExerciseSettingsAdapter(
             ExerciseSettingsListener { view: View, exercise: Exercise ->
-                when(view.getId()){
+                when(view.id){
                     R.id.list_item_exercise_title -> {
                         val direction = HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailExerciseSettingsFragment().setExerciseId(exercise.id).setStatus(exercise.status)
                         findNavController().navigate(direction)
@@ -53,11 +53,32 @@ class ExerciseSettingsFragment : Fragment() {
         binding.exerciseSettingsRecyclerView.layoutManager = linearLayoutManager
         binding.exerciseSettingsRecyclerView.adapter = adapter
 
-        viewModel.exercises.observe( viewLifecycleOwner, Observer {
+        binding.exerciseSettingsChipGroup.setOnCheckedChangeListener{ group, checked ->
+            when(checked) {
+                R.id.exercise_settings_chip_active -> {
+                    viewModel.setFilterStatus(true)
+                    viewModel.onFilterChange()
+                }
+                R.id.exercise_settings_chip_inactive -> {
+                    viewModel.setFilterStatus(false)
+                    viewModel.onFilterChange()
+                }
+            }
+        }
+
+        viewModel.exercises?.observe( viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
         })
+
+        viewModel.getFilterStatus().observe(viewLifecycleOwner, Observer {
+            viewModel.onFilterChange()
+        })
+        viewModel.getFilterWkType().observe(viewLifecycleOwner, Observer {
+            viewModel.onFilterChange()
+        })
+
 
         return binding.root
     }

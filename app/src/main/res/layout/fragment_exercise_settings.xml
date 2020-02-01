@@ -19,26 +19,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
-
-            <com.google.android.material.chip.Chip
-                android:id="@+id/exercise_settings_chip_all"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/include_settings_chip_all"
-                app:chipIconEnabled="@drawable/ic_check_black_24dp" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            app:checkedChip="@id/exercise_settings_chip_active">
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/exercise_settings_chip_active"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/include_settings_chip_active" />
+                android:text="@string/include_settings_chip_active"
+                style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/exercise_settings_chip_inactive"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/include_settings_chip_inactive" />
+                android:text="@string/include_settings_chip_inactive"
+                style="@style/Widget.MaterialComponents.Chip.Choice"/>
 
         </com.google.android.material.chip.ChipGroup>
 
@@ -49,6 +47,8 @@
             app:layout_constraintBottom_toBottomOf="@+id/exercise_settings_chip_group"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@+id/exercise_settings_chip_group"
+            app:setData="@{exerciseSettingsViewModel.listWorkoutType}"
+            app:setSelectedData="@={exerciseSettingsViewModel.filterWkType}"
             />
 
         <androidx.recyclerview.widget.RecyclerView
