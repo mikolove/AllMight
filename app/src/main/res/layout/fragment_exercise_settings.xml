@@ -60,7 +60,19 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.6"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/exercise_settings_chip_group" />
+            app:layout_constraintTop_toBottomOf="@+id/exercise_settings_chip_group"
+            android:visibility="@{exerciseSettingsViewModel.listVisibility}"/>
+
+        <TextView
+            android:id="@+id/exercise_settings_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/exercise_settings_no_data"
+            android:visibility="@{exerciseSettingsViewModel.textVisibility}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

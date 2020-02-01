@@ -1,6 +1,7 @@
 package com.mikolove.allmight.views.settings.workout
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.BasicInfo
@@ -48,6 +49,18 @@ class WorkoutSettingsViewModel(val database: AllmightDatabase, application: Appl
         workoutStatus.value = true
     }
 
+    val listVisibility = MutableLiveData<Int>()
+    val textVisibility = MutableLiveData<Int>()
+
+    fun showAndHide(count : Int){
+        if( count > 0){
+            listVisibility.value = View.VISIBLE
+            textVisibility.value = View.INVISIBLE
+        }else{
+            listVisibility.value = View.INVISIBLE
+            textVisibility.value = View.VISIBLE
+        }
+    }
     fun setFilterStatus(value : Boolean){
         workoutStatus.value = value
     }

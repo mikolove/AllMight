@@ -17,6 +17,9 @@
     <string name="home_settings_add">Ajouter</string>
     <string name="home_settings_delete">Supprimer</string>
 
+    <string name="workout_settings_no_data">Aucun programme n\'existe dans cette catégorie.</string>
+    <string name="exercise_settings_no_data">Aucun exercice n\'existe dans cette catégorie.</string>
+
     <!-- Settings details workout & exercise -->
     <string name="details_workout_add">Créer un programme</string>
     <string name="details_settings_title_name">Nom</string>

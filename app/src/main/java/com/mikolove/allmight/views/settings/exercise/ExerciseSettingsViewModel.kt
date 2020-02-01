@@ -1,6 +1,7 @@
 package com.mikolove.allmight.views.settings.exercise
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.BasicInfo
@@ -39,6 +40,19 @@ class ExerciseSettingsViewModel (val database: AllmightDatabase, application: Ap
         when(selected){
             0 -> wkRepo.getAllExercise(status)
             else -> wkRepo.getExerciseByWorkoutType(selected,status)
+        }
+    }
+
+    val listVisibility = MutableLiveData<Int>()
+    val textVisibility = MutableLiveData<Int>()
+
+    fun showAndHide(count : Int){
+        if( count > 0){
+            listVisibility.value = View.VISIBLE
+            textVisibility.value = View.INVISIBLE
+        }else{
+            listVisibility.value = View.INVISIBLE
+            textVisibility.value = View.VISIBLE
         }
     }
 

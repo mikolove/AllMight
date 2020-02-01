@@ -69,6 +69,7 @@ class ExerciseSettingsFragment : Fragment() {
         viewModel.exercises?.observe( viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
+                viewModel.showAndHide(it.size)
             }
         })
 
