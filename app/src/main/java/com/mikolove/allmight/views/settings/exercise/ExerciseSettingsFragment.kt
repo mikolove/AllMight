@@ -40,7 +40,7 @@ class ExerciseSettingsFragment : Fragment() {
             ExerciseSettingsListener { view: View, exercise: Exercise ->
                 when(view.getId()){
                     R.id.list_item_exercise_title -> {
-                        val direction = HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailExerciseSettingsFragment().setExerciseId(exercise.id)
+                        val direction = HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailExerciseSettingsFragment().setExerciseId(exercise.id).setStatus(exercise.status)
                         findNavController().navigate(direction)
                     }
                     R.id.list_item_exercise_ic_delete -> {

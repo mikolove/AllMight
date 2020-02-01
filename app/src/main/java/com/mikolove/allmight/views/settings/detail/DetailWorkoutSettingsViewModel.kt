@@ -11,11 +11,11 @@ import com.mikolove.allmight.repository.WorkoutTypeRepository
 import kotlinx.coroutines.*
 import timber.log.Timber
 
-class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: AllmightDatabase, application: Application) : ViewModel(){
+class DetailWorkoutSettingsViewModel(private val workoutId : Int = 0, private val status : Boolean = true,  dataSource: AllmightDatabase, application: Application) : ViewModel(){
 
     val database = dataSource
 
-    private val wkTypeRepo = WorkoutTypeRepository(dataSource)
+    private val wkTypeRepo = WorkoutTypeRepository(dataSource,application)
     private val wkRepo     = WorkoutRepository(dataSource)
 
     var workout =  MediatorLiveData<Workout>()
@@ -32,7 +32,7 @@ class DetailWorkoutSettingsViewModel(val workoutId : Int = 0, dataSource: Allmig
 
     init{
 
-        workout.addSource(wkRepo.getWorkoutById(workoutId)) { fromRoom ->
+        workout.addSource(wkRepo.getWorkoutById(workoutId,status)) { fromRoom ->
             if(fromRoom == null){
                 workout.value = Workout()
             }else{

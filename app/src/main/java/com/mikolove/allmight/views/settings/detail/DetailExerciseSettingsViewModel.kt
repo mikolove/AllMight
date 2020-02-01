@@ -8,11 +8,11 @@ import com.mikolove.allmight.repository.ExerciseRepository
 import com.mikolove.allmight.repository.WorkoutTypeRepository
 import kotlinx.coroutines.*
 
-class DetailExerciseSettingsViewModel(val exerciseId : Int = 0, dataSource: AllmightDatabase, application: Application) : ViewModel(){
+class DetailExerciseSettingsViewModel(private val exerciseId : Int = 0, private val status : Boolean = true, dataSource: AllmightDatabase, application: Application) : ViewModel(){
 
     val database = dataSource
 
-    private val wkTypeRepo = WorkoutTypeRepository(dataSource)
+    private val wkTypeRepo = WorkoutTypeRepository(dataSource,application)
     private val exRepo     = ExerciseRepository(dataSource)
 
     var exercise =  MediatorLiveData<Exercise>()

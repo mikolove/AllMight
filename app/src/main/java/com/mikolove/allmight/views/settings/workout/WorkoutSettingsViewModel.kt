@@ -5,7 +5,6 @@ import androidx.lifecycle.*
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.BasicInfo
 import com.mikolove.allmight.database.entities.Workout
-import com.mikolove.allmight.database.entities.WorkoutType
 import com.mikolove.allmight.repository.WorkoutRepository
 import com.mikolove.allmight.repository.WorkoutTypeRepository
 import kotlinx.coroutines.Dispatchers
@@ -13,15 +12,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import timber.log.Timber
 
+
 class WorkoutSettingsViewModel(val database: AllmightDatabase, application: Application) : AndroidViewModel(application) {
 
     private val wkRepo = WorkoutRepository(database)
-    private val wkTpRepo = WorkoutTypeRepository(database)
+    private val wkTpRepo = WorkoutTypeRepository(database,application)
 
-    val listWorkoutType = wkTpRepo.workoutTypeList
-
+    val listWorkoutType = wkTpRepo.getWorkoutTypeFilter()
     private val filterWkType = MutableLiveData<BasicInfo>()
     fun getFilterWkType() = filterWkType
+
+    private val workoutStatus = MutableLiveData<Boolean>()
 
     private val filterStatus = MutableLiveData<BasicInfo>()
     fun getFilterStatus() = filterStatus
@@ -29,9 +30,26 @@ class WorkoutSettingsViewModel(val database: AllmightDatabase, application: Appl
     private val _filterChange = MutableLiveData<Int>()
 
     val workouts: LiveData<List<Workout>>? = Transformations.switchMap(_filterChange) {
-        filterWkType.value?.getObjectId()?.let {
-                id -> wkRepo.getWorkoutByWorkoutType(id)
+        var selected : Int = 0
+        var status : Boolean = true
+        filterWkType.value?.let{ item->
+            selected = item.getObjectId()
         }
+        workoutStatus.value?.let { item ->
+            status = item
+        }
+        when(selected){
+            0 -> wkRepo.getAllWorkout(status)
+            else -> wkRepo.getWorkoutByWorkoutType(selected,status)
+        }
+    }
+
+    init {
+        workoutStatus.value = true
+    }
+
+    fun setFilterStatus(value : Boolean){
+        workoutStatus.value = value
     }
 
     private val _navigateToDetailWorkout = MutableLiveData<Int>()
@@ -39,13 +57,11 @@ class WorkoutSettingsViewModel(val database: AllmightDatabase, application: Appl
         get() = _navigateToDetailWorkout
 
     fun doneNavigatingToDetailWorkout() {
-        Timber.i("Zob end Value set to null")
         _navigateToDetailWorkout.value = null
     }
 
     fun onEditWorkoutClick(workoutId : Int = 0){
         _navigateToDetailWorkout.value = workoutId
-        Timber.i("Zob Value set to %d",_navigateToDetailWorkout.value)
     }
 
     fun onFilterChange(){

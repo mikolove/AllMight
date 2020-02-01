@@ -17,8 +17,8 @@ class ExerciseRepository (val dataSource : AllmightDatabase){
         return dataSource.exerciseDao().getAllExercise(status)
     }
 
-    fun getExerciseById(id : Int) : LiveData<Exercise> {
-        return dataSource.exerciseDao().getExerciseById(id)
+    fun getExerciseById(id : Int, status: Boolean = true) : LiveData<Exercise> {
+        return dataSource.exerciseDao().getExerciseById(id,status)
     }
 
     fun getExerciseByWorkoutType(workoutType: WorkoutType, status : Boolean) : LiveData<List<Exercise>> {

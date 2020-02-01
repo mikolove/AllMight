@@ -16,6 +16,7 @@ class DetailWorkoutSettingsFragment : Fragment(){
     private lateinit var binding : FragmentDetailsWorkoutSettingBinding
     private lateinit var viewModel : DetailWorkoutSettingsViewModel
     private var workoutId : Int = 0
+    private var status : Boolean = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -28,8 +29,9 @@ class DetailWorkoutSettingsFragment : Fragment(){
         val arguments = DetailWorkoutSettingsFragmentArgs.fromBundle(arguments!!)
 
         workoutId = arguments.workoutId
+        status = arguments.status
 
-        val viewModelFactory = DetailWorkoutSettingsViewModelFactory(workoutId,dataSource, application)
+        val viewModelFactory = DetailWorkoutSettingsViewModelFactory(workoutId,status, dataSource, application)
 
         setHasOptionsMenu(true)
 

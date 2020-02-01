@@ -5,12 +5,12 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.mikolove.allmight.database.AllmightDatabase
 
-class DetailExerciseSettingsViewModelFactory (private val exerciseId : Int = 0, private val dataSource: AllmightDatabase, private val application: Application) : ViewModelProvider.Factory {
+class DetailExerciseSettingsViewModelFactory (private val exerciseId : Int = 0, private val status : Boolean = true, private val dataSource: AllmightDatabase, private val application: Application) : ViewModelProvider.Factory {
 
     @Suppress("unchecked_cast")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(DetailExerciseSettingsViewModel::class.java)) {
-            return DetailExerciseSettingsViewModel(exerciseId, dataSource, application) as T
+            return DetailExerciseSettingsViewModel(exerciseId, status, dataSource, application) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

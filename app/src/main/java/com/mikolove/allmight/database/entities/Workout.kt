@@ -27,7 +27,7 @@ data class Workout(
     @ColumnInfo(name = "id_workout_type")
     var id_workout_type : Int = 0
 ) : BasicInfo{
-    override fun getObjectId(): Int? = id
+    override fun getObjectId(): Int = id
 
     override fun getObjectName(): String? = name
 

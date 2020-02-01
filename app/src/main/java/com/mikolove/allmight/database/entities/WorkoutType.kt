@@ -17,7 +17,7 @@ data class WorkoutType(
     var name : String? = null
 )  : BasicInfo{
 
-    override fun getObjectId(): Int?  = id
+    override fun getObjectId(): Int  = id
     override fun getObjectName(): String? = name
 
     companion object{

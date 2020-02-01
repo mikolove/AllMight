@@ -19,7 +19,7 @@ class InverseSpinnerBindings {
 
     @BindingAdapter("setSelectedData")
     fun Spinner.setSelectedData(selectedValue: BasicInfo?) {
-        Timber.i("INVERSE SPINNER SET SELECTEDDATA %s", selectedValue?.getObjectName())
+        Timber.i("INVERSE SPINNER SET SELECTEDDATA %d %s", selectedValue?.getObjectId(),selectedValue?.getObjectName())
         setSpinnerValue(selectedValue)
     }
 

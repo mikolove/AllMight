@@ -40,9 +40,9 @@ class WorkoutSettingsFragment : Fragment() {
         val linearLayoutManager = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         val adapter = WorkoutSettingsAdapter(
             WorkoutSettingsListener { view: View, workout: Workout ->
-                when(view.getId()){
+                when(view.id){
                     R.id.list_item_workout_exercise_title -> {
-                        val direction = HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailWorkoutSettingsFragment().setWorkoutId(workout.id)
+                        val direction = HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailWorkoutSettingsFragment().setWorkoutId(workout.id).setStatus(workout.status)
                         findNavController().navigate(direction)
                     }
                     R.id.list_item_workout_ic_delete -> {
@@ -55,6 +55,21 @@ class WorkoutSettingsFragment : Fragment() {
 
         binding.workoutSettingsRecyclerView.layoutManager = linearLayoutManager
         binding.workoutSettingsRecyclerView.adapter = adapter
+
+        binding.workoutSettingsChipGroup.setOnCheckedChangeListener{ group, checked ->
+            when(checked) {
+                R.id.workout_settings_chip_active -> {
+                    Timber.i("ACTIVE SELECTED")
+                    viewModel.setFilterStatus(true)
+                    viewModel.onFilterChange()
+                }
+                R.id.workout_settings_chip_inactive -> {
+                    Timber.i("INACTIVE SELECTED")
+                    viewModel.setFilterStatus(false)
+                    viewModel.onFilterChange()
+                }
+            }
+        }
 
         viewModel.workouts?.observe( viewLifecycleOwner, Observer {
             it?.let {
