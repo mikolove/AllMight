@@ -2,9 +2,11 @@ package com.mikolove.allmight.repository
 
 import androidx.lifecycle.LiveData
 import com.mikolove.allmight.database.AllmightDatabase
+import com.mikolove.allmight.database.entities.AddExercise
 import com.mikolove.allmight.database.entities.BasicElement
 import com.mikolove.allmight.database.entities.Exercise
 import com.mikolove.allmight.database.entities.WorkoutType
+import timber.log.Timber
 
 class ExerciseRepository (val dataSource : AllmightDatabase){
 
@@ -24,6 +26,11 @@ class ExerciseRepository (val dataSource : AllmightDatabase){
     fun getExerciseByWorkoutType(id : Int, status : Boolean) : LiveData<List<Exercise>> {
         return dataSource.exerciseDao().getAllExerciseByIdWorkoutType(id,status)
     }
+
+    fun getAddExercise(id : Int) : LiveData<List<AddExercise>>{
+        return dataSource.exerciseDao().getAllExerciseWorkout(id)
+    }
+
     fun insert(exercise: Exercise) : Long{
         return dataSource.exerciseDao().insert(exercise)
     }

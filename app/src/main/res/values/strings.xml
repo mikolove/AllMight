@@ -12,6 +12,13 @@
     <string name="include_settings_chip_active">Actif</string>
     <string name="include_settings_chip_inactive">Inactif</string>
 
+    <!-- Workout Add Exercise-->
+    <string name="wkaddex_info_selected">Nombre d\'exercice dans le programme</string>
+    <string name="wkaddex_info_global">Sélectionner les exercices à ajouter au programme.</string>
+    <string name="wkaddex_chip_all">Tous</string>
+    <string name="wkaddex_chip_selected">Sélectionné</string>
+    <string name="wkaddex_search_hint">Rechercher par nom ou type</string>
+
     <!-- Settings home-->
     <string name="home_settings_title">Gérer l\'entrainement</string>
     <string name="home_settings_add">Ajouter</string>

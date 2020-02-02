@@ -43,6 +43,9 @@
             android:name="status"
             app:argType="boolean"
             android:defaultValue="true" />
+        <action
+            android:id="@+id/action_detail_workout_settings_fragment_to_workout_add_exercises_fragment"
+            app:destination="@id/workout_add_exercises_fragment" />
     </fragment>
     <fragment
         android:id="@+id/exercise_settings_fragment"
@@ -68,6 +71,16 @@
             android:name="status"
             app:argType="boolean"
             android:defaultValue="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/workout_add_exercises_fragment"
+        android:name="com.mikolove.allmight.views.settings.workoutaddexercises.WorkoutAddExercisesFragment"
+        android:label="WorkoutAddExercisesFragment"
+        tools:layout="@layout/fragment_workout_add_exercises">
+        <argument
+            android:name="workoutId"
+            app:argType="integer"
+            android:defaultValue="0" />
     </fragment>
 
 </navigation>

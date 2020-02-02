@@ -41,6 +41,18 @@ class DetailWorkoutSettingsViewModel(private val workoutId : Int = 0, private va
         }
     }
 
+    private val _navigateToAdd = MutableLiveData<Int>()
+    val navigateToAdd: LiveData<Int>
+        get() = _navigateToAdd
+
+    fun doneNavigatingToAdd() {
+        _navigateToAdd.value = null
+    }
+
+    fun onAddClick(){
+        _navigateToAdd.value = 0
+    }
+
     fun doneNavigatingToHomeSettings() {
         _navigateToHomeSettings.value = null
     }

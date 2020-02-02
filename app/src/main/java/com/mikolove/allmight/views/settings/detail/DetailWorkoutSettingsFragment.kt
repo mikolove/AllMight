@@ -61,6 +61,12 @@ class DetailWorkoutSettingsFragment : Fragment(){
             }
         })
 
+        viewModel.navigateToAdd.observe(viewLifecycleOwner, Observer { it ->
+            it?.let{
+                        this.findNavController().navigate(DetailWorkoutSettingsFragmentDirections.actionDetailWorkoutSettingsFragmentToWorkoutAddExercisesFragment().setWorkoutId(workoutId))
+                        viewModel.doneNavigatingToAdd()
+            }
+        })
         return binding.root
     }
 
