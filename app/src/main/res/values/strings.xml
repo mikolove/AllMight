@@ -18,6 +18,8 @@
     <string name="wkaddex_chip_all">Tous</string>
     <string name="wkaddex_chip_selected">Sélectionné</string>
     <string name="wkaddex_search_hint">Rechercher par nom ou type</string>
+    <string name="list_wkaddex_rep">Series : %1d</string>
+    <string name="list_wkaddex_series">Rep : %1d</string>
 
     <!-- Settings home-->
     <string name="home_settings_title">Gérer l\'entrainement</string>
