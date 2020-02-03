@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -11,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikolove.allmight.R
 import com.mikolove.allmight.database.AllmightDatabase
+import com.mikolove.allmight.database.entities.AddExercise
 import com.mikolove.allmight.database.entities.Exercise
 import com.mikolove.allmight.databinding.FragmentWorkoutAddExercisesBinding
 import com.mikolove.allmight.views.settings.detail.DetailWorkoutSettingsFragmentArgs
@@ -37,12 +39,14 @@ class WorkoutAddExercisesFragment : Fragment(){
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(WorkoutAddExercisesViewModel::class.java)
 
         binding.workoutAddExerciseViewModel = viewModel
-
         binding.lifecycleOwner = this
+
         val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
         val adapter = WorkoutAddExercisesAdapter(
-            WorkoutAddExercisesListener { view: View, exercise: Exercise ->
-
+            WorkoutAddExercisesListener { view: View, exercise: AddExercise ->
+                exercise?.let {
+                   viewModel.switchState(exercise)
+                }
             }
         )
 
@@ -50,12 +54,15 @@ class WorkoutAddExercisesFragment : Fragment(){
         binding.wkaddexRecyclerView.adapter = adapter
 
         viewModel.exercises.observe(viewLifecycleOwner, Observer {
-            Timber.i("Exercise loaded %d",it?.size)
             it?.let {
-                it.forEach {
-                    Timber.i("Values ex name rep ser %s %d %d",it.name,it.rep,it.series)
-                }
                 adapter.submitList(it)
+            }
+        })
+
+        viewModel.state.observe(viewLifecycleOwner, Observer {
+            it?.let {
+                adapter.notifyDataSetChanged()
+                viewModel.stateHasChange()
             }
         })
 

@@ -8,7 +8,7 @@ data class AddExercise(val id_exercise : Int,
                        val rep : Int,
                        val series : Int,
                        val id_type : Int,
-                       val is_selected : Int) {
+                       var is_selected : Int) {
 
     fun getVisibility() : Int{
         return when(is_selected) {

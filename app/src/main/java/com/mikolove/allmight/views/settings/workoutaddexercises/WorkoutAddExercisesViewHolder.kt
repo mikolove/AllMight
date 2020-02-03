@@ -13,6 +13,7 @@ class WorkoutAddExercisesViewHolder private constructor(val binding: ListItemAdd
 
     fun bind(clickListener: WorkoutAddExercisesListener, item: AddExercise) {
         binding.addExercise = item
+        binding.listItemAeSelected.visibility = item.getVisibility()
         binding.clickListener = clickListener
         binding.executePendingBindings()
     }

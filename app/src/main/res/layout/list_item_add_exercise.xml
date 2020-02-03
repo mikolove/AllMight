@@ -7,14 +7,15 @@
         <variable
             name="addExercise"
             type="com.mikolove.allmight.database.entities.AddExercise" />
-
         <variable
             name="clickListener"
             type="com.mikolove.allmight.views.settings.workoutaddexercises.WorkoutAddExercisesListener" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:onClick="@{(view) -> clickListener.onClick(view,addExercise)}"
+        >
 
         <TextView
             android:id="@+id/list_item_ae_name"
@@ -34,8 +35,7 @@
             android:background="@drawable/ic_check_black_24dp"
             app:layout_constraintBottom_toBottomOf="@+id/list_item_ae_series"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/list_item_ae_name"
-            android:visibility="@{addExercise.getVisibility()}"/>
+            app:layout_constraintTop_toTopOf="@+id/list_item_ae_name"/>
 
         <TextView
             android:id="@+id/list_item_ae_series"
