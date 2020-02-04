@@ -26,7 +26,6 @@ class WorkoutAddExerciseSettingDiffCallback : DiffUtil.ItemCallback<AddExercise>
     }
 
     override fun areContentsTheSame(oldItem: AddExercise, newItem: AddExercise): Boolean {
-        Timber.i("Old item %s New item%s",oldItem.toString(),newItem.toString())
         return oldItem == newItem
     }
 }

@@ -31,6 +31,11 @@ class ExerciseRepository (val dataSource : AllmightDatabase){
         return dataSource.exerciseDao().getAllExerciseWorkout(id)
     }
 
+    fun getSelectedAddExercise(id : Int) : LiveData<List<AddExercise>>{
+        return dataSource.exerciseDao().getAllSelectedExerciseWorkout(id)
+    }
+
+
     fun insert(exercise: Exercise) : Long{
         return dataSource.exerciseDao().insert(exercise)
     }

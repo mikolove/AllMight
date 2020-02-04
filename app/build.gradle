@@ -57,11 +57,12 @@ dependencies {
     implementation "androidx.constraintlayout:constraintlayout:$version_constraint_layout"
     implementation "androidx.recyclerview:recyclerview:$version_recyclerview"
     implementation "androidx.core:core-ktx:$version_ktx"
-    implementation "androidx.room:room-runtime:$version_room"
     annotationProcessor "android.arch.persistence.room:compiler:$version_room"
     androidTestImplementation "android.arch.persistence.room:testing:$version_room"
 
     kapt "androidx.room:room-compiler:$version_room"
+    implementation "androidx.room:room-runtime:$version_room"
+
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
     kapt 'com.android.databinding:compiler:3.0.1'
 

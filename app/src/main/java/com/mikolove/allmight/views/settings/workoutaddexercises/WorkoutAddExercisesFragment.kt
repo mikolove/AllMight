@@ -53,16 +53,30 @@ class WorkoutAddExercisesFragment : Fragment(){
         binding.wkaddexRecyclerView.layoutManager = linearLayoutManager
         binding.wkaddexRecyclerView.adapter = adapter
 
-        viewModel.exercises.observe(viewLifecycleOwner, Observer {
+        binding.wkaddexChipGroup.setOnCheckedChangeListener{ group, checked ->
+            when(checked) {
+                R.id.wkaddex_chip_all -> {
+                    viewModel.setFilterStatus(0)
+                    viewModel.onFilterChange()
+                }
+                R.id.wkaddex_chip_selected -> {
+                    viewModel.setFilterStatus(1)
+                    viewModel.onFilterChange()
+                }
+            }
+        }
+
+        viewModel.exercises?.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.submitList(it)
             }
         })
-
+        
         viewModel.state.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.notifyDataSetChanged()
                 viewModel.stateHasChange()
+                viewModel.unlockAction()
             }
         })
 
