@@ -12,6 +12,13 @@
     <string name="include_settings_chip_active">Actif</string>
     <string name="include_settings_chip_inactive">Inactif</string>
 
+    <!-- error -->
+    <string name="error_name_empty">La saisie d\'un nom est obligatoire</string>
+
+    <!-- Default string -->
+    <string name="default_workout"></string>
+    <string name="default_exercise"></string>
+
     <!-- Workout Add Exercise-->
     <string name="wkaddex_info_selected">Nombre d\'exercice dans le programme</string>
     <string name="wkaddex_info_global">Sélectionner les exercices à ajouter au programme.</string>

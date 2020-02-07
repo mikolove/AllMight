@@ -11,7 +11,7 @@ import com.mikolove.allmight.repository.WorkoutTypeRepository
 import kotlinx.coroutines.*
 import timber.log.Timber
 
-class DetailWorkoutSettingsViewModel(private val workoutId : Int = 0, private val status : Boolean = true,  dataSource: AllmightDatabase, application: Application) : ViewModel(){
+class DetailWorkoutSettingsViewModel(private val workoutId : Int = 0, private val name : String, private val status : Boolean = true,  dataSource: AllmightDatabase, application: Application) : ViewModel(){
 
     val database = dataSource
 
@@ -34,7 +34,7 @@ class DetailWorkoutSettingsViewModel(private val workoutId : Int = 0, private va
 
         workout.addSource(wkRepo.getWorkoutById(workoutId,status)) { fromRoom ->
             if(fromRoom == null){
-                workout.value = Workout()
+                workout.value = Workout(name =name)
             }else{
                 workout.value = fromRoom
             }

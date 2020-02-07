@@ -2,6 +2,8 @@ package com.mikolove.allmight.views.settings.detail
 
 import android.os.Bundle
 import android.view.*
+import android.view.View.OnAttachStateChangeListener
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -10,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import com.mikolove.allmight.R
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.databinding.FragmentDetailsExerciseSettingBinding
+import timber.log.Timber
 
 class DetailExerciseSettingsFragment : Fragment(){
 
@@ -31,7 +34,12 @@ class DetailExerciseSettingsFragment : Fragment(){
         exerciseId = arguments.exerciseId
         status = arguments.status
 
-        val viewModelFactory = DetailExerciseSettingsViewModelFactory(exerciseId,status, dataSource, application)
+        val viewModelFactory = DetailExerciseSettingsViewModelFactory(
+            exerciseId,
+            getString(R.string.default_workout),
+            status,
+            dataSource,
+            application)
 
         setHasOptionsMenu(true)
 
@@ -89,10 +97,15 @@ class DetailExerciseSettingsFragment : Fragment(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return (when(item.itemId) {
             R.id.detail_action_done -> {
-                if(viewModel.exercise.value?.id!! > 0){
-                    viewModel.updateExercise()
+
+                if(viewModel.exercise.value?.name.isNullOrEmpty()) {
+                    Toast.makeText(context, R.string.error_name_empty, Toast.LENGTH_SHORT).show()
                 }else{
-                    viewModel.insertExercise()
+                    if(viewModel.exercise.value?.id!! > 0){
+                        viewModel.updateExercise()
+                    }else{
+                        viewModel.insertExercise()
+                    }
                 }
                 true
             }

@@ -14,16 +14,15 @@ data class WorkoutType(
     var id : Int = 0,
 
     @ColumnInfo(name = "name")
-    var name : String? = null
+    var name : String
 )  : BasicInfo{
 
     override fun getObjectId(): Int  = id
-    override fun getObjectName(): String? = name
+    override fun getObjectName(): String = name
 
     companion object{
 
         fun populate() : List<WorkoutType>{
-            Timber.i("GO TO POPULATE")
             return listOf(
                 WorkoutType(1,"Pectoraux"),
                 WorkoutType(2,"Bras"),

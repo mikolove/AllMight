@@ -2,6 +2,7 @@ package com.mikolove.allmight.views.settings.detail
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -31,7 +32,12 @@ class DetailWorkoutSettingsFragment : Fragment(){
         workoutId = arguments.workoutId
         status = arguments.status
 
-        val viewModelFactory = DetailWorkoutSettingsViewModelFactory(workoutId,status, dataSource, application)
+        val viewModelFactory = DetailWorkoutSettingsViewModelFactory(
+            workoutId,
+            getString(R.string.default_workout),
+            status,
+            dataSource,
+            application)
 
         setHasOptionsMenu(true)
 
@@ -81,10 +87,15 @@ class DetailWorkoutSettingsFragment : Fragment(){
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return (when(item.itemId) {
             R.id.detail_action_done -> {
-                if(viewModel.workout.value?.id!! > 0){
-                    viewModel.updateWorkout()
+
+                if(viewModel.workout.value?.name.isNullOrEmpty()) {
+                    Toast.makeText(context, R.string.error_name_empty, Toast.LENGTH_SHORT).show()
                 }else{
-                    viewModel.insertWorkout()
+                    if(viewModel.workout.value?.id!! > 0){
+                        viewModel.updateWorkout()
+                    }else{
+                        viewModel.insertWorkout()
+                    }
                 }
                 true
             }

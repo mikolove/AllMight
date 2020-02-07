@@ -20,7 +20,7 @@ data class Exercise(
     var id : Int = 0,
 
     @ColumnInfo(name = "name")
-    var name : String? = null,
+    var name : String,
 
     @ColumnInfo(name = "series_count")
     var series_count : Int = 0,

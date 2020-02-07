@@ -1,13 +1,23 @@
 package com.mikolove.allmight.views.settings.workoutaddexercises
 
 import android.view.ViewGroup
+import android.widget.Filter
+import android.widget.Filterable
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.mikolove.allmight.database.entities.AddExercise
-import timber.log.Timber
 
-class WorkoutAddExercisesAdapter(val clickListener : WorkoutAddExercisesListener) : ListAdapter<AddExercise, WorkoutAddExercisesViewHolder>(WorkoutAddExerciseSettingDiffCallback()){
+class WorkoutAddExercisesAdapter(val clickListener : WorkoutAddExercisesListener) : ListAdapter<AddExercise, WorkoutAddExercisesViewHolder>(WorkoutAddExerciseSettingDiffCallback()), Filterable{
 
+    //Init it later beacause submitList only notify if a new list is sended
+    private lateinit var filteredData : MutableList<AddExercise>
+
+    fun loadData(currentList : List<AddExercise>){
+        filteredData = mutableListOf<AddExercise>()
+        filteredData.addAll(currentList)
+        submitList(filteredData)
+    }
+    
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutAddExercisesViewHolder {
         return WorkoutAddExercisesViewHolder.from(parent)
     }
@@ -16,6 +26,28 @@ class WorkoutAddExercisesAdapter(val clickListener : WorkoutAddExercisesListener
         val item = getItem(position)
         holder.bind(clickListener,item)
     }
+
+    override fun getFilter(): Filter {
+        return object : Filter() {
+            override fun publishResults(charSequence: CharSequence?, filterResults: Filter.FilterResults) {
+                submitList(filterResults.values as MutableList<AddExercise>)
+            }
+
+            override fun performFiltering(charSequence: CharSequence?): Filter.FilterResults {
+                val queryString = charSequence?.toString()?.toLowerCase()
+                val filterResults = Filter.FilterResults()
+                filterResults.values = if (queryString==null || queryString.isEmpty())
+                    filteredData
+                else
+                    filteredData.filter {
+                        it.name.toLowerCase().contains(queryString) ||
+                        it.name_type.toLowerCase().contains(queryString)
+                    }
+                return filterResults
+                }
+            }
+
+        }
 
 }
 

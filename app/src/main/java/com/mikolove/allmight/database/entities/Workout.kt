@@ -19,7 +19,7 @@ data class Workout(
     var id : Int = 0,
 
     @ColumnInfo(name = "name")
-    var name : String? = null,
+    var name : String,
 
     @ColumnInfo(name = "status")
     var status : Boolean = true,
@@ -29,6 +29,6 @@ data class Workout(
 ) : BasicInfo{
     override fun getObjectId(): Int = id
 
-    override fun getObjectName(): String? = name
+    override fun getObjectName(): String = name
 
 }

@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import android.widget.SearchView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikolove.allmight.R
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.AddExercise
-import com.mikolove.allmight.database.entities.Exercise
 import com.mikolove.allmight.databinding.FragmentWorkoutAddExercisesBinding
 import com.mikolove.allmight.views.settings.detail.DetailWorkoutSettingsFragmentArgs
 import timber.log.Timber
@@ -54,29 +53,41 @@ class WorkoutAddExercisesFragment : Fragment(){
         binding.wkaddexRecyclerView.adapter = adapter
 
         binding.wkaddexChipGroup.setOnCheckedChangeListener{ group, checked ->
+
+            binding.wkaddexSearchView.isIconified = true
             when(checked) {
                 R.id.wkaddex_chip_all -> {
                     viewModel.setFilterStatus(0)
-                    viewModel.onFilterChange()
                 }
                 R.id.wkaddex_chip_selected -> {
                     viewModel.setFilterStatus(1)
-                    viewModel.onFilterChange()
                 }
             }
         }
 
         viewModel.exercises?.observe(viewLifecycleOwner, Observer {
             it?.let {
-                adapter.submitList(it)
+                adapter.loadData(it)
             }
         })
-        
+
+
         viewModel.state.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.notifyDataSetChanged()
                 viewModel.stateHasChange()
-                viewModel.unlockAction()
+            }
+        })
+
+        binding.wkaddexSearchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+
+            override fun onQueryTextChange(newText: String): Boolean {
+                adapter.filter.filter(newText)
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+               return false
             }
         })
 

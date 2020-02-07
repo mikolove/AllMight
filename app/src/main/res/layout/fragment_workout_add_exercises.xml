@@ -39,11 +39,9 @@
             android:id="@+id/wkaddex_chip_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="16dp"
             app:checkedChip="@id/wkaddex_chip_all"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/wkaddex_search_view"
+            app:layout_constraintBottom_toBottomOf="@+id/wkaddex_search_view"
+            app:layout_constraintStart_toStartOf="@+id/wkaddex_title_info"
             app:selectionRequired="true"
             app:singleSelection="true">
 
@@ -67,10 +65,11 @@
             android:id="@+id/wkaddex_search_view"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
             android:queryHint="@string/wkaddex_search_hint"
             app:layout_constraintEnd_toEndOf="@+id/wkaddex_title_info"
-            app:layout_constraintStart_toStartOf="@+id/wkaddex_title_info"
+            app:layout_constraintStart_toEndOf="@+id/wkaddex_chip_group"
             app:layout_constraintTop_toBottomOf="@+id/wkaddex_title_info" />
 
         <TextView
@@ -94,8 +93,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="@+id/wkaddex_text_selected"
             app:layout_constraintStart_toStartOf="@+id/wkaddex_text_selected"
-            app:layout_constraintTop_toBottomOf="@+id/wkaddex_text_selected"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/wkaddex_text_selected" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

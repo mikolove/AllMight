@@ -11,6 +11,7 @@ import com.mikolove.allmight.repository.WorkoutRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import timber.log.Timber
 
 class WorkoutAddExercisesViewModel(val workoutId : Int, val database: AllmightDatabase, application: Application) : AndroidViewModel(application) {
 
@@ -20,32 +21,19 @@ class WorkoutAddExercisesViewModel(val workoutId : Int, val database: AllmightDa
 
     val workout = wkRepo.getWorkoutById(workoutId)
 
-    private val _filterChange = MutableLiveData<Int>()
-    val exercises : LiveData<List<AddExercise>>? = Transformations.switchMap(_filterChange) {
-        var selected : Int = 0
-        filterSelected.value?.let{ it->
-            selected = it
-        }
-        when(selected){
-            0 -> exRepo.getAddExercise(workoutId)
-            else -> exRepo.getSelectedAddExercise(workoutId)
-        }
+    private val filterSelected = MutableLiveData(0)
+
+    fun setFilterStatus(value : Int){
+        filterSelected.value = value
     }
 
     val state = MutableLiveData<Boolean>()
 
-    private val filterSelected = MutableLiveData<Int>()
-    fun getFilterSelected() = filterSelected
-
-    val blockAction = MutableLiveData<Boolean>()
-
-    init {
-        unlockAction()
-        onFilterChange()
-    }
-
-    fun unlockAction(){
-        blockAction.value = false
+    val exercises : LiveData<List<AddExercise>> = Transformations.switchMap(filterSelected) {
+        when(it ?: 0){
+            0 -> exRepo.getAddExercise(workoutId)
+            else -> exRepo.getSelectedAddExercise(workoutId)
+        }
     }
 
     fun stateHasChange(){
@@ -53,8 +41,6 @@ class WorkoutAddExercisesViewModel(val workoutId : Int, val database: AllmightDa
     }
 
     fun switchState(exercise : AddExercise){
-        if(blockAction.value == true) return
-
         exercise?.let {
             if (it.is_selected == 0) it.is_selected = 1
             else it.is_selected = 0
@@ -68,7 +54,6 @@ class WorkoutAddExercisesViewModel(val workoutId : Int, val database: AllmightDa
 
     private fun addToworkout(addExercise: AddExercise){
         addExercise?.let {
-            blockAction.value = true
             viewModelScope.launch {
                 insert(workoutId,addExercise.id_exercise)
                 state.value = true
@@ -85,7 +70,6 @@ class WorkoutAddExercisesViewModel(val workoutId : Int, val database: AllmightDa
 
     private fun deleteFromworkout(addExercise: AddExercise){
         addExercise?.let {
-            blockAction.value = true
             viewModelScope.launch {
                 delete(workoutId,addExercise.id_exercise)
                 state.value = true
@@ -100,13 +84,5 @@ class WorkoutAddExercisesViewModel(val workoutId : Int, val database: AllmightDa
         }
     }
 
-    fun setFilterStatus(value : Int){
-        filterSelected.value = value
-    }
-    fun onFilterChange(){
-        _filterChange.value = 1
-    }
-    fun doneFilterChange(){
-        _filterChange.value = null
-    }
+
 }

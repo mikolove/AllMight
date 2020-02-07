@@ -8,7 +8,7 @@ import com.mikolove.allmight.repository.ExerciseRepository
 import com.mikolove.allmight.repository.WorkoutTypeRepository
 import kotlinx.coroutines.*
 
-class DetailExerciseSettingsViewModel(private val exerciseId : Int = 0, private val status : Boolean = true, dataSource: AllmightDatabase, application: Application) : ViewModel(){
+class DetailExerciseSettingsViewModel(private val exerciseId : Int = 0, private val name : String, private val status : Boolean = true, dataSource: AllmightDatabase, application: Application) : ViewModel(){
 
     val database = dataSource
 
@@ -41,11 +41,10 @@ class DetailExerciseSettingsViewModel(private val exerciseId : Int = 0, private 
     private val workoutType = MutableLiveData<BasicInfo>()
     fun getWorkoutType() = workoutType
 
-
     init{
         exercise.addSource(exRepo.getExerciseById(exerciseId,status)) { fromRoom ->
             if(fromRoom == null){
-                exercise.value = Exercise()
+                exercise.value = Exercise(name = name)
             }else{
                 exercise.value = fromRoom
             }
