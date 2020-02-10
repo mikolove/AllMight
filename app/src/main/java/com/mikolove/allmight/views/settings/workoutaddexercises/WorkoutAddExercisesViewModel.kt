@@ -1,6 +1,7 @@
 package com.mikolove.allmight.views.settings.workoutaddexercises
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.AddExercise
@@ -23,6 +24,7 @@ class WorkoutAddExercisesViewModel(val workoutId : Int, val database: AllmightDa
 
     private val filterSelected = MutableLiveData(0)
 
+
     fun setFilterStatus(value : Int){
         filterSelected.value = value
     }
@@ -34,6 +36,12 @@ class WorkoutAddExercisesViewModel(val workoutId : Int, val database: AllmightDa
             0 -> exRepo.getAddExercise(workoutId)
             else -> exRepo.getSelectedAddExercise(workoutId)
         }
+    }
+
+    val selectedItem : LiveData<Int> = Transformations.map(exercises){
+         it.filter {exercise ->
+             exercise.is_selected == 1
+        }.size
     }
 
     fun stateHasChange(){
@@ -55,6 +63,7 @@ class WorkoutAddExercisesViewModel(val workoutId : Int, val database: AllmightDa
     private fun addToworkout(addExercise: AddExercise){
         addExercise?.let {
             viewModelScope.launch {
+                Timber.i("workout id %d id exe %d",workoutId,addExercise.id_exercise)
                 insert(workoutId,addExercise.id_exercise)
                 state.value = true
 
@@ -84,5 +93,17 @@ class WorkoutAddExercisesViewModel(val workoutId : Int, val database: AllmightDa
         }
     }
 
+    val listVisibility = MutableLiveData<Int>()
+    val textVisibility = MutableLiveData<Int>()
+
+    fun showAndHide(count : Int){
+        if( count > 0){
+            listVisibility.value = View.VISIBLE
+            textVisibility.value = View.INVISIBLE
+        }else{
+            listVisibility.value = View.INVISIBLE
+            textVisibility.value = View.VISIBLE
+        }
+    }
 
 }

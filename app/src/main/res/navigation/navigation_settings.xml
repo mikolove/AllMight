@@ -75,12 +75,12 @@
     <fragment
         android:id="@+id/workout_add_exercises_fragment"
         android:name="com.mikolove.allmight.views.settings.workoutaddexercises.WorkoutAddExercisesFragment"
-        android:label="WorkoutAddExercisesFragment"
+        android:label="@string/manage"
         tools:layout="@layout/fragment_workout_add_exercises">
         <argument
             android:name="workoutId"
-            app:argType="integer"
-            android:defaultValue="0" />
+            android:defaultValue="0"
+            app:argType="integer" />
         <action
             android:id="@+id/action_workout_add_exercises_fragment_to_detail_workout_settings_fragment"
             app:destination="@id/detail_workout_settings_fragment" />

@@ -58,8 +58,8 @@ class DetailWorkoutSettingsFragment : Fragment(){
         binding.lifecycleOwner = this
 
         viewModel.exercises.observe(viewLifecycleOwner, Observer {
-            Timber.i("Exercise size %d",it.size)
             adapter.submitList(it)
+            viewModel.showAndHide(it.size)
 
         })
         viewModel.workout.observe(viewLifecycleOwner, Observer {

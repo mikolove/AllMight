@@ -4,6 +4,7 @@
     <!-- Global -->
     <string name="exercice_title">Exercice</string>
     <string name="workout_title">Programme</string>
+    <string name="add_exercise_workout_title">Programme : %s</string>
     <string name="test">Test</string>
 
     <!-- Settings -->
@@ -16,14 +17,15 @@
     <string name="error_name_empty">La saisie d\'un nom est obligatoire</string>
 
     <!-- Default string -->
+    <string name="manage">Gérer</string>
     <string name="default_workout"></string>
     <string name="default_exercise"></string>
 
     <!-- Workout Add Exercise-->
-    <string name="wkaddex_info_selected">Nombre d\'exercice dans le programme</string>
+    <string name="wkaddex_info_selected">Nombre d\'exercice dans le programme : %d</string>
     <string name="wkaddex_info_global">Sélectionner les exercices à ajouter au programme.</string>
     <string name="wkaddex_chip_all">Tous</string>
-    <string name="wkaddex_chip_selected">Sélectionné</string>
+    <string name="wkaddex_chip_selected">Sélectionné %d</string>
     <string name="wkaddex_search_hint">Rechercher par nom ou type</string>
     <string name="list_wkaddex_rep">Series : %1d</string>
     <string name="list_wkaddex_series">Rep : %1d</string>
@@ -35,6 +37,8 @@
 
     <string name="workout_settings_no_data">Aucun programme n\'existe dans cette catégorie.</string>
     <string name="exercise_settings_no_data">Aucun exercice n\'existe dans cette catégorie.</string>
+
+    <string name="detail_workout_settings_no_data">Aucun exercice pour ce programme.</string>
 
     <!-- Settings details workout & exercise -->
     <string name="details_workout_add">Créer un programme</string>

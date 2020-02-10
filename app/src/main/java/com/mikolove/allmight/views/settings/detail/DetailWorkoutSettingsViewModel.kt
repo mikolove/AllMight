@@ -1,6 +1,7 @@
 package com.mikolove.allmight.views.settings.detail
 
 import android.app.Application
+import android.view.View
 import androidx.lifecycle.*
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.AddExercise
@@ -53,6 +54,18 @@ class DetailWorkoutSettingsViewModel(private val workoutId : Int = 0, private va
         }
     }
 
+    val listVisibility = MutableLiveData<Int>()
+    val textVisibility = MutableLiveData<Int>()
+
+    fun showAndHide(count : Int){
+        if( count > 0){
+            listVisibility.value = View.VISIBLE
+            textVisibility.value = View.INVISIBLE
+        }else{
+            listVisibility.value = View.INVISIBLE
+            textVisibility.value = View.VISIBLE
+        }
+    }
     private val _navigateToAdd = MutableLiveData<Int>()
     val navigateToAdd: LiveData<Int>
         get() = _navigateToAdd

@@ -68,6 +68,7 @@ class WorkoutAddExercisesFragment : Fragment(){
         viewModel.exercises?.observe(viewLifecycleOwner, Observer {
             it?.let {
                 adapter.loadData(it)
+                viewModel.showAndHide(it.size)
             }
         })
 

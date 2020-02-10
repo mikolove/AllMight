@@ -42,6 +42,7 @@ class WorkoutSettingsFragment : Fragment() {
             WorkoutSettingsListener { view: View, workout: Workout ->
                 when(view.id){
                     R.id.list_item_workout_exercise_title -> {
+                        Timber.i("Workout id sended %d",workout.id)
                         val direction = HomeSettingsFragmentDirections.actionHomeSettingsFragmentToDetailWorkoutSettingsFragment().setWorkoutId(workout.id).setStatus(workout.status)
                         findNavController().navigate(direction)
                     }

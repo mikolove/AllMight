@@ -38,14 +38,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/detail_workout_settings_txt_title" />
 
         <TextView
-                android:id="@+id/detail_workout_settings_txt_title_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/details_settings_title_name"
-                app:layout_constraintEnd_toEndOf="@+id/divider"
-                app:layout_constraintStart_toStartOf="@+id/divider"
-                app:layout_constraintTop_toBottomOf="@+id/divider" />
+            android:id="@+id/detail_workout_settings_txt_title_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginEnd="8dp"
+            android:text="@string/details_settings_title_name"
+            app:layout_constraintEnd_toStartOf="@+id/detail_workout_settings_txt_status_name"
+            app:layout_constraintStart_toStartOf="@+id/divider"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
         <EditText
                 android:id="@+id/detail_workout_settings_edit_name"
@@ -60,35 +61,33 @@
                 app:layout_constraintTop_toBottomOf="@+id/detail_workout_settings_txt_title_name" />
 
         <TextView
-                android:id="@+id/detail_workout_settings_txt_status_name"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/details_settings_title_status"
-                app:layout_constraintEnd_toEndOf="@+id/detail_workout_settings_edit_name"
-                app:layout_constraintStart_toStartOf="@+id/detail_workout_settings_edit_name"
-                app:layout_constraintTop_toBottomOf="@+id/detail_workout_settings_edit_name" />
+            android:id="@+id/detail_workout_settings_txt_status_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="@string/details_settings_title_status"
+            app:layout_constraintEnd_toEndOf="@+id/detail_workout_settings_txt_title"
+            app:layout_constraintTop_toTopOf="@+id/detail_workout_settings_txt_title_name" />
 
         <Switch
-                android:id="@+id/detail_workout_settings_switch_status"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="@string/details_settings_text_status"
-                android:checked="@={detailWorkoutSettingsViewModel.workout.status}"
-                app:layout_constraintEnd_toEndOf="@+id/detail_workout_settings_txt_status_name"
-                app:layout_constraintStart_toStartOf="@+id/detail_workout_settings_txt_status_name"
-                app:layout_constraintTop_toBottomOf="@+id/detail_workout_settings_txt_status_name" />
+            android:id="@+id/detail_workout_settings_switch_status"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="1dp"
+            android:checked="@={detailWorkoutSettingsViewModel.workout.status}"
+            app:layout_constraintBottom_toBottomOf="@+id/detail_workout_settings_edit_name"
+            app:layout_constraintEnd_toEndOf="@+id/detail_workout_settings_txt_status_name"
+            app:layout_constraintTop_toBottomOf="@+id/detail_workout_settings_txt_status_name" />
 
         <TextView
-                android:id="@+id/detail_workout_settings_txt_type"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:text="@string/details_settings_title_type"
-                app:layout_constraintEnd_toEndOf="@+id/detail_workout_settings_switch_status"
-                app:layout_constraintStart_toStartOf="@+id/detail_workout_settings_txt_status_name"
-                app:layout_constraintTop_toBottomOf="@+id/detail_workout_settings_switch_status" />
+            android:id="@+id/detail_workout_settings_txt_type"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/details_settings_title_type"
+            app:layout_constraintEnd_toEndOf="@+id/detail_workout_settings_txt_title"
+            app:layout_constraintStart_toStartOf="@+id/detail_workout_settings_edit_name"
+            app:layout_constraintTop_toBottomOf="@+id/detail_workout_settings_edit_name" />
         <Spinner
                 android:id="@+id/detail_workout_settings_spinner"
                 android:layout_width="0dp"
@@ -107,7 +106,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:onClick="@{() -> detailWorkoutSettingsViewModel.onAddClick()}"
-            android:text="Button"
+            android:text="@string/manage"
             app:layout_constraintEnd_toEndOf="@+id/detail_workout_settings_spinner"
             app:layout_constraintTop_toBottomOf="@+id/detail_workout_settings_spinner" />
 
@@ -117,6 +116,7 @@
             android:layout_height="0dp"
             android:layout_marginBottom="8dp"
             app:layout_constraintBottom_toBottomOf="parent"
+            android:visibility="@{detailWorkoutSettingsViewModel.listVisibility}"
             app:layout_constraintEnd_toEndOf="@+id/detail_workout_settings_spinner"
             app:layout_constraintStart_toStartOf="@+id/detail_workout_settings_txt_exercise_title"
             app:layout_constraintTop_toBottomOf="@+id/detail_workout_settings_btn_add" />
@@ -126,10 +126,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="2dp"
-            android:text="TextView"
+            android:text="@string/exercice_title"
             app:layout_constraintBottom_toBottomOf="@+id/detail_workout_settings_btn_add"
             app:layout_constraintStart_toStartOf="@+id/detail_workout_settings_spinner"
             app:layout_constraintTop_toTopOf="@+id/detail_workout_settings_btn_add" />
+
+        <TextView
+            android:id="@+id/detail_workout_settings_txt_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="162dp"
+            android:layout_marginTop="238dp"
+            android:layout_marginEnd="154dp"
+            android:layout_marginBottom="258dp"
+            android:text="@string/detail_workout_settings_no_data"
+            android:visibility="@{detailWorkoutSettingsViewModel.textVisibility}"
+            app:layout_constraintBottom_toBottomOf="@+id/detail_workout_settings_recycler_view_exercise"
+            app:layout_constraintEnd_toEndOf="@+id/detail_workout_settings_btn_add"
+            app:layout_constraintStart_toStartOf="@+id/detail_workout_settings_txt_exercise_title"
+            app:layout_constraintTop_toBottomOf="@+id/detail_workout_settings_btn_add" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

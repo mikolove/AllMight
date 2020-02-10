@@ -38,18 +38,20 @@ interface ExerciseDao{
     fun getAllExerciseByIdWorkoutType(id_workout_type : Int, status : Boolean = true) : LiveData<List<Exercise>>
 
     @Query("SELECT e.id as id_exercise, e.name as name, wt.name as name_type, e.rep_count as rep, e.series_count as series, wt.id as id_type , " +
-            "( CASE WHEN we.id_workout = :workout_id IS NULL THEN 0 ELSE 1 END ) as is_selected " +
-            "FROM ${AllmightDatabase.exerciseTableName} e " +
-            "INNER JOIN ${AllmightDatabase.workoutTypeTableName} wt ON e.id_workout_type = wt.id " +
-            "LEFT OUTER JOIN ${AllmightDatabase.workoutExerciseTableName} we ON e.id = we.id_exercise ")
-    fun getAllExerciseWorkout(workout_id : Int) : LiveData<List<AddExercise>>
-
-    @Query("SELECT e.id as id_exercise, e.name as name, wt.name as name_type, e.rep_count as rep, e.series_count as series, wt.id as id_type , " +
-            "( CASE WHEN we.id_workout = :workout_id IS NULL THEN 0 ELSE 1 END ) as is_selected " +
+            "( CASE WHEN we.id_exercise = id_exercise THEN 1 ELSE 0 END ) as is_selected " +
             "FROM ${AllmightDatabase.exerciseTableName} e " +
             "INNER JOIN ${AllmightDatabase.workoutTypeTableName} wt ON e.id_workout_type = wt.id " +
             "LEFT OUTER JOIN ${AllmightDatabase.workoutExerciseTableName} we ON e.id = we.id_exercise " +
-            "WHERE is_selected = 1")
+            "AND we.id_workout = :workout_id")
+    fun getAllExerciseWorkout(workout_id: Int) : LiveData<List<AddExercise>>
+
+    @Query("SELECT e.id as id_exercise, e.name as name, wt.name as name_type, e.rep_count as rep, e.series_count as series, wt.id as id_type , " +
+            "( CASE WHEN we.id_exercise = id_exercise THEN 1 ELSE 0 END ) as is_selected " +
+            "FROM ${AllmightDatabase.exerciseTableName} e " +
+            "INNER JOIN ${AllmightDatabase.workoutTypeTableName} wt ON e.id_workout_type = wt.id " +
+            "LEFT OUTER JOIN ${AllmightDatabase.workoutExerciseTableName} we ON e.id = we.id_exercise " +
+            "WHERE is_selected = 1 "+
+            "AND we.id_workout = :workout_id")
     fun getAllSelectedExerciseWorkout(workout_id : Int) : LiveData<List<AddExercise>>
 
 }
