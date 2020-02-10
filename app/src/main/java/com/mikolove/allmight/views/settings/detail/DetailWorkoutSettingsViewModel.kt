@@ -3,9 +3,11 @@ package com.mikolove.allmight.views.settings.detail
 import android.app.Application
 import androidx.lifecycle.*
 import com.mikolove.allmight.database.AllmightDatabase
+import com.mikolove.allmight.database.entities.AddExercise
 import com.mikolove.allmight.database.entities.BasicInfo
 import com.mikolove.allmight.database.entities.Workout
 import com.mikolove.allmight.database.entities.WorkoutType
+import com.mikolove.allmight.repository.ExerciseRepository
 import com.mikolove.allmight.repository.WorkoutRepository
 import com.mikolove.allmight.repository.WorkoutTypeRepository
 import kotlinx.coroutines.*
@@ -17,8 +19,10 @@ class DetailWorkoutSettingsViewModel(private val workoutId : Int = 0, private va
 
     private val wkTypeRepo = WorkoutTypeRepository(dataSource,application)
     private val wkRepo     = WorkoutRepository(dataSource)
+    private val exRepo     = ExerciseRepository(dataSource)
 
     var workout =  MediatorLiveData<Workout>()
+    var exercises = MediatorLiveData<List<AddExercise>>()
 
     private val _navigateToHomeSettings = MutableLiveData<Long>()
     val navigateToHomeSettings : LiveData<Long>
@@ -37,6 +41,14 @@ class DetailWorkoutSettingsViewModel(private val workoutId : Int = 0, private va
                 workout.value = Workout(name =name)
             }else{
                 workout.value = fromRoom
+            }
+        }
+
+        exercises.addSource(exRepo.getSelectedAddExercise(workoutId)){ fromRoom ->
+            if(fromRoom == null){
+                exercises.value = mutableListOf<AddExercise>()
+            }else{
+                exercises.value = fromRoom
             }
         }
     }

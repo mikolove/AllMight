@@ -8,9 +8,13 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikolove.allmight.R
+import com.mikolove.allmight.adapters.BasicInfoAdapter
+import com.mikolove.allmight.adapters.BasicInfoViewHolder
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.databinding.FragmentDetailsWorkoutSettingBinding
+import timber.log.Timber
 
 class DetailWorkoutSettingsFragment : Fragment(){
 
@@ -41,11 +45,23 @@ class DetailWorkoutSettingsFragment : Fragment(){
 
         setHasOptionsMenu(true)
 
+        val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
+        val adapter = BasicInfoAdapter()
+
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(DetailWorkoutSettingsViewModel::class.java)
 
         binding.detailWorkoutSettingsViewModel = viewModel
+
+        binding.detailWorkoutSettingsRecyclerViewExercise.layoutManager = linearLayoutManager
+        binding.detailWorkoutSettingsRecyclerViewExercise.adapter = adapter
+
         binding.lifecycleOwner = this
 
+        viewModel.exercises.observe(viewLifecycleOwner, Observer {
+            Timber.i("Exercise size %d",it.size)
+            adapter.submitList(it)
+
+        })
         viewModel.workout.observe(viewLifecycleOwner, Observer {
             viewModel.loadWorkoutType()
         })

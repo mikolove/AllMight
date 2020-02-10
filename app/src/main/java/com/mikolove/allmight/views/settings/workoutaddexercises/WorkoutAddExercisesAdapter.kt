@@ -17,7 +17,7 @@ class WorkoutAddExercisesAdapter(val clickListener : WorkoutAddExercisesListener
         filteredData.addAll(currentList)
         submitList(filteredData)
     }
-    
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WorkoutAddExercisesViewHolder {
         return WorkoutAddExercisesViewHolder.from(parent)
     }

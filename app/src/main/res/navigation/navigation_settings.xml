@@ -81,6 +81,9 @@
             android:name="workoutId"
             app:argType="integer"
             android:defaultValue="0" />
+        <action
+            android:id="@+id/action_workout_add_exercises_fragment_to_detail_workout_settings_fragment"
+            app:destination="@id/detail_workout_settings_fragment" />
     </fragment>
 
 </navigation>

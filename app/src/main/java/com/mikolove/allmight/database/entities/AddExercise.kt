@@ -8,7 +8,11 @@ data class AddExercise(val id_exercise : Int,
                        val rep : Int,
                        val series : Int,
                        val id_type : Int,
-                       var is_selected : Int) {
+                       var is_selected : Int) : BasicInfo{
+
+    override fun getObjectId(): Int = id_exercise
+
+    override fun getObjectName(): String = name
 
     fun getVisibility() : Int{
         return when(is_selected) {
