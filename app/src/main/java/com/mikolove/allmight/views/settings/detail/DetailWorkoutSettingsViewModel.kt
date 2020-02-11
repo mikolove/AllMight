@@ -82,6 +82,7 @@ class DetailWorkoutSettingsViewModel(private val workoutId : Int = 0, private va
         _navigateToHomeSettings.value = null
     }
 
+
     fun loadWorkoutType(){
 
         if(workout.value?.id_workout_type == getWorkoutType().value?.getObjectId()) return

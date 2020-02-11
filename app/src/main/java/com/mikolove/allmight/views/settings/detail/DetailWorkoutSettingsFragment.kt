@@ -78,17 +78,24 @@ class DetailWorkoutSettingsFragment : Fragment(){
 
         viewModel.navigateToHomeSettings.observe(viewLifecycleOwner, Observer {
             it?.let{
-                    this.findNavController().navigateUp()
-                    viewModel.doneNavigatingToHomeSettings()
+                this.findNavController().navigateUp()
+                viewModel.doneNavigatingToHomeSettings()
             }
         })
 
         viewModel.navigateToAdd.observe(viewLifecycleOwner, Observer { it ->
             it?.let{
-                        this.findNavController().navigate(DetailWorkoutSettingsFragmentDirections.actionDetailWorkoutSettingsFragmentToWorkoutAddExercisesFragment().setWorkoutId(workoutId))
-                        viewModel.doneNavigatingToAdd()
+                this.findNavController().navigate(DetailWorkoutSettingsFragmentDirections.actionDetailWorkoutSettingsFragmentToWorkoutAddExercisesFragment().setWorkoutId(workoutId))
+                viewModel.doneNavigatingToAdd()
             }
         })
+
+        //Lazy deal
+        if(workoutId == 0){
+            binding.detailWorkoutSettingsBtnAdd.isClickable = false
+            binding.detailWorkoutSettingsBtnAdd.isEnabled = false
+        }
+
         return binding.root
     }
 
