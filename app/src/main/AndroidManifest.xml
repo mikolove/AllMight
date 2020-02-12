@@ -10,7 +10,7 @@
             android:supportsRtl="true"
             android:theme="@style/AppTheme"
             android:name=".ApplicationController">
-        <activity android:name=".views.settings.home.HomeSettingsActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

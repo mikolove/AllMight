@@ -7,7 +7,7 @@ android {
     compileSdkVersion 28
     defaultConfig {
         applicationId "com.mikolove.allmight"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 28
         versionCode 1
         versionName "1.0"
@@ -73,7 +73,6 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$version_coroutine"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$version_coroutine"
 
-
     //Material design
     implementation "androidx.viewpager2:viewpager2:1.0.0"
     implementation "com.google.android.material:material:$version_material_design"
@@ -81,10 +80,6 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
-
-    //Stetho
-    implementation 'com.facebook.stetho:stetho:1.5.1'
-    implementation 'com.facebook.stetho:stetho-okhttp3:1.5.1'
 
     //Espresso test
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0'
