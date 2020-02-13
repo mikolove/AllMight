@@ -24,7 +24,7 @@ data class Workout(
     @ColumnInfo(name = "status")
     var status : Boolean = true,
 
-    @ColumnInfo(name = "id_workout_type")
+    @ColumnInfo(name = "id_workout_type" , index = true)
     var id_workout_type : Int = 0
 ) : BasicInfo{
     override fun getObjectId(): Int = id

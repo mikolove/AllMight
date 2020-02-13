@@ -41,6 +41,6 @@ data class RoutineExercise (
     @ColumnInfo(name = "nb_series")
     var nb_series : Int,
 
-    @ColumnInfo(name = "id_exercise")
+    @ColumnInfo(name = "id_exercise", index = true)
     var id_exercise : Int
 )

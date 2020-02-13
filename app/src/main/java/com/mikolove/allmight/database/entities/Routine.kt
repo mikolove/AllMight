@@ -19,7 +19,7 @@ data class Routine(
     @PrimaryKey(autoGenerate = true)
     var id : Int = 0,
 
-    @ColumnInfo(name = "id_workout")
+    @ColumnInfo(name = "id_workout", index = true)
     var id_workout : Int,
 
     @ColumnInfo(name = "created_at")

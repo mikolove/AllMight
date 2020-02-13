@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "f54ced89561d40bb7353c128548d38b2",
+    "identityHash": "e9094269e4b3c2ff04447a2030de05a5",
     "entities": [
       {
         "tableName": "workout_type",
@@ -82,6 +82,14 @@
               "id"
             ],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_workout_id` ON `${TABLE_NAME}` (`id`)"
+          },
+          {
+            "name": "index_workout_id_workout_type",
+            "unique": false,
+            "columnNames": [
+              "id_workout_type"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_workout_id_workout_type` ON `${TABLE_NAME}` (`id_workout_type`)"
           }
         ],
         "foreignKeys": [
@@ -153,6 +161,14 @@
               "id"
             ],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_exercise_id` ON `${TABLE_NAME}` (`id`)"
+          },
+          {
+            "name": "index_exercise_id_workout_type",
+            "unique": false,
+            "columnNames": [
+              "id_workout_type"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_exercise_id_workout_type` ON `${TABLE_NAME}` (`id_workout_type`)"
           }
         ],
         "foreignKeys": [
@@ -279,6 +295,14 @@
               "id"
             ],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_routine_id` ON `${TABLE_NAME}` (`id`)"
+          },
+          {
+            "name": "index_routine_id_workout",
+            "unique": false,
+            "columnNames": [
+              "id_workout"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_routine_id_workout` ON `${TABLE_NAME}` (`id_workout`)"
           }
         ],
         "foreignKeys": [
@@ -359,6 +383,14 @@
               "created_at"
             ],
             "createSql": "CREATE INDEX IF NOT EXISTS `index_routine_exercise_created_at` ON `${TABLE_NAME}` (`created_at`)"
+          },
+          {
+            "name": "index_routine_exercise_id_exercise",
+            "unique": false,
+            "columnNames": [
+              "id_exercise"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_routine_exercise_id_exercise` ON `${TABLE_NAME}` (`id_exercise`)"
           }
         ],
         "foreignKeys": [
@@ -390,7 +422,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f54ced89561d40bb7353c128548d38b2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e9094269e4b3c2ff04447a2030de05a5')"
     ]
   }
 }

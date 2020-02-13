@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.mikolove.allmight.views.settings.home.HomeSettingsActivity
+import com.mikolove.allmight.views.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
 class MainActivity :  AppCompatActivity() {
@@ -23,7 +23,8 @@ class MainActivity :  AppCompatActivity() {
             menuItem ->
                 when(menuItem.itemId) {
                     R.id.home_menu_settings -> {
-                        val intent = Intent(this,HomeSettingsActivity::class.java)
+                        val intent = Intent(this,
+                            SettingsActivity::class.java)
                         startActivity(intent)
                     }
                 }
@@ -36,6 +37,5 @@ class MainActivity :  AppCompatActivity() {
         val navController = findNavController(R.id.home_fragment)
         return navController.navigateUp()
     }
-
 
 }

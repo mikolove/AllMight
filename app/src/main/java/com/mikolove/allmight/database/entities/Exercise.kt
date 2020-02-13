@@ -31,7 +31,7 @@ data class Exercise(
     @ColumnInfo(name = "status")
     var status : Boolean = true,
 
-    @ColumnInfo(name = "id_workout_type")
+    @ColumnInfo(name = "id_workout_type", index = true)
     var id_workout_type : Int = 0
 
 )

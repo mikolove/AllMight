@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.mikolove.allmight.database.entities.BasicInfo
-import com.mikolove.allmight.databinding.ListItemBasicInfoBinding
+import com.mikolove.allmight.databinding.ItemSettingsBasicInfoBinding
 
 
 class BasicInfoAdapter : ListAdapter<BasicInfo,BasicInfoViewHolder>(BasicInfoDiffCallback()) {
@@ -21,7 +21,7 @@ class BasicInfoAdapter : ListAdapter<BasicInfo,BasicInfoViewHolder>(BasicInfoDif
     }
 }
 
-class BasicInfoViewHolder  private constructor (val binding: ListItemBasicInfoBinding) : RecyclerView.ViewHolder(binding.root) {
+class BasicInfoViewHolder  private constructor (val binding: ItemSettingsBasicInfoBinding) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind( item: BasicInfo) {
         binding.basicInfo = item
@@ -31,7 +31,7 @@ class BasicInfoViewHolder  private constructor (val binding: ListItemBasicInfoBi
     companion object {
         fun from(parent: ViewGroup): BasicInfoViewHolder {
             val layoutInflater = LayoutInflater.from(parent.context)
-            val binding = ListItemBasicInfoBinding.inflate(layoutInflater, parent, false)
+            val binding = ItemSettingsBasicInfoBinding.inflate(layoutInflater, parent, false)
             return BasicInfoViewHolder(binding)
         }
     }

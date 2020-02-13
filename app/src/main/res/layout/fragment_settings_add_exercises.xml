@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="workoutAddExerciseViewModel"
+            type="com.mikolove.allmight.views.settings.addexercises.SettingsAddExercisesViewModel" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/wkaddex_title_workout"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:textAppearance="?textAppearanceHeadline5"
+            android:text="@{@string/add_exercise_workout_title(workoutAddExerciseViewModel.workout.name)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/wkaddex_title_info"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:text="@string/wkaddex_info_global"
+            app:layout_constraintEnd_toEndOf="@+id/wkaddex_title_workout"
+            app:layout_constraintStart_toStartOf="@+id/wkaddex_title_workout"
+            app:layout_constraintTop_toBottomOf="@+id/wkaddex_title_workout" />
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/wkaddex_chip_group"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:checkedChip="@id/wkaddex_chip_all"
+            app:layout_constraintBottom_toBottomOf="@+id/wkaddex_search_view"
+            app:layout_constraintStart_toStartOf="@+id/wkaddex_title_info"
+            app:selectionRequired="true"
+            app:singleSelection="true">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/wkaddex_chip_all"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/wkaddex_chip_all" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/wkaddex_chip_selected"
+                style="@style/Widget.MaterialComponents.Chip.Choice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{@string/wkaddex_chip_selected(workoutAddExerciseViewModel.selectedItem)}" />
+
+        </com.google.android.material.chip.ChipGroup>
+
+        <SearchView
+            android:id="@+id/wkaddex_search_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:queryHint="@string/wkaddex_search_hint"
+            app:layout_constraintEnd_toEndOf="@+id/wkaddex_title_info"
+            app:layout_constraintStart_toEndOf="@+id/wkaddex_chip_group"
+            app:layout_constraintTop_toBottomOf="@+id/wkaddex_title_info" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/wkaddex_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/wkaddex_search_view"
+            app:layout_constraintStart_toStartOf="@+id/wkaddex_chip_group"
+            app:layout_constraintTop_toBottomOf="@+id/wkaddex_chip_group"
+            android:visibility="@{workoutAddExerciseViewModel.listVisibility}"/>
+
+        <TextView
+            android:id="@+id/wkaddex_txt_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="153dp"
+            android:layout_marginTop="299dp"
+            android:layout_marginEnd="165dp"
+            android:layout_marginBottom="350dp"
+            android:text="@string/detail_workout_settings_no_data"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@+id/wkaddex_search_view"
+            app:layout_constraintStart_toStartOf="@+id/wkaddex_chip_group"
+            app:layout_constraintTop_toBottomOf="@+id/wkaddex_chip_group"
+            android:visibility="@{workoutAddExerciseViewModel.textVisibility}"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
