@@ -1,4 +1,4 @@
-package com.mikolove.allmight.views.home
+package com.mikolove.allmight.views.home.choose
 
 import androidx.fragment.app.Fragment
 
