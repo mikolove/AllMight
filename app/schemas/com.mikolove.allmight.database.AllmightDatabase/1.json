@@ -2,15 +2,15 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "e9094269e4b3c2ff04447a2030de05a5",
+    "identityHash": "d7df7b38472758177043334511f6f02b",
     "entities": [
       {
         "tableName": "workout_type",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_workout_type` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL)",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "id_workout_type",
+            "columnName": "id_workout_type",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -23,29 +23,29 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "id_workout_type"
           ],
           "autoGenerate": true
         },
         "indices": [
           {
-            "name": "index_workout_type_id",
+            "name": "index_workout_type_id_workout_type",
             "unique": false,
             "columnNames": [
-              "id"
+              "id_workout_type"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_workout_type_id` ON `${TABLE_NAME}` (`id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_workout_type_id_workout_type` ON `${TABLE_NAME}` (`id_workout_type`)"
           }
         ],
         "foreignKeys": []
       },
       {
         "tableName": "workout",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `status` INTEGER NOT NULL, `id_workout_type` INTEGER NOT NULL, FOREIGN KEY(`id_workout_type`) REFERENCES `workout_type`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_workout` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `status` INTEGER NOT NULL, `id_workout_type` INTEGER NOT NULL, FOREIGN KEY(`id_workout_type`) REFERENCES `workout_type`(`id_workout_type`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "id_workout",
+            "columnName": "id_workout",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -70,18 +70,18 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "id_workout"
           ],
           "autoGenerate": true
         },
         "indices": [
           {
-            "name": "index_workout_id",
+            "name": "index_workout_id_workout",
             "unique": false,
             "columnNames": [
-              "id"
+              "id_workout"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_workout_id` ON `${TABLE_NAME}` (`id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_workout_id_workout` ON `${TABLE_NAME}` (`id_workout`)"
           },
           {
             "name": "index_workout_id_workout_type",
@@ -101,18 +101,18 @@
               "id_workout_type"
             ],
             "referencedColumns": [
-              "id"
+              "id_workout_type"
             ]
           }
         ]
       },
       {
         "tableName": "exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `series_count` INTEGER NOT NULL, `rep_count` INTEGER NOT NULL, `status` INTEGER NOT NULL, `id_workout_type` INTEGER NOT NULL, FOREIGN KEY(`id_workout_type`) REFERENCES `workout_type`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_exercise` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `series_count` INTEGER NOT NULL, `rep_count` INTEGER NOT NULL, `status` INTEGER NOT NULL, `id_workout_type` INTEGER NOT NULL, FOREIGN KEY(`id_workout_type`) REFERENCES `workout_type`(`id_workout_type`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "id_exercise",
+            "columnName": "id_exercise",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -149,18 +149,18 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "id_exercise"
           ],
           "autoGenerate": true
         },
         "indices": [
           {
-            "name": "index_exercise_id",
+            "name": "index_exercise_id_exercise",
             "unique": false,
             "columnNames": [
-              "id"
+              "id_exercise"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_exercise_id` ON `${TABLE_NAME}` (`id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_exercise_id_exercise` ON `${TABLE_NAME}` (`id_exercise`)"
           },
           {
             "name": "index_exercise_id_workout_type",
@@ -180,14 +180,14 @@
               "id_workout_type"
             ],
             "referencedColumns": [
-              "id"
+              "id_workout_type"
             ]
           }
         ]
       },
       {
         "tableName": "workout_exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_workout` INTEGER NOT NULL, `id_exercise` INTEGER NOT NULL, PRIMARY KEY(`id_exercise`, `id_workout`), FOREIGN KEY(`id_workout`) REFERENCES `workout_type`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_exercise`) REFERENCES `exercise`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_workout` INTEGER NOT NULL, `id_exercise` INTEGER NOT NULL, PRIMARY KEY(`id_exercise`, `id_workout`), FOREIGN KEY(`id_workout`) REFERENCES `workout`(`id_workout`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_exercise`) REFERENCES `exercise`(`id_exercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id_workout",
@@ -229,14 +229,14 @@
         ],
         "foreignKeys": [
           {
-            "table": "workout_type",
+            "table": "workout",
             "onDelete": "NO ACTION",
             "onUpdate": "NO ACTION",
             "columns": [
               "id_workout"
             ],
             "referencedColumns": [
-              "id"
+              "id_workout"
             ]
           },
           {
@@ -247,18 +247,18 @@
               "id_exercise"
             ],
             "referencedColumns": [
-              "id"
+              "id_exercise"
             ]
           }
         ]
       },
       {
         "tableName": "routine",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_workout` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `ended_at` INTEGER NOT NULL, FOREIGN KEY(`id_workout`) REFERENCES `workout`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_routine` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_workout` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `ended_at` INTEGER NOT NULL, FOREIGN KEY(`id_workout`) REFERENCES `workout`(`id_workout`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
-            "fieldPath": "id",
-            "columnName": "id",
+            "fieldPath": "id_routine",
+            "columnName": "id_routine",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -283,18 +283,18 @@
         ],
         "primaryKey": {
           "columnNames": [
-            "id"
+            "id_routine"
           ],
           "autoGenerate": true
         },
         "indices": [
           {
-            "name": "index_routine_id",
+            "name": "index_routine_id_routine",
             "unique": false,
             "columnNames": [
-              "id"
+              "id_routine"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_routine_id` ON `${TABLE_NAME}` (`id`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_routine_id_routine` ON `${TABLE_NAME}` (`id_routine`)"
           },
           {
             "name": "index_routine_id_workout",
@@ -314,14 +314,14 @@
               "id_workout"
             ],
             "referencedColumns": [
-              "id"
+              "id_workout"
             ]
           }
         ]
       },
       {
         "tableName": "routine_exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_routine` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `ended_at` INTEGER NOT NULL, `nb_reps` INTEGER NOT NULL, `nb_series` INTEGER NOT NULL, `id_exercise` INTEGER NOT NULL, PRIMARY KEY(`id_routine`, `created_at`), FOREIGN KEY(`id_routine`) REFERENCES `routine`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_exercise`) REFERENCES `exercise`(`id`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_routine` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `ended_at` INTEGER NOT NULL, `nb_reps` INTEGER NOT NULL, `nb_series` INTEGER NOT NULL, `id_exercise` INTEGER NOT NULL, PRIMARY KEY(`id_routine`, `created_at`), FOREIGN KEY(`id_routine`) REFERENCES `routine`(`id_routine`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_exercise`) REFERENCES `exercise`(`id_exercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id_routine",
@@ -402,7 +402,7 @@
               "id_routine"
             ],
             "referencedColumns": [
-              "id"
+              "id_routine"
             ]
           },
           {
@@ -413,7 +413,7 @@
               "id_exercise"
             ],
             "referencedColumns": [
-              "id"
+              "id_exercise"
             ]
           }
         ]
@@ -422,7 +422,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'e9094269e4b3c2ff04447a2030de05a5')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd7df7b38472758177043334511f6f02b')"
     ]
   }
 }

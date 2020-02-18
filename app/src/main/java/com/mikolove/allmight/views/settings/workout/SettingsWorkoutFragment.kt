@@ -41,11 +41,11 @@ class SettingsWorkoutFragment : Fragment() {
             SettingsWorkoutListener { view: View, workout: Workout ->
                 when(view.id){
                     R.id.list_item_workout_exercise_title -> {
-                        val direction = SettingsFragmentDirections.actionSettingsFragmentToSettingsDetailWorkoutFragment().setWorkoutId(workout.id).setStatus(workout.status)
+                        val direction = SettingsFragmentDirections.actionSettingsFragmentToSettingsDetailWorkoutFragment().setWorkoutId(workout.id_workout).setStatus(workout.status)
                         findNavController().navigate(direction)
                     }
                     R.id.list_item_workout_ic_delete -> {
-                        workoutViewModel.deleteWorkout(workout.id)
+                        workoutViewModel.deleteWorkout(workout.id_workout)
                     }
                 }
             }

@@ -20,7 +20,7 @@ interface WorkoutTypeDao {
     @Query("DELETE FROM ${AllmightDatabase.workoutTypeTableName}")
     fun clear()
 
-    @Query("DELETE FROM ${AllmightDatabase.workoutTypeTableName} WHERE id = :id")
+    @Query("DELETE FROM ${AllmightDatabase.workoutTypeTableName} WHERE id_workout_type = :id")
     fun clearById(id : Int)
 
     @Query("SELECT * FROM ${AllmightDatabase.workoutTypeTableName}")

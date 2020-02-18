@@ -94,7 +94,7 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
             if(workout.value?.id_workout_type == 0) workoutType.value = it.first()
 
             it.forEach {type ->
-                if(type.id == workout.value?.id_workout_type){
+                if(type.id_workout_type == workout.value?.id_workout_type){
                     workoutType.value = type
                 }
             }
@@ -150,7 +150,7 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
 
     private suspend fun delete(workout : Workout) {
         withContext(Dispatchers.IO) {
-            wkRepo.delete(workout.id)
+            wkRepo.delete(workout.id_workout)
         }
     }
 }

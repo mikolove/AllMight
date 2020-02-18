@@ -1,12 +1,10 @@
 package com.mikolove.allmight.database.dao
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.Query
-import androidx.room.Update
+import androidx.room.*
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.Workout
+import com.mikolove.allmight.database.entities.WorkoutWithExercises
 
 @Dao
 interface WorkoutDao {
@@ -20,7 +18,7 @@ interface WorkoutDao {
     @Query("DELETE FROM ${AllmightDatabase.workoutTableName}")
     fun clearAll()
 
-    @Query("DELETE FROM ${AllmightDatabase.workoutTableName} WHERE id = :id")
+    @Query("DELETE FROM ${AllmightDatabase.workoutTableName} WHERE id_workout = :id")
     fun clearById(id : Int)
 
     @Query("SELECT * FROM ${AllmightDatabase.workoutTableName} ")
@@ -29,11 +27,14 @@ interface WorkoutDao {
     @Query("SELECT * FROM ${AllmightDatabase.workoutTableName} WHERE status = :status")
     fun getAllWorkout(status : Boolean = true) : LiveData<List<Workout>>
 
-    @Query("SELECT * FROM ${AllmightDatabase.workoutTableName} WHERE id = :id AND status = :status")
+    @Query("SELECT * FROM ${AllmightDatabase.workoutTableName} WHERE id_workout = :id AND status = :status")
     fun getWorkoutById(id : Int, status : Boolean = true) : LiveData<Workout>
 
     @Query("SELECT * FROM ${AllmightDatabase.workoutTableName} WHERE id_workout_type = :id_workout_type AND status = :status")
     fun getWorkoutByIdWorkoutType(id_workout_type : Int, status : Boolean = true) : LiveData<List<Workout>>
 
+    @Transaction
+    @Query("SELECT * FROM Workout")
+    fun getWorkoutWithExercises() : LiveData<List<WorkoutWithExercises>>
 
 }

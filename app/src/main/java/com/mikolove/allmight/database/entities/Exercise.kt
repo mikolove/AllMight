@@ -5,11 +5,11 @@ import com.mikolove.allmight.database.AllmightDatabase
 
 @Entity(
     tableName = AllmightDatabase.exerciseTableName,
-    indices = [Index("id")],
+    indices = [Index("id_exercise")],
     foreignKeys = arrayOf(
         ForeignKey(
             entity = WorkoutType::class,
-            parentColumns = arrayOf("id"),
+            parentColumns = arrayOf("id_workout_type"),
             childColumns = arrayOf("id_workout_type")
         )
     )
@@ -17,7 +17,7 @@ import com.mikolove.allmight.database.AllmightDatabase
 data class Exercise(
 
     @PrimaryKey(autoGenerate = true)
-    var id : Int = 0,
+    var id_exercise : Int = 0,
 
     @ColumnInfo(name = "name")
     var name : String,

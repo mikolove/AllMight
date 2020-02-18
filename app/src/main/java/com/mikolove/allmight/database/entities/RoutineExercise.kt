@@ -14,12 +14,12 @@ import java.util.*
     foreignKeys = arrayOf(
         ForeignKey(
             entity = Routine::class,
-            parentColumns = arrayOf("id"),
+            parentColumns = arrayOf("id_routine"),
             childColumns = arrayOf("id_routine")
         ),
         ForeignKey(
             entity = Exercise::class,
-            parentColumns = arrayOf("id"),
+            parentColumns = arrayOf("id_exercise"),
             childColumns = arrayOf("id_exercise")
         )
     )

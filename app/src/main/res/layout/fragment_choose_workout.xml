@@ -1,6 +1,53 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".MainActivity">
+    <data>
+        <variable
+            name="chooseWorkoutViewModel"
+            type="com.mikolove.allmight.views.home.choose.ChooseWorkoutViewModel" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Spinner
+            android:id="@+id/choose_workout_type_filter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:setData="@{chooseWorkoutViewModel.listWorkoutType}"
+            app:setSelectedData="@={chooseWorkoutViewModel.filterWkType}" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/choose_workout_recycler_view"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:visibility="@{chooseWorkoutViewModel.listVisibility}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.6"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/choose_workout_type_filter" />
+
+
+        <TextView
+            android:id="@+id/choose_workout_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/workout_settings_no_data"
+            android:visibility="@{chooseWorkoutViewModel.textVisibility}"
+            app:layout_constraintBottom_toBottomOf="@+id/choose_workout_recycler_view"
+            app:layout_constraintEnd_toEndOf="@+id/choose_workout_recycler_view"
+            app:layout_constraintStart_toStartOf="@+id/choose_workout_recycler_view"
+            app:layout_constraintTop_toTopOf="@+id/choose_workout_recycler_view" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

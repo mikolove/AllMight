@@ -103,7 +103,7 @@ class SettingsDetailExerciseViewModel(private val exerciseId : Int = 0, private 
             if(exercise.value?.id_workout_type == 0) workoutType.value = it.first()
 
             it.forEach {type ->
-                if(type.id == exercise.value?.id_workout_type){
+                if(type.id_workout_type == exercise.value?.id_workout_type){
                     workoutType.value = type
                 }
             }
@@ -171,7 +171,7 @@ class SettingsDetailExerciseViewModel(private val exerciseId : Int = 0, private 
 
     private suspend fun delete(exercise: Exercise) {
         withContext(Dispatchers.IO) {
-            exRepo.delete(exercise.id)
+            exRepo.delete(exercise.id_exercise)
         }
     }
 }

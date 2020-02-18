@@ -13,13 +13,13 @@ import com.mikolove.allmight.database.AllmightDatabase
     primaryKeys = arrayOf("id_exercise","id_workout"),
     foreignKeys = arrayOf(
         ForeignKey(
-            entity = WorkoutType::class,
-            parentColumns = arrayOf("id"),
+            entity = Workout::class,
+            parentColumns = arrayOf("id_workout"),
             childColumns = arrayOf("id_workout")
         ),
         ForeignKey(
             entity = Exercise::class,
-            parentColumns = arrayOf("id"),
+            parentColumns = arrayOf("id_exercise"),
             childColumns = arrayOf("id_exercise")
         )
     )

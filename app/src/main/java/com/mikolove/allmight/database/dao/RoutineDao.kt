@@ -19,7 +19,7 @@ interface RoutineDao{
     @Query("DELETE FROM ${AllmightDatabase.routineTableName}")
     fun clear()
 
-    @Query("DELETE FROM ${AllmightDatabase.routineTableName} WHERE id = :id")
+    @Query("DELETE FROM ${AllmightDatabase.routineTableName} WHERE id_routine = :id")
     fun clearById(id : Int)
 
     /*@Query("SELECT routineTable.id, routineTable.id_workout, routineTable.created_at, routineTable.created_at, routineTa" +

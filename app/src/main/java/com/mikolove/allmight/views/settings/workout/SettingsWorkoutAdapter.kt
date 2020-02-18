@@ -20,7 +20,7 @@ class WorkoutSettingsAdapter(val clickWorkoutListener : SettingsWorkoutListener)
 
 class WorkoutSettingDiffCallback : DiffUtil.ItemCallback<Workout>() {
     override fun areItemsTheSame(oldItem: Workout, newItem: Workout): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.id_workout == newItem.id_workout
     }
 
     override fun areContentsTheSame(oldItem: Workout, newItem: Workout): Boolean {

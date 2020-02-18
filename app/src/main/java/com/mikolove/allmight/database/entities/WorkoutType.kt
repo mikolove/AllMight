@@ -8,16 +8,16 @@ import com.mikolove.allmight.database.AllmightDatabase
 import timber.log.Timber
 
 @Entity(tableName = AllmightDatabase.workoutTypeTableName,
-    indices = [Index("id")])
+    indices = [Index("id_workout_type")])
 data class WorkoutType(
     @PrimaryKey(autoGenerate = true)
-    var id : Int = 0,
+    var id_workout_type : Int = 0,
 
     @ColumnInfo(name = "name")
     var name : String
 )  : BasicInfo{
 
-    override fun getObjectId(): Int  = id
+    override fun getObjectId(): Int  = id_workout_type
     override fun getObjectName(): String = name
 
     companion object{

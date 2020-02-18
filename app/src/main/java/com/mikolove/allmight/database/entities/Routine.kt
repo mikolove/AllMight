@@ -5,11 +5,11 @@ import com.mikolove.allmight.database.AllmightDatabase
 import java.util.*
 
 @Entity(tableName = AllmightDatabase.routineTableName,
-    indices = [Index("id")],
+    indices = [Index("id_routine")],
     foreignKeys = arrayOf(
         ForeignKey(
             entity = Workout::class,
-            parentColumns = arrayOf("id"),
+            parentColumns = arrayOf("id_workout"),
             childColumns = arrayOf("id_workout")
         )
     )
@@ -17,7 +17,7 @@ import java.util.*
 data class Routine(
 
     @PrimaryKey(autoGenerate = true)
-    var id : Int = 0,
+    var id_routine : Int = 0,
 
     @ColumnInfo(name = "id_workout", index = true)
     var id_workout : Int,

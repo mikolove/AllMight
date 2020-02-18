@@ -99,7 +99,7 @@ class SettingsDetailExerciseFragment : Fragment(){
                 if(detailExerciseViewModel.exercise.value?.name.isNullOrEmpty()) {
                     Toast.makeText(context, R.string.error_name_empty, Toast.LENGTH_SHORT).show()
                 }else{
-                    if(detailExerciseViewModel.exercise.value?.id!! > 0){
+                    if(detailExerciseViewModel.exercise.value?.id_exercise!! > 0){
                         detailExerciseViewModel.updateExercise()
                     }else{
                         detailExerciseViewModel.insertExercise()

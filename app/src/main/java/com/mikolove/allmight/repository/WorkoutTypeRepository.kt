@@ -25,7 +25,7 @@ class WorkoutTypeRepository (val dataSource : AllmightDatabase, val application:
     }
 
     fun delete(workoutType: WorkoutType){
-        dataSource.workoutTypeDao().clearById(workoutType.id)
+        dataSource.workoutTypeDao().clearById(workoutType.id_workout_type)
     }
 
     fun update(workoutType: WorkoutType){

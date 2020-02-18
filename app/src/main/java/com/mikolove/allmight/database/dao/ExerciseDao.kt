@@ -22,7 +22,7 @@ interface ExerciseDao{
     @Query("DELETE FROM ${AllmightDatabase.exerciseTableName}")
     fun clearAll()
 
-    @Query("DELETE FROM ${AllmightDatabase.exerciseTableName} WHERE id = :id")
+    @Query("DELETE FROM ${AllmightDatabase.exerciseTableName} WHERE id_exercise = :id")
     fun clearById(id : Int)
 
     @Query("SELECT * FROM ${AllmightDatabase.exerciseTableName} ")
@@ -31,25 +31,25 @@ interface ExerciseDao{
     @Query("SELECT * FROM ${AllmightDatabase.exerciseTableName} WHERE status = :status")
     fun getAllExercise(status : Boolean = true) : LiveData<List<Exercise>>
 
-    @Query("SELECT * FROM ${AllmightDatabase.exerciseTableName} WHERE id = :id AND status = :status")
+    @Query("SELECT * FROM ${AllmightDatabase.exerciseTableName} WHERE id_exercise = :id AND status = :status")
     fun getExerciseById(id : Int, status : Boolean = true) : LiveData<Exercise>
 
     @Query("SELECT * FROM ${AllmightDatabase.exerciseTableName} WHERE status = :status AND id_workout_type = :id_workout_type")
     fun getAllExerciseByIdWorkoutType(id_workout_type : Int, status : Boolean = true) : LiveData<List<Exercise>>
 
-    @Query("SELECT e.id as id_exercise, e.name as name, wt.name as name_type, e.rep_count as rep, e.series_count as series, wt.id as id_type , " +
-            "( CASE WHEN we.id_exercise = id_exercise THEN 1 ELSE 0 END ) as is_selected " +
+    @Query("SELECT e.id_exercise as id_exercise, e.name as name, wt.name as name_type, e.rep_count as rep, e.series_count as series, wt.id_workout_type as id_type , " +
+            "( CASE WHEN we.id_exercise = e.id_exercise THEN 1 ELSE 0 END ) as is_selected " +
             "FROM ${AllmightDatabase.exerciseTableName} e " +
-            "INNER JOIN ${AllmightDatabase.workoutTypeTableName} wt ON e.id_workout_type = wt.id " +
-            "LEFT OUTER JOIN ${AllmightDatabase.workoutExerciseTableName} we ON e.id = we.id_exercise " +
+            "INNER JOIN ${AllmightDatabase.workoutTypeTableName} wt ON e.id_workout_type = wt.id_workout_type " +
+            "LEFT OUTER JOIN ${AllmightDatabase.workoutExerciseTableName} we ON e.id_exercise = we.id_exercise " +
             "AND we.id_workout = :workout_id")
     fun getAllExerciseWorkout(workout_id: Int) : LiveData<List<AddExercise>>
 
-    @Query("SELECT e.id as id_exercise, e.name as name, wt.name as name_type, e.rep_count as rep, e.series_count as series, wt.id as id_type , " +
-            "( CASE WHEN we.id_exercise = id_exercise THEN 1 ELSE 0 END ) as is_selected " +
+    @Query("SELECT e.id_exercise as id_exercise, e.name as name, wt.name as name_type, e.rep_count as rep, e.series_count as series, wt.id_workout_type as id_type , " +
+            "( CASE WHEN we.id_exercise = e.id_exercise THEN 1 ELSE 0 END ) as is_selected " +
             "FROM ${AllmightDatabase.exerciseTableName} e " +
-            "INNER JOIN ${AllmightDatabase.workoutTypeTableName} wt ON e.id_workout_type = wt.id " +
-            "LEFT OUTER JOIN ${AllmightDatabase.workoutExerciseTableName} we ON e.id = we.id_exercise " +
+            "INNER JOIN ${AllmightDatabase.workoutTypeTableName} wt ON e.id_workout_type = wt.id_workout_type " +
+            "LEFT OUTER JOIN ${AllmightDatabase.workoutExerciseTableName} we ON e.id_exercise = we.id_exercise " +
             "WHERE is_selected = 1 "+
             "AND we.id_workout = :workout_id")
     fun getAllSelectedExerciseWorkout(workout_id : Int) : LiveData<List<AddExercise>>

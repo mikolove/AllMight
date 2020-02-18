@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.Workout
 import com.mikolove.allmight.database.entities.WorkoutType
+import com.mikolove.allmight.database.entities.WorkoutWithExercises
 
 class WorkoutRepository (val dataSource : AllmightDatabase){
 
@@ -29,6 +30,10 @@ class WorkoutRepository (val dataSource : AllmightDatabase){
 
     fun update(workout: Workout){
         dataSource.workoutDao().update(workout)
+    }
+
+    fun getWorkoutWithExercises() : LiveData<List<WorkoutWithExercises>>{
+        return dataSource.workoutDao().getWorkoutWithExercises()
     }
 
     //May Be Suspend call

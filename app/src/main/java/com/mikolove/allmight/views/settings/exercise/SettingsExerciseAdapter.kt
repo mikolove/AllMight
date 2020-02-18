@@ -20,7 +20,7 @@ class ExerciseSettingsAdapter(val clickExerciseListener : SettingsExerciseListen
 
 class ExerciseSettingDiffCallback : DiffUtil.ItemCallback<Exercise>() {
     override fun areItemsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
-        return oldItem.id == newItem.id
+        return oldItem.id_exercise == newItem.id_exercise
     }
 
     override fun areContentsTheSame(oldItem: Exercise, newItem: Exercise): Boolean {
