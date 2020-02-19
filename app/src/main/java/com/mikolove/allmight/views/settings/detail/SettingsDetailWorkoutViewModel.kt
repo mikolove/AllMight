@@ -42,6 +42,8 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
         }
     }
 
+    fun getWorkout() = workoutWithExercise?.value?.workout
+
     val listVisibility = MutableLiveData<Int>()
     val textVisibility = MutableLiveData<Int>()
 
@@ -141,4 +143,6 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
             wkRepo.delete(workout.id_workout)
         }
     }
+
+
 }

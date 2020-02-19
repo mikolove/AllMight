@@ -107,10 +107,10 @@ class SettingsDetailWorkoutFragment : Fragment(){
         return (when(item.itemId) {
             R.id.detail_action_done -> {
 
-                if(detailWorkoutViewModel.workoutWithExercise.value?.workout?.name.isNullOrEmpty()) {
+                if(detailWorkoutViewModel.getWorkout()?.name.isNullOrEmpty()) {
                     Toast.makeText(context, R.string.error_name_empty, Toast.LENGTH_SHORT).show()
                 }else{
-                    if(detailWorkoutViewModel.workoutWithExercise.value?.workout?.id_workout!! > 0){
+                    if(detailWorkoutViewModel.getWorkout()?.id_workout!! > 0){
                         detailWorkoutViewModel.updateWorkout()
                     }else{
                         detailWorkoutViewModel.insertWorkout()
