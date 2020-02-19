@@ -4,15 +4,11 @@ import android.app.Application
 import android.view.View
 import androidx.lifecycle.*
 import com.mikolove.allmight.database.AllmightDatabase
-import com.mikolove.allmight.database.entities.AddExercise
-import com.mikolove.allmight.database.entities.BasicInfo
-import com.mikolove.allmight.database.entities.Workout
-import com.mikolove.allmight.database.entities.WorkoutType
+import com.mikolove.allmight.database.entities.*
 import com.mikolove.allmight.repository.ExerciseRepository
 import com.mikolove.allmight.repository.WorkoutRepository
 import com.mikolove.allmight.repository.WorkoutTypeRepository
 import kotlinx.coroutines.*
-import timber.log.Timber
 
 class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private val name : String, private val status : Boolean = true, dataSource: AllmightDatabase, application: Application) : ViewModel(){
 
@@ -22,7 +18,7 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
     private val wkRepo     = WorkoutRepository(dataSource)
     private val exRepo     = ExerciseRepository(dataSource)
 
-    var workout =  MediatorLiveData<Workout>()
+    var workoutWithExercise =  MediatorLiveData<WorkoutWithExercises>()
     var exercises = MediatorLiveData<List<AddExercise>>()
 
     private val _navigateToHomeSettings = MutableLiveData<Long>()
@@ -37,19 +33,11 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
 
     init{
 
-        workout.addSource(wkRepo.getWorkoutById(workoutId,status)) { fromRoom ->
+        workoutWithExercise.addSource(wkRepo.getWorkoutWithExercisesById(workoutId)) { fromRoom ->
             if(fromRoom == null){
-                workout.value = Workout(name =name)
+                workoutWithExercise.value = WorkoutWithExercises()
             }else{
-                workout.value = fromRoom
-            }
-        }
-
-        exercises.addSource(exRepo.getSelectedAddExercise(workoutId)){ fromRoom ->
-            if(fromRoom == null){
-                exercises.value = mutableListOf<AddExercise>()
-            }else{
-                exercises.value = fromRoom
+                workoutWithExercise.value = fromRoom
             }
         }
     }
@@ -85,16 +73,16 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
 
     fun loadWorkoutType(){
 
-        if(workout.value?.id_workout_type == getWorkoutType().value?.getObjectId()) return
+        if(workoutWithExercise.value?.workout_type?.id_workout_type == getWorkoutType().value?.getObjectId()) return
 
         listWorkoutType.value?.let {
 
             if(it.isEmpty()) return
 
-            if(workout.value?.id_workout_type == 0) workoutType.value = it.first()
+            if(workoutWithExercise.value?.workout_type?.id_workout_type == 0) workoutType.value = it.first()
 
             it.forEach {type ->
-                if(type.id_workout_type == workout.value?.id_workout_type){
+                if(type.id_workout_type == workoutWithExercise.value?.workout_type?.id_workout_type){
                     workoutType.value = type
                 }
             }
@@ -102,15 +90,15 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
     }
 
     fun updateWorkoutType(){
-        if(workout.value != null && workoutType.value != null){
-            workout.value?.id_workout_type = workoutType.value?.getObjectId()!!
+        if(workoutWithExercise.value?.workout != null && workoutType.value != null){
+            workoutWithExercise.value?.workout?.id_workout_type = workoutType.value?.getObjectId()!!
         }
     }
 
     fun insertWorkout(){
-        workout.value?.let {
+        workoutWithExercise.value?.let {
             viewModelScope.launch {
-                val lastInsert = insert(it)
+                val lastInsert = insert(it.workout)
                 lastInsert.let {
                     _navigateToHomeSettings.value = it
                 }
@@ -125,9 +113,9 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
     }
 
     fun updateWorkout(){
-        workout.value?.let {
+        workoutWithExercise.value?.let {
             viewModelScope.launch {
-                update(it)
+                update(it.workout)
                 _navigateToHomeSettings.value = 1
             }
         }
@@ -140,9 +128,9 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
     }
 
     fun deleteWorkout(){
-        workout.value?.let{
+        workoutWithExercise.value?.let{
             viewModelScope.launch {
-                delete(it)
+                delete(it.workout)
                 _navigateToHomeSettings.value = 1
             }
         }

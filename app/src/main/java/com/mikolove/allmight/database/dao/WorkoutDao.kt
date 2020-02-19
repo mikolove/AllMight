@@ -34,6 +34,11 @@ interface WorkoutDao {
     fun getWorkoutByIdWorkoutType(id_workout_type : Int, status : Boolean = true) : LiveData<List<Workout>>
 
     @Transaction
+    @Query("SELECT * FROM Workout WHERE id_workout = :id_workout")
+    fun getWorkoutWithExercisesById(id_workout : Int) : LiveData<WorkoutWithExercises>
+
+
+    @Transaction
     @Query("SELECT * FROM Workout")
     fun getWorkoutWithExercises() : LiveData<List<WorkoutWithExercises>>
 

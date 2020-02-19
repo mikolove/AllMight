@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikolove.allmight.R
 import com.mikolove.allmight.adapters.BasicInfoAdapter
 import com.mikolove.allmight.database.AllmightDatabase
+import com.mikolove.allmight.database.entities.BasicInfo
 import com.mikolove.allmight.databinding.FragmentSettingsDetailsWorkoutBinding
 
 class SettingsDetailWorkoutFragment : Fragment(){
@@ -55,13 +56,10 @@ class SettingsDetailWorkoutFragment : Fragment(){
 
         binding.lifecycleOwner = this
 
-        detailWorkoutViewModel.exercises.observe(viewLifecycleOwner, Observer {
-            adapter.submitList(it)
-            detailWorkoutViewModel.showAndHide(it.size)
-
-        })
-        detailWorkoutViewModel.workout.observe(viewLifecycleOwner, Observer {
+        detailWorkoutViewModel.workoutWithExercise.observe(viewLifecycleOwner, Observer {
             detailWorkoutViewModel.loadWorkoutType()
+            adapter.submitList(it.exercises)
+            detailWorkoutViewModel.showAndHide(it.exercises.size)
         })
 
         detailWorkoutViewModel.getListWorkoutType().observe(viewLifecycleOwner, Observer {
@@ -101,7 +99,7 @@ class SettingsDetailWorkoutFragment : Fragment(){
         inflater.inflate(R.menu.details_menu, menu)
         if(workoutId > 0)
             menu.findItem(R.id.detail_action_delete).isVisible = true
-
+       
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -109,10 +107,10 @@ class SettingsDetailWorkoutFragment : Fragment(){
         return (when(item.itemId) {
             R.id.detail_action_done -> {
 
-                if(detailWorkoutViewModel.workout.value?.name.isNullOrEmpty()) {
+                if(detailWorkoutViewModel.workoutWithExercise.value?.workout?.name.isNullOrEmpty()) {
                     Toast.makeText(context, R.string.error_name_empty, Toast.LENGTH_SHORT).show()
                 }else{
-                    if(detailWorkoutViewModel.workout.value?.id_workout!! > 0){
+                    if(detailWorkoutViewModel.workoutWithExercise.value?.workout?.id_workout!! > 0){
                         detailWorkoutViewModel.updateWorkout()
                     }else{
                         detailWorkoutViewModel.insertWorkout()

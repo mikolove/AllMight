@@ -34,4 +34,8 @@ data class Exercise(
     @ColumnInfo(name = "id_workout_type", index = true)
     var id_workout_type : Int = 0
 
-)
+) : BasicInfo{
+    override fun getObjectId() = id_exercise
+
+    override fun getObjectName() = name
+}
