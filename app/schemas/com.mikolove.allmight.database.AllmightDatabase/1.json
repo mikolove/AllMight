@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "d7df7b38472758177043334511f6f02b",
+    "identityHash": "a5f511503fc92211b168911fd0b3ec7c",
     "entities": [
       {
         "tableName": "workout_type",
@@ -187,7 +187,7 @@
       },
       {
         "tableName": "workout_exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_workout` INTEGER NOT NULL, `id_exercise` INTEGER NOT NULL, PRIMARY KEY(`id_exercise`, `id_workout`), FOREIGN KEY(`id_workout`) REFERENCES `workout`(`id_workout`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_exercise`) REFERENCES `exercise`(`id_exercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_workout` INTEGER NOT NULL, `id_exercise` INTEGER NOT NULL, PRIMARY KEY(`id_exercise`, `id_workout`), FOREIGN KEY(`id_workout`) REFERENCES `workout`(`id_workout`) ON UPDATE NO ACTION ON DELETE CASCADE , FOREIGN KEY(`id_exercise`) REFERENCES `exercise`(`id_exercise`) ON UPDATE NO ACTION ON DELETE CASCADE )",
         "fields": [
           {
             "fieldPath": "id_workout",
@@ -230,7 +230,7 @@
         "foreignKeys": [
           {
             "table": "workout",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "id_workout"
@@ -241,7 +241,7 @@
           },
           {
             "table": "exercise",
-            "onDelete": "NO ACTION",
+            "onDelete": "CASCADE",
             "onUpdate": "NO ACTION",
             "columns": [
               "id_exercise"
@@ -422,7 +422,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd7df7b38472758177043334511f6f02b')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a5f511503fc92211b168911fd0b3ec7c')"
     ]
   }
 }

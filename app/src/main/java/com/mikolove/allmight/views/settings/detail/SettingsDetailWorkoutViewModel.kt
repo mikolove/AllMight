@@ -128,9 +128,9 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
     }
 
     fun deleteWorkout(){
-        workoutWithExercise.value?.let{
+        workoutWithExercise.value?.workout?.let{
             viewModelScope.launch {
-                delete(it.workout)
+                delete(it)
                 _navigateToHomeSettings.value = 1
             }
         }

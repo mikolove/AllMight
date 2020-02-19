@@ -99,7 +99,7 @@ class SettingsDetailWorkoutFragment : Fragment(){
         inflater.inflate(R.menu.details_menu, menu)
         if(workoutId > 0)
             menu.findItem(R.id.detail_action_delete).isVisible = true
-       
+
         super.onCreateOptionsMenu(menu, inflater)
     }
 
