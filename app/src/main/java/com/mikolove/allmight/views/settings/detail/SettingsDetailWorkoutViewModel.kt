@@ -19,8 +19,7 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
     private val exRepo     = ExerciseRepository(dataSource)
 
     var workoutWithExercise =  MediatorLiveData<WorkoutWithExercises>()
-    var exercises = MediatorLiveData<List<AddExercise>>()
-
+    
     private val _navigateToHomeSettings = MutableLiveData<Long>()
     val navigateToHomeSettings : LiveData<Long>
         get() = _navigateToHomeSettings
@@ -29,7 +28,7 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
     fun getListWorkoutType() = listWorkoutType
 
     private val workoutType = MutableLiveData<BasicInfo>()
-    fun getWorkoutType() = workoutType
+    fun getSpinnerWorkoutType() = workoutType
 
     init{
 
@@ -43,6 +42,7 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
     }
 
     fun getWorkout() = workoutWithExercise?.value?.workout
+    fun getExercises() = workoutWithExercise?.value?.exercises
 
     val listVisibility = MutableLiveData<Int>()
     val textVisibility = MutableLiveData<Int>()
@@ -75,16 +75,16 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
 
     fun loadWorkoutType(){
 
-        if(workoutWithExercise.value?.workout_type?.id_workout_type == getWorkoutType().value?.getObjectId()) return
+        if(getWorkout()?.id_workout_type == getSpinnerWorkoutType().value?.getObjectId()) return
 
         listWorkoutType.value?.let {
 
             if(it.isEmpty()) return
 
-            if(workoutWithExercise.value?.workout_type?.id_workout_type == 0) workoutType.value = it.first()
+            if(getWorkout()?.id_workout_type == 0) workoutType.value = it.first()
 
             it.forEach {type ->
-                if(type.id_workout_type == workoutWithExercise.value?.workout_type?.id_workout_type){
+                if(type.id_workout_type == getWorkout()?.id_workout_type){
                     workoutType.value = type
                 }
             }
@@ -92,8 +92,8 @@ class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private va
     }
 
     fun updateWorkoutType(){
-        if(workoutWithExercise.value?.workout != null && workoutType.value != null){
-            workoutWithExercise.value?.workout?.id_workout_type = workoutType.value?.getObjectId()!!
+        if(getWorkout() != null && workoutType.value != null){
+            getWorkout()?.id_workout_type = workoutType.value?.getObjectId()!!
         }
     }
 

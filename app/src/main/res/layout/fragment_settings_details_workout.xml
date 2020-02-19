@@ -96,7 +96,7 @@
                 app:layout_constraintStart_toStartOf="@+id/detail_workout_settings_txt_type"
                 app:layout_constraintTop_toBottomOf="@+id/detail_workout_settings_txt_type"
                 app:setData="@{detailWorkoutSettingsViewModel.listWorkoutType}"
-                app:setSelectedData="@={detailWorkoutSettingsViewModel.workoutType}"
+                app:setSelectedData="@={detailWorkoutSettingsViewModel.spinnerWorkoutType}"
                 />
 
         <Button

@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikolove.allmight.R
 import com.mikolove.allmight.adapters.BasicInfoAdapter
 import com.mikolove.allmight.database.AllmightDatabase
-import com.mikolove.allmight.database.entities.BasicInfo
 import com.mikolove.allmight.databinding.FragmentSettingsDetailsWorkoutBinding
 
 class SettingsDetailWorkoutFragment : Fragment(){
@@ -66,7 +65,7 @@ class SettingsDetailWorkoutFragment : Fragment(){
             detailWorkoutViewModel.loadWorkoutType()
         })
 
-        detailWorkoutViewModel.getWorkoutType().observe(viewLifecycleOwner, Observer {
+        detailWorkoutViewModel.getSpinnerWorkoutType().observe(viewLifecycleOwner, Observer {
             it?.let{
                 detailWorkoutViewModel.updateWorkoutType()
             }
