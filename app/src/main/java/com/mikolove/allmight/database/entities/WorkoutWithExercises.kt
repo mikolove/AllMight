@@ -12,5 +12,11 @@ data class WorkoutWithExercises(
         entityColumn = "id_exercise",
         associateBy = Junction(WorkoutExercise::class)
     )
-    val exercises : List<Exercise>
+    val exercises : List<Exercise>,
+
+    @Relation(
+        parentColumn = "id_workout_type",
+        entityColumn = "id_workout_type"
+    )
+    val workout_type : WorkoutType
 )
