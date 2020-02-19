@@ -19,7 +19,6 @@ class SettingsDetailWorkoutFragment : Fragment(){
     private lateinit var binding : FragmentSettingsDetailsWorkoutBinding
     private lateinit var detailWorkoutViewModel : SettingsDetailWorkoutViewModel
     private var workoutId : Int = 0
-    private var status : Boolean = true
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
@@ -32,12 +31,9 @@ class SettingsDetailWorkoutFragment : Fragment(){
         val arguments = SettingsDetailWorkoutFragmentArgs.fromBundle(arguments!!)
 
         workoutId = arguments.workoutId
-        status = arguments.status
 
         val viewModelFactory = SettingsDetailWorkoutViewModelFactory(
             workoutId,
-            getString(R.string.default_workout),
-            status,
             dataSource,
             application)
 

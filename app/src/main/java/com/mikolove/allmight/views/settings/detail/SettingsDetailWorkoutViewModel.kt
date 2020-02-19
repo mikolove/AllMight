@@ -2,6 +2,8 @@ package com.mikolove.allmight.views.settings.detail
 
 import android.app.Application
 import android.view.View
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
 import androidx.lifecycle.*
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.*
@@ -10,16 +12,16 @@ import com.mikolove.allmight.repository.WorkoutRepository
 import com.mikolove.allmight.repository.WorkoutTypeRepository
 import kotlinx.coroutines.*
 
-class SettingsDetailWorkoutViewModel(private val workoutId : Int = 0, private val name : String, private val status : Boolean = true, dataSource: AllmightDatabase, application: Application) : ViewModel(){
+class SettingsDetailWorkoutViewModel( workoutId : Int = 0, dataSource: AllmightDatabase, application: Application)
+    : ViewModel() {
 
     val database = dataSource
 
     private val wkTypeRepo = WorkoutTypeRepository(dataSource,application)
     private val wkRepo     = WorkoutRepository(dataSource)
-    private val exRepo     = ExerciseRepository(dataSource)
 
     var workoutWithExercise =  MediatorLiveData<WorkoutWithExercises>()
-    
+
     private val _navigateToHomeSettings = MutableLiveData<Long>()
     val navigateToHomeSettings : LiveData<Long>
         get() = _navigateToHomeSettings
