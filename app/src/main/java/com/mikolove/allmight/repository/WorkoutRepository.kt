@@ -36,6 +36,10 @@ class WorkoutRepository (val dataSource : AllmightDatabase){
         return dataSource.workoutDao().getWorkoutWithExercises()
     }
 
+    fun getWorkoutWithExercisesByType(id_workout_type : Int ) : LiveData<List<WorkoutWithExercises>>{
+        return dataSource.workoutDao().getWorkoutWithExercisesByType(id_workout_type)
+    }
+
     //May Be Suspend call
     fun delete(workoutId: Int){
         dataSource.workoutDao().clearById(workoutId)

@@ -60,7 +60,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@{String.valueOf(workoutWithExercise.exercises.size())}"
+                android:text="@{@string/choose_workout_exercice_title(workoutWithExercise.exercises.size())}"
                 android:textAppearance="?textAppearanceHeadline6"
                 app:layout_constraintBottom_toBottomOf="@+id/item_choose_workout_type"
                 app:layout_constraintStart_toEndOf="@+id/item_choose_workout_type" />

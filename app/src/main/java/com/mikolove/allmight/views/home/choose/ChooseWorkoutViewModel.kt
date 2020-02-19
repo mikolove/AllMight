@@ -9,6 +9,7 @@ import androidx.lifecycle.ViewModel
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.database.entities.BasicInfo
 import com.mikolove.allmight.database.entities.Workout
+import com.mikolove.allmight.database.entities.WorkoutWithExercises
 import com.mikolove.allmight.repository.WorkoutRepository
 import com.mikolove.allmight.repository.WorkoutTypeRepository
 
@@ -34,33 +35,21 @@ class ChooseWorkoutViewModel(val database : AllmightDatabase, application: Appli
         }
     }
 
-    private val workoutStatus = MutableLiveData<Boolean>()
     private val _filterChange = MutableLiveData<Int>()
 
     fun onFilterChange(){
         _filterChange.value = 1
     }
-    fun doneFilterChange(){
-        _filterChange.value = null
-    }
 
-    fun setFilterStatus(value : Boolean){
-        workoutStatus.value = value
-    }
-
-    val workouts = wkRepo.getWorkoutWithExercises()
-    /*LiveData<List<Workout>>? = Transformations.switchMap(_filterChange) {
-        var selected : Int = 0
-        var status : Boolean = true
+    val workouts : LiveData<List<WorkoutWithExercises>>? = Transformations.switchMap(_filterChange) {
+        var selected = 0
         filterWkType.value?.let{ item->
             selected = item.getObjectId()
         }
-        workoutStatus.value?.let { item ->
-            status = item
-        }
         when(selected){
-            0 -> wkRepo.getAllWorkout(status)
-            else -> wkRepo.getWorkoutByWorkoutType(selected,status)
+            0 -> wkRepo.getWorkoutWithExercises()
+            else -> wkRepo.getWorkoutWithExercisesByType(selected)
         }
-    }*/
+    }
+
 }

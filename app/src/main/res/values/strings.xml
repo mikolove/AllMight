@@ -21,6 +21,10 @@
     <string name="default_workout"></string>
     <string name="default_exercise"></string>
 
+    <!-- Choose workout-->
+    <string name="choose_workout_exercice_title">%1d Exercices</string>
+
+
     <!-- Workout Add Exercise-->
     <string name="wkaddex_info_selected">Nombre d\'exercice dans le programme : %d</string>
     <string name="wkaddex_info_global">Sélectionner les exercices à ajouter au programme.</string>

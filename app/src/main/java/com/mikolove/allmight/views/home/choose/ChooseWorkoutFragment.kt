@@ -43,8 +43,13 @@ class ChooseWorkoutFragment : Fragment(){
         binding.chooseWorkoutRecyclerView.layoutManager = linearLayoutManager
         binding.chooseWorkoutRecyclerView.adapter = adapter
 
-        viewModel.workouts.observe(viewLifecycleOwner, Observer { list ->
+        viewModel.workouts?.observe(viewLifecycleOwner, Observer { list ->
             adapter.submitList(list)
+            viewModel.showAndHide(list.size)
+        })
+
+        viewModel.getFilterWkType().observe(viewLifecycleOwner, Observer {
+            viewModel.onFilterChange()
         })
 
         return binding.root
