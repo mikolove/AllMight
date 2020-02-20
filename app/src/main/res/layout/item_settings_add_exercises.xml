@@ -42,7 +42,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="@{@string/list_wkaddex_series(addExercise.series)}"
+            android:text="@{@string/list_wkaddex_series(addExercise.set_count)}"
             app:layout_constraintStart_toStartOf="@+id/list_item_ae_name"
             app:layout_constraintTop_toBottomOf="@+id/list_item_ae_name" />
 
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="@{@string/list_wkaddex_rep(addExercise.rep)}"
+            android:text="@{@string/list_wkaddex_rep(addExercise.rep_count)}"
             app:layout_constraintStart_toEndOf="@+id/list_item_ae_series"
             app:layout_constraintTop_toTopOf="@+id/list_item_ae_series" />
 

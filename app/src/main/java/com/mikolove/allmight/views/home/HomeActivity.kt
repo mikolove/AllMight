@@ -1,15 +1,15 @@
-package com.mikolove.allmight
+package com.mikolove.allmight.views.home
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupActionBarWithNavController
-import com.mikolove.allmight.views.home.HomeFragmentDirections
+import com.mikolove.allmight.R
 import com.mikolove.allmight.views.settings.SettingsActivity
 import kotlinx.android.synthetic.main.activity_home.*
 
-class MainActivity :  AppCompatActivity() {
+class HomeActivity :  AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

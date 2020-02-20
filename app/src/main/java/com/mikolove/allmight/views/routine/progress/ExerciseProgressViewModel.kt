@@ -1,4 +1,4 @@
-package com.mikolove.allmight.views.home.progress
+package com.mikolove.allmight.views.routine.progress
 
 import androidx.lifecycle.ViewModel
 

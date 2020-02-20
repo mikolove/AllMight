@@ -9,8 +9,8 @@ import java.util.*
 
 @Entity(
     tableName = AllmightDatabase.routineExerciseTypeTableName,
-    indices = [Index("id_routine"),Index("created_at")],
-    primaryKeys = arrayOf("id_routine","created_at"),
+    indices = [Index("id_routine"),Index("id_set")],
+    primaryKeys = arrayOf("id_routine","id_exercise","id_set"),
     foreignKeys = arrayOf(
         ForeignKey(
             entity = Routine::class,
@@ -29,17 +29,20 @@ data class RoutineExercise (
     @ColumnInfo(name = "id_routine")
     var id_routine : Int,
 
-    @ColumnInfo(name = "created_at")
-    var created_at : Int,
-
-    @ColumnInfo(name = "ended_at")
-    var ended_at : Date,
+    @ColumnInfo(name = "id_set")
+    var id_set : Int,
 
     @ColumnInfo(name = "nb_reps")
     var nb_reps : Int,
 
-    @ColumnInfo(name = "nb_series")
-    var nb_series : Int,
+    @ColumnInfo(name = "weight")
+    var weight : Int,
+
+    @ColumnInfo(name = "created_at")
+    var created_at : Date,
+
+    @ColumnInfo(name = "ended_at")
+    var ended_at : Date,
 
     @ColumnInfo(name = "id_exercise", index = true)
     var id_exercise : Int

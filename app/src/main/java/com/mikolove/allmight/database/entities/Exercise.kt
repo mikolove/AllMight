@@ -22,8 +22,8 @@ data class Exercise(
     @ColumnInfo(name = "name")
     var name : String,
 
-    @ColumnInfo(name = "series_count")
-    var series_count : Int = 0,
+    @ColumnInfo(name = "set_count")
+    var set_count : Int = 0,
 
     @ColumnInfo(name = "rep_count")
     var rep_count : Int = 0,

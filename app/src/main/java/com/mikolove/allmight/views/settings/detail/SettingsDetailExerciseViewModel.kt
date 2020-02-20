@@ -23,11 +23,11 @@ class SettingsDetailExerciseViewModel(private val exerciseId : Int = 0, private 
 
 
     //Spinner values
-    private val listSeries =  exRepo.getMaxSeries()
-    fun getListSeries() = listSeries
+    private val listSet =  exRepo.getMaxSet()
+    fun getListSet() = listSet
 
-    private val seriesValue = MutableLiveData<BasicInfo>()
-    fun getSeriesValue() = seriesValue
+    private val setValue = MutableLiveData<BasicInfo>()
+    fun getSetValue() = setValue
 
     private val listReps =  exRepo.getMaxReps()
     fun getListReps() = listReps
@@ -73,19 +73,19 @@ class SettingsDetailExerciseViewModel(private val exerciseId : Int = 0, private 
         }
     }
 
-    fun loadSeries(){
+    fun loadSet(){
 
-        if(exercise.value?.series_count == getSeriesValue().value?.getObjectId()) return
+        if(exercise.value?.set_count == getSetValue().value?.getObjectId()) return
 
-        listSeries.let {
+        listSet.let {
 
             if(it.isEmpty()) return
 
-            if(exercise.value?.series_count == 0) seriesValue.value = it.first()
+            if(exercise.value?.set_count == 0) setValue.value = it.first()
 
             it.forEach {count ->
-                if(count.id == exercise.value?.series_count){
-                    seriesValue.value = count
+                if(count.id == exercise.value?.set_count){
+                    setValue.value = count
                 }
             }
         }
@@ -122,9 +122,9 @@ class SettingsDetailExerciseViewModel(private val exerciseId : Int = 0, private 
         }
     }
 
-    fun updateSerie(){
-        if(exercise.value != null && seriesValue.value != null){
-            exercise.value?.series_count = seriesValue.value?.getObjectId()!!
+    fun updateSet(){
+        if(exercise.value != null && setValue.value != null){
+            exercise.value?.set_count = setValue.value?.getObjectId()!!
         }
     }
 

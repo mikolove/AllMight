@@ -49,7 +49,7 @@ class ExerciseRepository (val dataSource : AllmightDatabase){
         dataSource.exerciseDao().clearById(exerciseId)
     }
 
-    fun getMaxSeries() : List<BasicElement>{
+    fun getMaxSet() : List<BasicElement>{
         return (1..8).map { BasicElement(it,it.toString()) }
     }
 

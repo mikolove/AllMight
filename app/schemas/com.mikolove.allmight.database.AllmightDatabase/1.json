@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "a5f511503fc92211b168911fd0b3ec7c",
+    "identityHash": "b0a5625337ca45b30a2d2ba37ec2ee72",
     "entities": [
       {
         "tableName": "workout_type",
@@ -108,7 +108,7 @@
       },
       {
         "tableName": "exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_exercise` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `series_count` INTEGER NOT NULL, `rep_count` INTEGER NOT NULL, `status` INTEGER NOT NULL, `id_workout_type` INTEGER NOT NULL, FOREIGN KEY(`id_workout_type`) REFERENCES `workout_type`(`id_workout_type`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_exercise` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `name` TEXT NOT NULL, `set_count` INTEGER NOT NULL, `rep_count` INTEGER NOT NULL, `status` INTEGER NOT NULL, `id_workout_type` INTEGER NOT NULL, FOREIGN KEY(`id_workout_type`) REFERENCES `workout_type`(`id_workout_type`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id_exercise",
@@ -123,8 +123,8 @@
             "notNull": true
           },
           {
-            "fieldPath": "series_count",
-            "columnName": "series_count",
+            "fieldPath": "set_count",
+            "columnName": "set_count",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -321,11 +321,29 @@
       },
       {
         "tableName": "routine_exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_routine` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `ended_at` INTEGER NOT NULL, `nb_reps` INTEGER NOT NULL, `nb_series` INTEGER NOT NULL, `id_exercise` INTEGER NOT NULL, PRIMARY KEY(`id_routine`, `created_at`), FOREIGN KEY(`id_routine`) REFERENCES `routine`(`id_routine`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_exercise`) REFERENCES `exercise`(`id_exercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_routine` INTEGER NOT NULL, `id_set` INTEGER NOT NULL, `nb_reps` INTEGER NOT NULL, `weight` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `ended_at` INTEGER NOT NULL, `id_exercise` INTEGER NOT NULL, PRIMARY KEY(`id_routine`, `id_exercise`, `id_set`), FOREIGN KEY(`id_routine`) REFERENCES `routine`(`id_routine`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_exercise`) REFERENCES `exercise`(`id_exercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id_routine",
             "columnName": "id_routine",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id_set",
+            "columnName": "id_set",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nb_reps",
+            "columnName": "nb_reps",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "weight",
+            "columnName": "weight",
             "affinity": "INTEGER",
             "notNull": true
           },
@@ -342,18 +360,6 @@
             "notNull": true
           },
           {
-            "fieldPath": "nb_reps",
-            "columnName": "nb_reps",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
-            "fieldPath": "nb_series",
-            "columnName": "nb_series",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
             "fieldPath": "id_exercise",
             "columnName": "id_exercise",
             "affinity": "INTEGER",
@@ -363,7 +369,8 @@
         "primaryKey": {
           "columnNames": [
             "id_routine",
-            "created_at"
+            "id_exercise",
+            "id_set"
           ],
           "autoGenerate": false
         },
@@ -377,12 +384,12 @@
             "createSql": "CREATE INDEX IF NOT EXISTS `index_routine_exercise_id_routine` ON `${TABLE_NAME}` (`id_routine`)"
           },
           {
-            "name": "index_routine_exercise_created_at",
+            "name": "index_routine_exercise_id_set",
             "unique": false,
             "columnNames": [
-              "created_at"
+              "id_set"
             ],
-            "createSql": "CREATE INDEX IF NOT EXISTS `index_routine_exercise_created_at` ON `${TABLE_NAME}` (`created_at`)"
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_routine_exercise_id_set` ON `${TABLE_NAME}` (`id_set`)"
           },
           {
             "name": "index_routine_exercise_id_exercise",
@@ -422,7 +429,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'a5f511503fc92211b168911fd0b3ec7c')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b0a5625337ca45b30a2d2ba37ec2ee72')"
     ]
   }
 }

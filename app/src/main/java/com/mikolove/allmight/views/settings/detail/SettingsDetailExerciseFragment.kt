@@ -49,7 +49,7 @@ class SettingsDetailExerciseFragment : Fragment(){
         detailExerciseViewModel.exercise.observe(viewLifecycleOwner, Observer {
             detailExerciseViewModel.loadWorkoutType()
             detailExerciseViewModel.loadRep()
-            detailExerciseViewModel.loadSeries()
+            detailExerciseViewModel.loadSet()
         })
 
         detailExerciseViewModel.getListWorkoutType().observe(viewLifecycleOwner, Observer {
@@ -62,9 +62,9 @@ class SettingsDetailExerciseFragment : Fragment(){
             }
         })
 
-        detailExerciseViewModel.getSeriesValue().observe(viewLifecycleOwner, Observer {
+        detailExerciseViewModel.getSetValue().observe(viewLifecycleOwner, Observer {
             it?.let {
-                detailExerciseViewModel.updateSerie()
+                detailExerciseViewModel.updateSet()
             }
         })
 

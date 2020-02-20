@@ -5,8 +5,8 @@ import android.view.View
 data class AddExercise(val id_exercise : Int,
                        val name : String,
                        val name_type : String,
-                       val rep : Int,
-                       val series : Int,
+                       val rep_count : Int,
+                       val set_count : Int,
                        val id_type : Int,
                        var is_selected : Int) : BasicInfo{
 
