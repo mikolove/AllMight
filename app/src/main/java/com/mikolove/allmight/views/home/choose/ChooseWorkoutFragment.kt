@@ -1,5 +1,6 @@
 package com.mikolove.allmight.views.home.choose
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikolove.allmight.R
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.databinding.FragmentChooseWorkoutBinding
+import com.mikolove.allmight.views.routine.RoutineActivity
 import timber.log.Timber
 
 class ChooseWorkoutFragment : Fragment(){
@@ -37,7 +39,11 @@ class ChooseWorkoutFragment : Fragment(){
 
         val adapter = ChooseWorkoutAdapter( ChooseWorkoutListener {
             workout ->
-                Timber.i("Workout choose %d Exercise %d Type %s ",workout.workout.id_workout, workout.exercises.size, workout.workout_type.name)
+                val intent = Intent(activity,RoutineActivity::class.java)
+                val bundle = Bundle()
+                bundle.putInt("id_workout",workout.getObjectId())
+                intent.putExtras(bundle)
+                startActivity(intent)
         })
 
         binding.chooseWorkoutRecyclerView.layoutManager = linearLayoutManager

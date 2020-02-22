@@ -16,7 +16,10 @@ class RoutineActivity : AppCompatActivity(){
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_routine)
 
+        val extras = intent.extras
         val navController = findNavController(R.id.routine_fragment)
+        navController.setGraph(R.navigation.navigation_routine,extras)
+
         appBarConfiguration = AppBarConfiguration.Builder().build()
         setupActionBarWithNavController(navController,appBarConfiguration)
 

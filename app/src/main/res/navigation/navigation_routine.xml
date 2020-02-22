@@ -9,5 +9,9 @@
         android:id="@+id/routine_exercise_fragment"
         android:name="com.mikolove.allmight.views.routine.RoutineFragment"
         android:label="RoutineExerciseFragment"
-        tools:layout="@layout/fragment_routine"/>
+        tools:layout="@layout/fragment_routine">
+        <argument
+            android:name="id_workout"
+            app:argType="integer" />
+    </fragment>
 </navigation>
