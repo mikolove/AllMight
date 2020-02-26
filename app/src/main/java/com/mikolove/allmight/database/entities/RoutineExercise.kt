@@ -38,11 +38,11 @@ data class RoutineExercise (
     @ColumnInfo(name = "weight")
     var weight : Int,
 
-    @ColumnInfo(name = "created_at")
+    @ColumnInfo(name = "created_at", defaultValue = "CURRENT_TIMESTAMP")
     var created_at : Date,
 
-    @ColumnInfo(name = "ended_at")
-    var ended_at : Date,
+    @ColumnInfo(name = "ended_at", defaultValue = "NULL")
+    var ended_at : Date? = null,
 
     @ColumnInfo(name = "id_exercise", index = true)
     var id_exercise : Int

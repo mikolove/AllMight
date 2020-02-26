@@ -23,13 +23,13 @@ class RoutineFragment : Fragment() {
 
         val extras = RoutineFragmentArgs.fromBundle(arguments!!)
 
-        val workoutId = extras.idWorkout
+        val routineId = extras.idRoutine
 
         val application = requireNotNull(this.activity).application
 
         val dataSource = AllmightDatabase.getInstance(application)
 
-        val viewModelFactory = RoutineViewModelFactory(dataSource,workoutId)
+        val viewModelFactory = RoutineViewModelFactory(dataSource,routineId)
 
         val viewModel = ViewModelProviders.of(this,viewModelFactory).get(RoutineViewModel::class.java)
 
@@ -46,8 +46,14 @@ class RoutineFragment : Fragment() {
         binding.routineRecyclerView.adapter = adapter
 
         viewModel.workoutWithExercices.observe(viewLifecycleOwner, Observer {
-            Timber.i("it name %s",it.workout.name)
+            Timber.i("Workout name %s",it.workout.name)
             adapter.submitList(it.exercises)
+        })
+
+        viewModel.routine.observe(viewLifecycleOwner, Observer {
+            routine ->
+                Timber.i("Routine id %d Created_at %s Ended_at %s",routine.id_routine,routine.created_at.toString(),routine.ended_at.toString())
+                viewModel.getLoadWorkout().value = routine.id_workout
         })
 
         return binding.root

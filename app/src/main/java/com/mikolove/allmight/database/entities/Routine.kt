@@ -22,9 +22,9 @@ data class Routine(
     @ColumnInfo(name = "id_workout", index = true)
     var id_workout : Int,
 
-    @ColumnInfo(name = "created_at")
+    @ColumnInfo(name = "created_at", defaultValue = "CURRENT_TIMESTAMP")
     var created_at : Date,
 
-    @ColumnInfo(name = "ended_at")
-    var ended_at : Date
+    @ColumnInfo(name = "ended_at", defaultValue = "NULL")
+    var ended_at : Date? = null
 )

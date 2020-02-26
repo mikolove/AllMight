@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "b0a5625337ca45b30a2d2ba37ec2ee72",
+    "identityHash": "f81ce0abaf5b53e17f924e4732065838",
     "entities": [
       {
         "tableName": "workout_type",
@@ -254,7 +254,7 @@
       },
       {
         "tableName": "routine",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_routine` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_workout` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `ended_at` INTEGER NOT NULL, FOREIGN KEY(`id_workout`) REFERENCES `workout`(`id_workout`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_routine` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id_workout` INTEGER NOT NULL, `created_at` INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP, `ended_at` INTEGER DEFAULT NULL, FOREIGN KEY(`id_workout`) REFERENCES `workout`(`id_workout`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id_routine",
@@ -272,13 +272,15 @@
             "fieldPath": "created_at",
             "columnName": "created_at",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": true,
+            "defaultValue": "CURRENT_TIMESTAMP"
           },
           {
             "fieldPath": "ended_at",
             "columnName": "ended_at",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false,
+            "defaultValue": "NULL"
           }
         ],
         "primaryKey": {
@@ -321,7 +323,7 @@
       },
       {
         "tableName": "routine_exercise",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_routine` INTEGER NOT NULL, `id_set` INTEGER NOT NULL, `nb_reps` INTEGER NOT NULL, `weight` INTEGER NOT NULL, `created_at` INTEGER NOT NULL, `ended_at` INTEGER NOT NULL, `id_exercise` INTEGER NOT NULL, PRIMARY KEY(`id_routine`, `id_exercise`, `id_set`), FOREIGN KEY(`id_routine`) REFERENCES `routine`(`id_routine`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_exercise`) REFERENCES `exercise`(`id_exercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id_routine` INTEGER NOT NULL, `id_set` INTEGER NOT NULL, `nb_reps` INTEGER NOT NULL, `weight` INTEGER NOT NULL, `created_at` INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP, `ended_at` INTEGER DEFAULT NULL, `id_exercise` INTEGER NOT NULL, PRIMARY KEY(`id_routine`, `id_exercise`, `id_set`), FOREIGN KEY(`id_routine`) REFERENCES `routine`(`id_routine`) ON UPDATE NO ACTION ON DELETE NO ACTION , FOREIGN KEY(`id_exercise`) REFERENCES `exercise`(`id_exercise`) ON UPDATE NO ACTION ON DELETE NO ACTION )",
         "fields": [
           {
             "fieldPath": "id_routine",
@@ -351,13 +353,15 @@
             "fieldPath": "created_at",
             "columnName": "created_at",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": true,
+            "defaultValue": "CURRENT_TIMESTAMP"
           },
           {
             "fieldPath": "ended_at",
             "columnName": "ended_at",
             "affinity": "INTEGER",
-            "notNull": true
+            "notNull": false,
+            "defaultValue": "NULL"
           },
           {
             "fieldPath": "id_exercise",
@@ -429,7 +433,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'b0a5625337ca45b30a2d2ba37ec2ee72')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'f81ce0abaf5b53e17f924e4732065838')"
     ]
   }
 }

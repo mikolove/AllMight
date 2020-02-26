@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -15,7 +14,6 @@ import com.mikolove.allmight.R
 import com.mikolove.allmight.database.AllmightDatabase
 import com.mikolove.allmight.databinding.FragmentChooseWorkoutBinding
 import com.mikolove.allmight.views.routine.RoutineActivity
-import timber.log.Timber
 
 class ChooseWorkoutFragment : Fragment(){
 
@@ -39,11 +37,7 @@ class ChooseWorkoutFragment : Fragment(){
 
         val adapter = ChooseWorkoutAdapter( ChooseWorkoutListener {
             workout ->
-                val intent = Intent(activity,RoutineActivity::class.java)
-                val bundle = Bundle()
-                bundle.putInt("id_workout",workout.getObjectId())
-                intent.putExtras(bundle)
-                startActivity(intent)
+               viewModel.createRoutine(workout.getObjectId())
         })
 
         binding.chooseWorkoutRecyclerView.layoutManager = linearLayoutManager
@@ -56,6 +50,15 @@ class ChooseWorkoutFragment : Fragment(){
 
         viewModel.getFilterWkType().observe(viewLifecycleOwner, Observer {
             viewModel.onFilterChange()
+        })
+
+        viewModel.navigateToRoutine.observe(viewLifecycleOwner, Observer {id_routine ->
+
+            val intent = Intent(activity,RoutineActivity::class.java)
+            val bundle = Bundle()
+            bundle.putInt("id_routine",id_routine.toInt())
+            intent.putExtras(bundle)
+            startActivity(intent)
         })
 
         return binding.root
