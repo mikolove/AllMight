@@ -4,10 +4,7 @@ import android.app.Application
 import android.view.View
 import androidx.lifecycle.*
 import com.mikolove.allmight.database.AllmightDatabase
-import com.mikolove.allmight.database.entities.BasicInfo
-import com.mikolove.allmight.database.entities.Routine
-import com.mikolove.allmight.database.entities.Workout
-import com.mikolove.allmight.database.entities.WorkoutWithExercises
+import com.mikolove.allmight.database.entities.*
 import com.mikolove.allmight.repository.RoutineRepository
 import com.mikolove.allmight.repository.WorkoutRepository
 import com.mikolove.allmight.repository.WorkoutTypeRepository
@@ -62,16 +59,40 @@ class ChooseWorkoutViewModel(val database : AllmightDatabase, application: Appli
         }
     }
 
-    fun createRoutine(id_workout : Int) {
+    fun createRoutine(workoutWithExercise : WorkoutWithExercises) {
         viewModelScope.launch {
-            val routine = Routine(id_workout = id_workout, created_at = Date())
-            _navigateToRoutine.value = insert(routine)
+            //TODO : create Routine
+            val routine = Routine(id_workout = workoutWithExercise.workout.id_workout, created_at = Date())
+            val idRoutine = insertRoutine(routine)
+
+            //TODO : create All Routine Exercise
+            workoutWithExercise.exercises.forEach { exercise ->
+                val routineExercise = RoutineExercise(nb_reps = exercise.rep_count,created_at = Date(),id_routine = idRoutine.toInt(),id_exercise = exercise.id_exercise)
+                val idRoutineExercise = insertRoutineExercise(routineExercise)
+                for(i in 1..exercise.set_count){
+                    //TODO : create All Set By Exercise
+                    val set = RoutineExerciseSet(id_set = i, reps = exercise.rep_count,weight = 0,created_at = Date(),id_routine_exercise = idRoutineExercise.toInt())
+                    insertSet(set)
+                }
+            }
+            _navigateToRoutine.value = idRoutine
         }
     }
 
-    suspend fun insert(routine : Routine) : Long{
+    suspend fun insertRoutine(routine : Routine) : Long{
         return withContext(Dispatchers.IO){
             rtRepo.insert(routine)
         }
     }
+    suspend fun insertRoutineExercise(routineExercise: RoutineExercise) : Long{
+        return withContext(Dispatchers.IO){
+            rtRepo.insertRoutineExercise(routineExercise)
+        }
+    }
+    suspend fun insertSet(routineExerciseSet: RoutineExerciseSet) : Long{
+        return withContext(Dispatchers.IO){
+            rtRepo.insertRoutineExerciseSet(routineExerciseSet)
+        }
+    }
+
 }

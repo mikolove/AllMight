@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".views.home.HomeActivity">
+    tools:context=".views.routine.RoutineActivity">
 
     <data>
         <variable
@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:text="@={routineViewModel.workoutWithExercices.workout.name}"
+            android:text="@={routineViewModel.routineWithWorkout.workout.name}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

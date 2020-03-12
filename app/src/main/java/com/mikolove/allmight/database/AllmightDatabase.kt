@@ -11,7 +11,7 @@ import com.mikolove.allmight.database.dao.*
 import timber.log.Timber
 import java.util.concurrent.Executors
 
-@Database(entities = [WorkoutType::class, Workout::class, Exercise::class, WorkoutExercise::class, Routine::class, RoutineExercise::class], version = 1, exportSchema = true)
+@Database(entities = [WorkoutType::class, Workout::class, Exercise::class, WorkoutExercise::class, Routine::class, RoutineExercise::class, RoutineExerciseSet::class], version = 1, exportSchema = true)
 @TypeConverters(DateConverter::class)
 abstract class AllmightDatabase : RoomDatabase() {
 
@@ -21,8 +21,7 @@ abstract class AllmightDatabase : RoomDatabase() {
     abstract fun workoutExerciseDao() : WorkoutExerciseDao
     abstract fun routineDao() : RoutineDao
     abstract fun routineExerciseDao() : RoutineExerciseDao
-
-
+    abstract fun routineExerciseSetDao() : RoutineExerciseSetDao
     companion object{
 
         const val workoutTypeTableName = "workout_type"
@@ -30,7 +29,8 @@ abstract class AllmightDatabase : RoomDatabase() {
         const val exerciseTableName = "exercise"
         const val workoutExerciseTableName = "workout_exercise"
         const val routineTableName = "routine"
-        const val routineExerciseTypeTableName = "routine_exercise"
+        const val routineExerciseTableName = "routine_exercise"
+        const val routineExerciseSetTableName = "routine_exercise_set"
 
         @Volatile
         private var INSTANCE: AllmightDatabase? = null

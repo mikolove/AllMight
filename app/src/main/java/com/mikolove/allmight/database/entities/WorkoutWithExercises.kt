@@ -23,8 +23,4 @@ data class WorkoutWithExercises(
     override fun getObjectId() = workout.getObjectId()
 
     override fun getObjectName() = workout.getObjectName()
-
-    fun launchRoutine(){
-
-    }
 }

@@ -5,8 +5,8 @@
 
     <data>
         <variable
-            name="exercise"
-            type="com.mikolove.allmight.database.entities.Exercise" />
+            name="routineWithRoutineExercise"
+            type="com.mikolove.allmight.database.entities.RoutineExerciseWithExercise" />
 
         <variable
             name="clickListener"
@@ -22,7 +22,7 @@
         android:layout_marginTop="@dimen/mtrl_card_spacing"
         android:layout_marginRight="@dimen/mtrl_card_spacing"
         android:layout_marginBottom="@dimen/mtrl_card_spacing"
-        android:onClick="@{() -> clickListener.onClick(exercise)}">
+        android:onClick="@{() -> clickListener.onClick(routineWithRoutineExercise)}">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -36,7 +36,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
-                android:text="@{exercise.name}"
+                android:text="@{routineWithRoutineExercise.exercise.name}"
                 android:textAppearance="?textAppearanceHeadline5"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

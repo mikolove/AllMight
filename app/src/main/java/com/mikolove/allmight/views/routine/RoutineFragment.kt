@@ -9,6 +9,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.mikolove.allmight.R
 import com.mikolove.allmight.database.AllmightDatabase
@@ -17,13 +18,16 @@ import timber.log.Timber
 
 class RoutineFragment : Fragment() {
 
+    //Current Routine
+    var routineId : Int = 0
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
         val binding : FragmentRoutineBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_routine,container,false)
 
         val extras = RoutineFragmentArgs.fromBundle(arguments!!)
 
-        val routineId = extras.idRoutine
+        routineId = extras.idRoutine
 
         val application = requireNotNull(this.activity).application
 
@@ -38,22 +42,30 @@ class RoutineFragment : Fragment() {
 
         val linearLayout = LinearLayoutManager(context,LinearLayoutManager.VERTICAL,false)
         val adapter = RoutineAdapter( RoutineClickListener {
-                exercise ->
-                    Timber.i("Exercise selected %d",exercise.id_exercise)
+                it ->
+                    viewModel.goToProgress(it.routineExercise.id_routine_exercise)
+                    Timber.i("Exercise selected %d",it.exercise.id_exercise)
         })
 
         binding.routineRecyclerView.layoutManager = linearLayout
         binding.routineRecyclerView.adapter = adapter
 
-        viewModel.workoutWithExercices.observe(viewLifecycleOwner, Observer {
-            Timber.i("Workout name %s",it.workout.name)
-            adapter.submitList(it.exercises)
+        viewModel.routineExercisesWithExercices.observe(viewLifecycleOwner, Observer {
+            Timber.i("Size routine exercise list %d",it.size)
+            adapter.submitList(it)
         })
 
-        viewModel.routine.observe(viewLifecycleOwner, Observer {
-            routine ->
-                Timber.i("Routine id %d Created_at %s Ended_at %s",routine.id_routine,routine.created_at.toString(),routine.ended_at.toString())
-                viewModel.getLoadWorkout().value = routine.id_workout
+        viewModel.routineWithWorkout.observe(viewLifecycleOwner, Observer {
+            routineWithWorkout ->
+                Timber.i("Routine id %d Created_at %s Ended_at %s",routineWithWorkout.routine.id_routine,routineWithWorkout.routine.created_at.toString(),routineWithWorkout.routine.ended_at.toString())
+                viewModel.getLoadWorkout().value = routineWithWorkout.routine.id_routine
+        })
+
+        viewModel.navigateToProgress.observe(viewLifecycleOwner, Observer {idRoutineExercise ->
+            if(idRoutineExercise != 0){
+                this.findNavController().navigate(RoutineFragmentDirections.actionRoutineExerciseFragmentToExerciseProgressFragment(routineId,idRoutineExercise))
+                viewModel.goToProgressDone()
+            }
         })
 
         return binding.root

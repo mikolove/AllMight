@@ -15,18 +15,18 @@
             app:argType="integer" />
         <action
             android:id="@+id/action_routine_exercise_fragment_to_exerciseProgressFragment"
-            app:destination="@id/exerciseProgressFragment" />
+            app:destination="@id/progressFragment" />
     </fragment>
     <fragment
-        android:id="@+id/exerciseProgressFragment"
-        android:name="com.mikolove.allmight.views.routine.progress.ExerciseProgressFragment"
-        android:label="ExerciseProgressFragment"
-        tools:layout="@layout/fragment_exercise_progress">
-        <argument android:name="id_workout"
-            app:argType="integer"/>
-        <argument android:name="id_routine"
-            app:argType="integer"/>
-        <argument android:name="id_exercise"
-            app:argType="integer"/>
+        android:id="@+id/progressFragment"
+        android:name="com.mikolove.allmight.views.routine.progress.ProgressFragment"
+        android:label="progressFragment"
+        tools:layout="@layout/fragment_progress">
+        <argument
+            android:name="id_routine"
+            app:argType="integer" />
+        <argument
+            android:name="id_routine_exercise"
+            app:argType="integer" />
     </fragment>
 </navigation>

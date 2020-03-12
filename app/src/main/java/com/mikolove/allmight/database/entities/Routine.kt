@@ -20,7 +20,7 @@ data class Routine(
     var id_routine : Int = 0,
 
     @ColumnInfo(name = "id_workout", index = true)
-    var id_workout : Int,
+    var id_workout : Int = 0,
 
     @ColumnInfo(name = "created_at", defaultValue = "CURRENT_TIMESTAMP")
     var created_at : Date,

@@ -20,9 +20,8 @@
         <activity android:name=".views.settings.SettingsActivity"
             android:parentActivityName=".views.home.HomeActivity">
         </activity>
-        <activity android:name=".views.routine.RoutineActivity">
-            <!--android:parentActivityName=".views.home.HomeActivity"-->
-
+        <activity android:name=".views.routine.RoutineActivity"
+            android:parentActivityName=".views.home.HomeActivity">
         </activity>
     </application>
 

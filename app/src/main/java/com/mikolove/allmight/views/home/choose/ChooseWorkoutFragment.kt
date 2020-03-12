@@ -36,8 +36,8 @@ class ChooseWorkoutFragment : Fragment(){
         val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL,false)
 
         val adapter = ChooseWorkoutAdapter( ChooseWorkoutListener {
-            workout ->
-               viewModel.createRoutine(workout.getObjectId())
+                workoutWithExercise ->
+               viewModel.createRoutine(workoutWithExercise)
         })
 
         binding.chooseWorkoutRecyclerView.layoutManager = linearLayoutManager
